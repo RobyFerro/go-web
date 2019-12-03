@@ -6,4 +6,5 @@ database:
   user: "user"
   password: "secret"
 server:
+  name: smartcherry.test
   port: 8000

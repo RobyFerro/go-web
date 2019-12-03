@@ -16,7 +16,8 @@ type Conf struct {
 		Password string `yaml:"password"`
 	} `yaml:"database"`
 	Server struct {
-		Port int `yaml:"port"`
+		Name string `yaml:"name"`
+		Port int    `yaml:"port"`
 	} `yaml:"server"`
 }
 
