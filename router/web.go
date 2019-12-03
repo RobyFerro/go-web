@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"smartcharry/src/controller"
-	"smartcharry/src/middleware"
+	"ikdev/smartcherry/controller"
+	"ikdev/smartcherry/middleware"
 )
 
 func WebRouter() *mux.Router {

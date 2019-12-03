@@ -2,8 +2,8 @@ package config
 
 import (
 	"gopkg.in/yaml.v2"
+	"ikdev/smartcherry/exception"
 	"os"
-	"smartcharry/src/exception"
 )
 
 type Conf struct {

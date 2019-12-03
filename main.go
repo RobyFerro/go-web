@@ -1,8 +1,8 @@
 package main
 
 import (
-	"smartcharry/src/router"
-	"smartcharry/src/service"
+	"ikdev/smartcherry/router"
+	"ikdev/smartcherry/service"
 )
 
 func main() {

@@ -3,9 +3,9 @@ package service
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"ikdev/smartcherry/config"
 	"net/http"
 	"os"
-	"smartcharry/config"
 )
 
 func StartHttpServer(router *mux.Router) {
