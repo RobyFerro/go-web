@@ -20,7 +20,14 @@ type Conf struct {
 	} `yaml:"server"`
 }
 
-func GetConf(conf *Conf) {
+func Configuration() Conf {
+	var conf Conf
+	getConf(&conf)
+
+	return conf
+}
+
+func getConf(conf *Conf) {
 	c, err := os.Open("config.yml")
 
 	if err != nil {

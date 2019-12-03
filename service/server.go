@@ -5,17 +5,24 @@ import (
 	"github.com/gorilla/mux"
 	"ikdev/smartcherry/config"
 	"net/http"
-	"os"
 )
 
-func StartHttpServer(router *mux.Router) {
-	var cfg config.Conf
-	config.GetConf(&cfg)
-
+func GetHttpServer(router *mux.Router, cfg config.Conf) *http.Server {
 	serverString := fmt.Sprintf(":%d", cfg.Server.Port)
 
-	if err := http.ListenAndServe(serverString, router); err != nil {
-		fmt.Println(err.Error())
-		os.Exit(2)
+	return &http.Server{
+		Addr:              serverString,
+		Handler:           router,
+		TLSConfig:         nil,
+		ReadTimeout:       0,
+		ReadHeaderTimeout: 0,
+		WriteTimeout:      0,
+		IdleTimeout:       0,
+		MaxHeaderBytes:    0,
+		TLSNextProto:      nil,
+		ConnState:         nil,
+		ErrorLog:          nil,
+		BaseContext:       nil,
+		ConnContext:       nil,
 	}
 }

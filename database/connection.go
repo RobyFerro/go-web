@@ -7,8 +7,8 @@ import (
 	"ikdev/smartcherry/exception"
 )
 
-func ConnectDB() *gorm.DB {
-	connectionString, driver := createConnectionString()
+func ConnectDB(conf config.Conf) *gorm.DB {
+	connectionString, driver := createConnectionString(conf)
 	db, err := gorm.Open(driver, connectionString)
 
 	if err != nil {
@@ -18,15 +18,12 @@ func ConnectDB() *gorm.DB {
 	return db
 }
 
-func createConnectionString() (string, string) {
-	var cfg config.Conf
-	config.GetConf(&cfg)
-
+func createConnectionString(conf config.Conf) (string, string) {
 	return fmt.Sprintf(
 		"%s:%s@%s/%s?charset=utf8&parseTime=True&loc=Local",
-		cfg.Database.User,
-		cfg.Database.Password,
-		cfg.Database.Host,
-		cfg.Database.Database,
-	), cfg.Database.Driver
+		conf.Database.User,
+		conf.Database.Password,
+		conf.Database.Host,
+		conf.Database.Database,
+	), conf.Database.Driver
 }
