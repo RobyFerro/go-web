@@ -8,7 +8,7 @@ import (
 
 func WebRouter() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/", controller.TestHandler)
+	router.HandleFunc("/", controller.TestHandler).Methods("GET")
 	router.Use(middleware.LoggingMiddleware)
 
 	return router
