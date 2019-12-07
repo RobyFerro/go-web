@@ -7,7 +7,6 @@ import (
 
 type User struct {
 	gorm.Model
-	ID       int64  `gorm:"type:bigint"`
 	Name     string `gorm:"type:varchar(255)"`
 	Surname  string `gorm:"type:varchar(255)"`
 	Username string `gorm:"type:varchar(255)"`
@@ -15,7 +14,7 @@ type User struct {
 }
 
 func (User) Migrate(db *gorm.DB) {
-	db.AutoMigrate(&Branch{})
+	db.AutoMigrate(&User{})
 }
 
 func (User) Drop(db *gorm.DB) {

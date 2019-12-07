@@ -1,4 +1,4 @@
-package command
+package server
 
 import (
 	"ikdev/smartcherry/exception"
