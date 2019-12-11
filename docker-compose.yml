@@ -1,7 +1,7 @@
 version: "3.3"
 services:
-  db1:
-    container_name: "first_db"
+  smartcherry_db:
+    container_name: "smartcherry_db"
     image: "mysql:5.7.28"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
