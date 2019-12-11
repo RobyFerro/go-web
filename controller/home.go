@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func HomeController(w http.ResponseWriter, r *http.Request, c *gorm.DB) {
+func HomeController(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	w.WriteHeader(http.StatusOK)
 	if _, err := fmt.Fprintf(w, "Hello world"); err != nil {
 		fmt.Println(err)
