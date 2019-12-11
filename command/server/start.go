@@ -1,9 +1,9 @@
 package main
 
 import (
-	"ikdev/smartcherry/server"
+	"ikdev/smartcherry/http"
 )
 
 func main() {
-	server.StartServer()
+	http.StartServer()
 }
