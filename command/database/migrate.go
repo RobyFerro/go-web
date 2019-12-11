@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	"ikdev/smartcherry/database"
+	"ikdev/smartcherry/exception"
 	"ikdev/smartcherry/service"
 	"reflect"
 )
@@ -10,7 +11,7 @@ import (
 func main() {
 	container := service.BuildContainer()
 
-	container.Invoke(func(db *gorm.DB) {
+	err := container.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()
 
 		for _, m := range models {
@@ -19,5 +20,9 @@ func main() {
 			method.Call([]reflect.Value{reflect.ValueOf(db)})
 		}
 	})
+
+	if err != nil {
+		exception.ProcessError(err)
+	}
 
 }
