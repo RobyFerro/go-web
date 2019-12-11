@@ -14,12 +14,19 @@ func WebRouter(conn *gorm.DB) *mux.Router {
 	db = conn
 
 	router := mux.NewRouter()
-	router.HandleFunc("/", homeHandler).Methods("GET")
+	router.HandleFunc("/", homeAction).Methods("GET")
 	router.Use(middleware.LoggingMiddleware)
 
 	return router
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	controller.HomeController(w, r, db)
+func homeAction(w http.ResponseWriter, r *http.Request) {
+	homeController := controller.HomeController{
+		Controller: controller.Controller{
+			DB:       db,
+			Response: w,
+			Request:  r,
+		}}
+
+	homeController.Show()
 }
