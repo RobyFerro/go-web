@@ -1,0 +1,6 @@
+POST http://smartcherry.test:8000/users
+Content-Type: application/x-www-form-urlencoded
+
+name=Roberto&surname=Ferro&username=RobyFerro&password=tester
+
+###

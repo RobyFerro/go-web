@@ -15,6 +15,7 @@ func WebRouter(conn *gorm.DB) *mux.Router {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeAction).Methods("GET")
+	router.HandleFunc("/users", newUserAction).Methods("POST")
 	router.Use(middleware.LoggingMiddleware)
 
 	return router
@@ -29,4 +30,14 @@ func homeAction(w http.ResponseWriter, r *http.Request) {
 		}}
 
 	homeController.Show()
+}
+
+func newUserAction(w http.ResponseWriter, r *http.Request) {
+	userController := controller.UserController{Controller: controller.Controller{
+		DB:       db,
+		Response: w,
+		Request:  r,
+	}}
+
+	userController.Insert()
 }
