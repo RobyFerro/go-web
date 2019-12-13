@@ -1,6 +1,12 @@
-POST http://smartcherry.test:8000/users
-Content-Type: application/x-www-form-urlencoded
+POST http://{{host}}:{{port}}/users
+Content-Type: application/json
 
-name=Roberto&surname=Ferro&username=RobyFerro&password=tester
+{
+  "name": "{{name}}",
+  "surname": "{{surname}}",
+  "username": "{{username}}",
+  "password": "{{password}}",
+  "repeat-password": "{{repeat-password}}"
+}
 
 ###
