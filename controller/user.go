@@ -4,6 +4,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/smartcherry/database/model"
 	"ikdev/smartcherry/exception"
+	"ikdev/smartcherry/helper"
 )
 
 type UserController struct {
@@ -11,17 +12,48 @@ type UserController struct {
 }
 
 func (c *UserController) Insert() {
-	_ = c.Request.ParseForm()
-	password, _ := bcrypt.GenerateFromPassword([]byte(c.Request.Form.Get("password")), 14)
+
+	type NewUser struct {
+		Name           string `json:"name" valid:"required,alpha"`
+		Surname        string `json:"surname" valid:"required,alpha"`
+		Username       string `json:"username" valid:"required,alpha"`
+		Password       string `json:"password" valid:"required,alpha"`
+		RepeatPassword string `json:"repeat-password" valid:"required,alpha"`
+	}
+
+	var data NewUser
+	if err := helper.DecodeJsonRequest(c.Request, &data); err != nil {
+		exception.ProcessError(err)
+	}
+
+	// Validation
+	_, err := helper.ValidateRequest(data)
+	if err != nil {
+		c.Response.WriteHeader(422)
+		return
+	}
+
+	if data.Password != data.RepeatPassword {
+		c.Response.WriteHeader(422)
+		return
+	}
+	// End validation
+
+	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
+	if err != nil {
+		exception.ProcessError(err)
+	}
 
 	user := model.User{
-		Name:     c.Request.Form.Get("name"),
-		Surname:  c.Request.Form.Get("surname"),
-		Username: c.Request.Form.Get("username"),
-		Password: string(password),
+		Name:     data.Name,
+		Surname:  data.Surname,
+		Username: data.Username,
+		Password: string(encryptedPassword),
 	}
 
 	if err := c.DB.Create(&user).Error; err != nil {
 		exception.ProcessError(err)
 	}
+
+	c.Response.WriteHeader(200)
 }
