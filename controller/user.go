@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"encoding/json"
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/smartcherry/database/model"
 	"ikdev/smartcherry/exception"
@@ -27,14 +28,22 @@ func (c *UserController) Insert() {
 	}
 
 	// Validation
-	_, err := helper.ValidateRequest(data)
-	if err != nil {
+
+	if valid, err := helper.ValidateRequest(data); valid == false {
+		message, e := json.Marshal(err)
+
+		if e != nil {
+			exception.ProcessError(e)
+		}
+
 		c.Response.WriteHeader(422)
+		_, _ = c.Response.Write(message)
 		return
 	}
 
 	if data.Password != data.RepeatPassword {
 		c.Response.WriteHeader(422)
+		_, _ = c.Response.Write([]byte(`{"Name":"Password","Err":{},"CustomErrorMessageExists":"false"`))
 		return
 	}
 	// End validation

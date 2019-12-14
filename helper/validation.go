@@ -6,10 +6,5 @@ import (
 
 // Validate incoming request
 func ValidateRequest(data interface{}) (bool, error) {
-	result, err := govalidator.ValidateStruct(data)
-	if err != nil {
-		return false, err
-	}
-
-	return result, nil
+	return govalidator.ValidateStruct(data)
 }
