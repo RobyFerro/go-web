@@ -28,7 +28,6 @@ func (c *UserController) Insert() {
 	}
 
 	// Validation
-
 	if valid, err := helper.ValidateRequest(data); valid == false {
 		message, e := json.Marshal(err)
 

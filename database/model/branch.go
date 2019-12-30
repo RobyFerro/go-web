@@ -8,14 +8,14 @@ import (
 
 type Branch struct {
 	gorm.Model
-	UserID  uint `gorm:"type:int"`
+	UserID  uint `gorm:"type:int(10) unsigned"`
 	User    User
 	Name    string `gorm:"type:varchar(255)"`
 	Content string `gorm:"type:text"`
 }
 
 func (Branch) Migrate(db *gorm.DB) {
-	db.AutoMigrate(&Branch{})
+	db.AutoMigrate(&Branch{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 }
 
 func (Branch) Drop(db *gorm.DB) {
