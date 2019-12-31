@@ -56,3 +56,7 @@ func (c *UserController) Insert() {
 
 	c.Response.WriteHeader(200)
 }
+
+func (c *UserController) Profile() {
+	_, _ = c.Response.Write([]byte("Authorization ok"))
+}

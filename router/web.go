@@ -17,7 +17,12 @@ func WebRouter(conn *gorm.DB) *mux.Router {
 	router.HandleFunc("/", homeAction).Methods("GET")
 	router.HandleFunc("/users", newUserAction).Methods("POST")
 	router.HandleFunc("/login", loginAction).Methods("POST")
+
 	router.Use(middleware.LoggingMiddleware)
+
+	authRouter := router.PathPrefix("/admin").Subrouter()
+	authRouter.HandleFunc("/test", testUserAction)
+	authRouter.Use(middleware.AuthMiddleware)
 
 	return router
 }
@@ -41,6 +46,16 @@ func newUserAction(w http.ResponseWriter, r *http.Request) {
 	}}
 
 	userController.Insert()
+}
+
+func testUserAction(w http.ResponseWriter, r *http.Request) {
+	userController := controller.UserController{Controller: controller.Controller{
+		DB:       db,
+		Response: w,
+		Request:  r,
+	}}
+
+	userController.Profile()
 }
 
 func loginAction(w http.ResponseWriter, r *http.Request) {

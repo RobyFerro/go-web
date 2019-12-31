@@ -1,0 +1,3 @@
+GET http://{{host}}:{{port}}/admin/test
+Authorization: Bearer {{auth_token}}
+###
