@@ -3,13 +3,9 @@ package middleware
 import (
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
+	"ikdev/smartcherry/config"
 	"log"
 	"net/http"
-)
-
-// todo: to be insert in .conf file
-const (
-	appKey = "golangcode.com"
 )
 
 func LoggingMiddleware(next http.Handler) http.Handler {
@@ -22,12 +18,13 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 }
 
 func AuthMiddleware(next http.Handler) http.Handler {
-	if len(appKey) == 0 {
+	key := config.Configuration().App.Key
+	if len(key) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
 	}
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-			return []byte(appKey), nil
+			return []byte(key), nil
 		},
 		SigningMethod: jwt.SigningMethodHS256,
 	})

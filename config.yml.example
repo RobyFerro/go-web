@@ -8,3 +8,5 @@ database:
 server:
   name: smartcherry.test
   port: 8000
+app:
+  key: rOEtQPwmjs4d67Dmmww01AwSWbKHek9t

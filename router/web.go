@@ -3,15 +3,18 @@ package router
 import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"ikdev/smartcherry/config"
 	"ikdev/smartcherry/controller"
 	"ikdev/smartcherry/middleware"
 	"net/http"
 )
 
 var db *gorm.DB
+var conf config.Conf
 
-func WebRouter(conn *gorm.DB) *mux.Router {
+func WebRouter(conn *gorm.DB, cgf config.Conf) *mux.Router {
 	db = conn
+	conf = cgf
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeAction).Methods("GET")
@@ -33,6 +36,7 @@ func homeAction(w http.ResponseWriter, r *http.Request) {
 			DB:       db,
 			Response: w,
 			Request:  r,
+			Config:   conf,
 		}}
 
 	homeController.Show()
@@ -43,6 +47,7 @@ func newUserAction(w http.ResponseWriter, r *http.Request) {
 		DB:       db,
 		Response: w,
 		Request:  r,
+		Config:   conf,
 	}}
 
 	userController.Insert()
@@ -53,6 +58,7 @@ func testUserAction(w http.ResponseWriter, r *http.Request) {
 		DB:       db,
 		Response: w,
 		Request:  r,
+		Config:   conf,
 	}}
 
 	userController.Profile()
@@ -63,6 +69,7 @@ func loginAction(w http.ResponseWriter, r *http.Request) {
 		DB:       db,
 		Response: w,
 		Request:  r,
+		Config:   conf,
 	}}
 
 	authController.Login()

@@ -14,11 +14,6 @@ type AuthController struct {
 	Controller
 }
 
-// todo: to be insert in .conf file
-const (
-	appKey = "golangcode.com"
-)
-
 func (c *AuthController) Login() {
 	var user model.User
 
@@ -56,11 +51,11 @@ func (c *AuthController) Login() {
 	// issue JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user": user.Username,
-		"exp":  time.Now().Add(time.Hour * time.Duration(1)).Unix(),
+		"exp":  time.Now().Add(time.Hour * time.Duration(2)).Unix(),
 		"iat":  time.Now().Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(appKey))
+	tokenString, err := token.SignedString([]byte(c.Config.App.Key))
 	if err != nil {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))

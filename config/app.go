@@ -19,6 +19,9 @@ type Conf struct {
 		Name string `yaml:"name"`
 		Port int    `yaml:"port"`
 	} `yaml:"server"`
+	App struct {
+		Key string `yaml:"key"`
+	} `yaml:"app"`
 }
 
 func Configuration() Conf {
