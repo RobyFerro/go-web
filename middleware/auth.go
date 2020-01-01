@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	jwtmiddleware "github.com/auth0/go-jwt-middleware"
+	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 	"ikdev/smartcherry/config"
 	"log"
@@ -22,7 +22,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 	if len(key) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
 	}
-	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
+	jwtMiddleware := New(Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
 			return []byte(key), nil
 		},

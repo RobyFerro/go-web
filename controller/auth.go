@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/smartcherry/database/model"
@@ -49,8 +50,10 @@ func (c *AuthController) Login() {
 	// End check password
 
 	// issue JWT
+	user.Password = "" // Remove password
+	userDataString, _ := json.Marshal(user)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user": user.Username,
+		"user": string(userDataString),
 		"exp":  time.Now().Add(time.Hour * time.Duration(2)).Unix(),
 		"iat":  time.Now().Unix(),
 	})
