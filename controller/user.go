@@ -58,8 +58,7 @@ func (c *UserController) Insert() {
 }
 
 func (c *UserController) Profile() {
-	var Auth helper.Auth
-	Auth.GetUser(c.Request, c.Config)
+	c.Auth.GetUser(c.Request)
 
 	_, _ = c.Response.Write([]byte("Authorization ok"))
 }

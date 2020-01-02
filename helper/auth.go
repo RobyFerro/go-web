@@ -13,15 +13,16 @@ import (
 type Auth struct {
 	User  model.User `json:"user"`
 	Token string
+	Conf  config.Conf
 }
 
-func (c *Auth) GetUser(req *http.Request, conf config.Conf) {
+func (c *Auth) GetUser(req *http.Request) {
 	bearerSchema := "Bearer "
 	tokenString := req.Header.Get("Authorization")
 
 	claims := jwt.MapClaims{}
 	_, _ = jwt.ParseWithClaims(tokenString[len(bearerSchema):], claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(conf.App.Key), nil
+		return []byte(c.Conf.App.Key), nil
 	})
 
 	for key, val := range claims {
@@ -36,7 +37,7 @@ func (c *Auth) GetUser(req *http.Request, conf config.Conf) {
 	}
 }
 
-func (c *Auth) NewToken(key string) bool {
+func (c *Auth) NewToken() bool {
 	c.User.Password = ""
 	userDataString, _ := json.Marshal(c.User)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -45,7 +46,7 @@ func (c *Auth) NewToken(key string) bool {
 		"iat":  time.Now().Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(key))
+	tokenString, err := token.SignedString([]byte(c.Conf.App.Key))
 	c.Token = tokenString
 
 	if err != nil {
@@ -55,7 +56,7 @@ func (c *Auth) NewToken(key string) bool {
 	return true
 }
 
-func (c *Auth) RefreshToken(key string) bool {
+func (c *Auth) RefreshToken() bool {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	userDataString, _ := json.Marshal(c.User)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -64,7 +65,7 @@ func (c *Auth) RefreshToken(key string) bool {
 		"iat":  time.Now().Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(key))
+	tokenString, err := token.SignedString([]byte(c.Conf.App.Key))
 	c.Token = tokenString
 
 	if err != nil {

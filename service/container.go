@@ -27,5 +27,9 @@ func BuildContainer() *dig.Container {
 		exception.ProcessError(err)
 	}
 
+	if err := container.Provide(SetAuth); err != nil {
+		exception.ProcessError(err)
+	}
+
 	return container
 }

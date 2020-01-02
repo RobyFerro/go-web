@@ -1,7 +1,7 @@
 version: "3.3"
 services:
-  smartcherry_db:
-    container_name: "smartcherry_db"
+  go_web:
+    container_name: "go_web"
     image: "mysql:5.7.28"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes

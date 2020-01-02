@@ -16,6 +16,7 @@ func NewAction(w http.ResponseWriter, r *http.Request) *Action {
 		Response: w,
 		Request:  r,
 		Config:   conf,
+		Auth:     User,
 	}
 
 	return action
