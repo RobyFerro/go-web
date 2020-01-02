@@ -10,6 +10,7 @@ import (
 
 type AuthController struct {
 	Controller
+	Auth helper.Auth
 }
 
 func (c *AuthController) Login() {
@@ -47,17 +48,14 @@ func (c *AuthController) Login() {
 	// End check password
 
 	// Generate JWT token
-	auth := helper.Auth{
-		User: user,
-	}
-
-	if status := auth.NewToken(c.Config.App.Key); !status {
+	c.Auth.User = user
+	if status := c.Auth.NewToken(c.Config.App.Key); !status {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
 	}
 
-	_, _ = c.Response.Write([]byte(`{"token":"` + auth.Token + `"}`))
+	_, _ = c.Response.Write([]byte(`{"token":"` + c.Auth.Token + `"}`))
 	// End JWT token generation
 	return
 }

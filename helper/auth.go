@@ -54,3 +54,22 @@ func (c *Auth) NewToken(key string) bool {
 
 	return true
 }
+
+func (c *Auth) RefreshToken(key string) bool {
+	expirationTime := time.Now().Add(5 * time.Minute)
+	userDataString, _ := json.Marshal(c.User)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user": string(userDataString),
+		"exp":  expirationTime,
+		"iat":  time.Now().Unix(),
+	})
+
+	tokenString, err := token.SignedString([]byte(key))
+	c.Token = tokenString
+
+	if err != nil {
+		return false
+	}
+
+	return true
+}
