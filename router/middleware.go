@@ -33,7 +33,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 func RefreshTokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		//User.RefreshToken()
+		User.RefreshToken()
 		next.ServeHTTP(w, r)
 	})
 }
