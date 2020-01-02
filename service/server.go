@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"ikdev/smartcherry/config"
+	"ikdev/go-web/config"
 	"net/http"
 )
 

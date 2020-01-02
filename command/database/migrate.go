@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
-	"ikdev/smartcherry/database"
-	"ikdev/smartcherry/exception"
-	"ikdev/smartcherry/service"
+	"ikdev/go-web/database"
+	"ikdev/go-web/exception"
+	"ikdev/go-web/service"
 	"reflect"
 )
 

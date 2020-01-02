@@ -3,7 +3,7 @@ package middleware
 import (
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
-	"ikdev/smartcherry/config"
+	"ikdev/go-web/config"
 	"log"
 	"net/http"
 )

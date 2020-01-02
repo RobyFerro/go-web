@@ -1,4 +1,4 @@
-module ikdev/smartcherry
+module ikdev/go-web
 
 go 1.13
 

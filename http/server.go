@@ -1,8 +1,8 @@
 package http
 
 import (
-	"ikdev/smartcherry/exception"
-	"ikdev/smartcherry/service"
+	"ikdev/go-web/exception"
+	"ikdev/go-web/service"
 	"net/http"
 )
 

@@ -2,10 +2,10 @@ package service
 
 import (
 	"go.uber.org/dig"
-	"ikdev/smartcherry/config"
-	"ikdev/smartcherry/database"
-	"ikdev/smartcherry/exception"
-	"ikdev/smartcherry/router"
+	"ikdev/go-web/config"
+	"ikdev/go-web/database"
+	"ikdev/go-web/exception"
+	"ikdev/go-web/router"
 )
 
 func BuildContainer() *dig.Container {

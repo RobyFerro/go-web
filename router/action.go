@@ -1,7 +1,7 @@
 package router
 
 import (
-	"ikdev/smartcherry/controller"
+	"ikdev/go-web/controller"
 	"net/http"
 )
 

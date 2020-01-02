@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ikdev/smartcherry/http"
+	"ikdev/go-web/http"
 )
 
 func main() {

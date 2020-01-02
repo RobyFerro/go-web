@@ -2,7 +2,7 @@ package config
 
 import (
 	"gopkg.in/yaml.v2"
-	"ikdev/smartcherry/exception"
+	"ikdev/go-web/exception"
 	"os"
 )
 

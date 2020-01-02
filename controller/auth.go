@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
-	"ikdev/smartcherry/database/model"
-	"ikdev/smartcherry/exception"
-	"ikdev/smartcherry/helper"
+	"ikdev/go-web/database/model"
+	"ikdev/go-web/exception"
+	"ikdev/go-web/helper"
 	"net/http"
 	"time"
 )

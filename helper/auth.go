@@ -3,9 +3,9 @@ package helper
 import (
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
-	"ikdev/smartcherry/config"
-	"ikdev/smartcherry/database/model"
-	"ikdev/smartcherry/exception"
+	"ikdev/go-web/config"
+	"ikdev/go-web/database/model"
+	"ikdev/go-web/exception"
 	"net/http"
 )
 

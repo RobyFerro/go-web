@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/jinzhu/gorm"
-	"ikdev/smartcherry/config"
+	"ikdev/go-web/config"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package helper
 import (
 	"encoding/json"
 	"gopkg.in/asaskevich/govalidator.v4"
-	"ikdev/smartcherry/exception"
+	"ikdev/go-web/exception"
 	"net/http"
 )
 

@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"ikdev/smartcherry/config"
-	"ikdev/smartcherry/middleware"
+	"ikdev/go-web/config"
+	"ikdev/go-web/middleware"
 )
 
 var db *gorm.DB

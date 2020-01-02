@@ -4,7 +4,7 @@ import (
 	"github.com/brianvoe/gofakeit/v4"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
-	"ikdev/smartcherry/exception"
+	"ikdev/go-web/exception"
 )
 
 type User struct {
