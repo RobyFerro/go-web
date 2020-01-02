@@ -7,10 +7,12 @@ import (
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 	"net/http"
+	"time"
 )
 
 type Auth struct {
-	User model.User `json:"user"`
+	User  model.User `json:"user"`
+	Token string
 }
 
 func (c *Auth) GetUser(req *http.Request, conf config.Conf) {
@@ -32,4 +34,23 @@ func (c *Auth) GetUser(req *http.Request, conf config.Conf) {
 			}
 		}
 	}
+}
+
+func (c *Auth) NewToken(key string) bool {
+	c.User.Password = ""
+	userDataString, _ := json.Marshal(c.User)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user": string(userDataString),
+		"exp":  time.Now().Add(time.Hour * time.Duration(2)).Unix(),
+		"iat":  time.Now().Unix(),
+	})
+
+	tokenString, err := token.SignedString([]byte(key))
+	c.Token = tokenString
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }

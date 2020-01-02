@@ -1,14 +1,11 @@
 package controller
 
 import (
-	"encoding/json"
-	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/helper"
 	"net/http"
-	"time"
 )
 
 type AuthController struct {
@@ -49,23 +46,18 @@ func (c *AuthController) Login() {
 	}
 	// End check password
 
-	// issue JWT
-	user.Password = "" // Remove password
-	userDataString, _ := json.Marshal(user)
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user": string(userDataString),
-		"exp":  time.Now().Add(time.Hour * time.Duration(2)).Unix(),
-		"iat":  time.Now().Unix(),
-	})
+	// Generate JWT token
+	auth := helper.Auth{
+		User: user,
+	}
 
-	tokenString, err := token.SignedString([]byte(c.Config.App.Key))
-	if err != nil {
+	if status := auth.NewToken(c.Config.App.Key); !status {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
 	}
 
-	_, _ = c.Response.Write([]byte(`{"token":"` + tokenString + `"}`))
+	_, _ = c.Response.Write([]byte(`{"token":"` + auth.Token + `"}`))
+	// End JWT token generation
 	return
-	// end issue JWT
 }
