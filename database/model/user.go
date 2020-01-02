@@ -20,7 +20,7 @@ func (User) Migrate(db *gorm.DB) {
 }
 
 func (User) Drop(db *gorm.DB) {
-	if err := db.DropTableIfExists(&Branch{}).Error; err != nil {
+	if err := db.DropTableIfExists(&User{}).Error; err != nil {
 		exception.ProcessError(err)
 	}
 }
