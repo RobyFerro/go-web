@@ -1,8 +1,11 @@
-package router
+package http
 
 import (
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
+	"ikdev/go-web/config"
+	"ikdev/go-web/exception"
+	"ikdev/go-web/helper"
 	"log"
 	"net/http"
 )
@@ -17,7 +20,16 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 }
 
 func AuthMiddleware(next http.Handler) http.Handler {
-	key := conf.App.Key
+	var key string
+
+	err := Container.Invoke(func(c config.Conf) {
+		key = c.App.Key
+	})
+
+	if err != nil {
+		exception.ProcessError(err)
+	}
+
 	if len(key) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
 	}
@@ -33,7 +45,15 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 func RefreshTokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		User.RefreshToken()
+
+		err := Container.Invoke(func(a *helper.Auth) {
+			a.RefreshToken()
+		})
+
+		if err != nil {
+			exception.ProcessError(err)
+		}
+
 		next.ServeHTTP(w, r)
 	})
 }

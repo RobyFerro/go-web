@@ -4,12 +4,13 @@ import (
 	"github.com/jinzhu/gorm"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
+	"ikdev/go-web/http"
 	"ikdev/go-web/service"
 	"reflect"
 )
 
 func main() {
-	container := service.BuildContainer()
+	container := service.BuildContainer(http.WebRouter())
 
 	err := container.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()

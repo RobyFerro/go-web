@@ -1,17 +1,21 @@
 package service
 
 import (
+	"github.com/gorilla/mux"
 	"go.uber.org/dig"
 	"ikdev/go-web/config"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
-	"ikdev/go-web/router"
 )
 
-func BuildContainer() *dig.Container {
+func BuildContainer(router *mux.Router) *dig.Container {
 	container := dig.New()
 
-	if err := container.Provide(router.WebRouter); err != nil {
+	err := container.Provide(func() *mux.Router {
+		return router
+	})
+
+	if err != nil {
 		exception.ProcessError(err)
 	}
 
