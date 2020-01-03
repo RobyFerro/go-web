@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"ikdev/go-web/config"
 	"ikdev/go-web/controller"
@@ -15,16 +16,29 @@ type Action struct {
 
 func NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	action := new(Action)
-
-	err := Container.Invoke(func(db *gorm.DB, conf config.Conf, auth *helper.Auth) {
-		action.Controller.DB = db
+	if err := Container.Invoke(func(conf config.Conf, auth *helper.Auth) {
 		action.Controller.Config = conf
 		action.Controller.Auth = auth
 		action.Controller.Response = w
 		action.Controller.Request = r
-	})
 
-	if err != nil {
+		if len(conf.Redis.Host) > 0 {
+			if err := Container.Invoke(func(redis *redis.Client) {
+				action.Controller.Redis = redis
+			}); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+		if len(conf.Database.Host) > 0 {
+			if err := Container.Invoke(func(db *gorm.DB) {
+				action.Controller.DB = db
+			}); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+	}); err != nil {
 		exception.ProcessError(err)
 	}
 

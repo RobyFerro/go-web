@@ -11,3 +11,8 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - "3308:3306"
+  go_web_redis:
+    container_name: "redis_queue"
+    image: "redis:latest"
+    ports:
+      - "6379:6379"

@@ -15,6 +15,12 @@ type Conf struct {
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
 	} `yaml:"database"`
+	Redis struct {
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+	} `yaml:"redis"`
 	Server struct {
 		Name string `yaml:"name"`
 		Port int    `yaml:"port"`

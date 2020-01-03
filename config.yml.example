@@ -5,6 +5,11 @@ database:
   database: "test"
   user: "user"
   password: "secret"
+redis:
+  host: "localhost"
+  port: 6379
+  user: ""
+  password: ""
 server:
   name: smartcherry.test
   port: 8000
