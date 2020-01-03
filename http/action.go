@@ -3,6 +3,7 @@ package http
 import (
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
+	"go.mongodb.org/mongo-driver/mongo"
 	"ikdev/go-web/config"
 	"ikdev/go-web/controller"
 	"ikdev/go-web/exception"
@@ -33,6 +34,14 @@ func NewAction(w http.ResponseWriter, r *http.Request) *Action {
 		if len(conf.Database.Host) > 0 {
 			if err := Container.Invoke(func(db *gorm.DB) {
 				action.Controller.DB = db
+			}); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+		if len(conf.Mongo.Host) > 0 {
+			if err := Container.Invoke(func(mongo *mongo.Database) {
+				action.Controller.Mongo = mongo
 			}); err != nil {
 				exception.ProcessError(err)
 			}

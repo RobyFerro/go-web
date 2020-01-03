@@ -35,6 +35,12 @@ func BuildContainer(router *mux.Router) *dig.Container {
 				exception.ProcessError(err)
 			}
 		}
+
+		if len(conf.Mongo.Host) > 0 {
+			if err := container.Provide(database.ConnectMongo); err != nil {
+				exception.ProcessError(err)
+			}
+		}
 	})
 
 	if err != nil {

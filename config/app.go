@@ -21,6 +21,13 @@ type Conf struct {
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
 	} `yaml:"redis"`
+	Mongo struct {
+		Database string `yaml:"database"`
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+	} `yaml:"mongodb"`
 	Server struct {
 		Name string `yaml:"name"`
 		Port int    `yaml:"port"`

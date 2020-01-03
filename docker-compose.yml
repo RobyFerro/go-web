@@ -16,3 +16,10 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
+  go_web_mongo:
+    container_name: "mongo"
+    image: "mongo"
+    environment:
+      - MONGO_INITDB_DATABASE={MONGO_DATABASE}
+    ports:
+      - "27017:27017"

@@ -10,6 +10,12 @@ redis:
   port: 6379
   user: ""
   password: ""
+mongodb:
+  database: "go_queue"
+  host: "localhost"
+  port: 27017
+  user: ""
+  password: ""
 server:
   name: smartcherry.test
   port: 8000

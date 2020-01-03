@@ -1,12 +1,16 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"ikdev/go-web/config"
 	"ikdev/go-web/exception"
+	"time"
 )
 
 func ConnectDB(conf config.Conf) *gorm.DB {
@@ -34,6 +38,19 @@ func ConnectRedis(conf config.Conf) *redis.Client {
 	}
 
 	return client
+}
+
+func ConnectMongo(conf config.Conf) *mongo.Database {
+	client, err := mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", conf.Mongo.Host, conf.Mongo.Port)))
+
+	if err != nil {
+		exception.ProcessError(err)
+	}
+
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	_ = client.Connect(ctx)
+
+	return client.Database(conf.Mongo.Database)
 }
 
 func createConnectionString(conf config.Conf) (string, string) {
