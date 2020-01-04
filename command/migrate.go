@@ -1,4 +1,4 @@
-package main
+package command
 
 import (
 	"github.com/jinzhu/gorm"
@@ -9,7 +9,7 @@ import (
 	"reflect"
 )
 
-func main() {
+func RunMigration() {
 	container := service.BuildContainer(http.WebRouter())
 
 	err := container.Invoke(func(db *gorm.DB) {
