@@ -36,7 +36,7 @@ This integration checks credentials passed with an HTTP POST request with the co
 To customize your database connection you've to edit config.yml file in project root directory. This integration is an abstraction of [Gorm](https://gorm.io/)
 
 ### Models
-Models are stored in database/model directory registered into database/models.go file.
+Models are stored in database/model directory and registered into database/models.go file.
 This registration is mandatory to use Migration/Seed/Drop method by goweb CLI tool.
 
 ### Migrations
