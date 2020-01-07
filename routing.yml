@@ -1,19 +1,16 @@
 routes:
   home:
     path: "/"
-    action: "HomeAction" # Bind controller@method instead of single action
-    method: "GET" # Default method
-    #middleware:
+    action: "Main" # Bind controller@method instead of single action
+    method: "GET"
   users:
     path: "/users"
     action: "NewUser"
     mathod: "POST"
-    #middleware
   login:
     path: "/login"
     action: "Login"
     method: "POST"
-    #middleware: "Auth"
 groups:
   admin:
     prefix: "/admin"
@@ -21,9 +18,7 @@ groups:
       test:
         path: "/test"
         action: "TestUser"
-        method: "GET" # default method
-        #middleware:
+        method: "GET"
     middleware:
       - RefreshToken
       - Auth
-## NOT WORKING - JUST FOR EXAMPLE

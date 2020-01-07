@@ -54,7 +54,7 @@ func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	return action
 }
 
-func (Action) HomeAction(w http.ResponseWriter, r *http.Request) {
+func (Action) Main(w http.ResponseWriter, r *http.Request) {
 	action := Action{}.NewAction(w, r)
 	homeController := controller.HomeController{
 		Controller: action.Controller,
