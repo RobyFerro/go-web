@@ -6,7 +6,7 @@ routes:
   users:
     path: "/users"
     action: "NewUser"
-    mathod: "POST"
+    method: "POST"
   login:
     path: "/login"
     action: "Login"
