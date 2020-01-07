@@ -15,8 +15,9 @@ type Route struct {
 }
 
 type Group struct {
-	Prefix string `yaml:"prefix"`
-	Routes map[string]Route
+	Prefix     string `yaml:"prefix"`
+	Routes     map[string]Route
+	Middleware []string
 }
 
 type Router struct {

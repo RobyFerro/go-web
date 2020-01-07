@@ -10,16 +10,35 @@ import (
 	"net/http"
 )
 
-func LoggingMiddleware(next http.Handler) http.Handler {
+type Middleware struct {
+	Handler http.Handler
+}
+
+func (Middleware) Logging() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Do stuff here
 		log.Println(r.RequestURI)
 		// Call the next handler, which can be another middleware in the chain, or the final handler.
-		next.ServeHTTP(w, r)
+		Middleware{}.Handler.ServeHTTP(w, r)
 	})
 }
 
-func AuthMiddleware(next http.Handler) http.Handler {
+func (Middleware) RefreshToken() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		err := Container.Invoke(func(a *helper.Auth) {
+			a.RefreshToken()
+		})
+
+		if err != nil {
+			exception.ProcessError(err)
+		}
+
+		Middleware{}.Handler.ServeHTTP(w, r)
+	})
+}
+
+func (Middleware) Auth() http.Handler {
 	var key string
 
 	err := Container.Invoke(func(c config.Conf) {
@@ -40,20 +59,5 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		SigningMethod: jwt.SigningMethodHS256,
 	})
 
-	return jwtMiddleware.Handler(next)
-}
-
-func RefreshTokenMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		err := Container.Invoke(func(a *helper.Auth) {
-			a.RefreshToken()
-		})
-
-		if err != nil {
-			exception.ProcessError(err)
-		}
-
-		next.ServeHTTP(w, r)
-	})
+	return jwtMiddleware.Handler(Middleware{}.Handler)
 }

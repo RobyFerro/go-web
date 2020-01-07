@@ -6,25 +6,24 @@ routes:
     #middleware:
   users:
     path: "/users"
-    action: "NewUserAction"
+    action: "NewUser"
     mathod: "POST"
-    #middleware:
+    #middleware
   login:
     path: "/login"
-    action: "LoginAction"
+    action: "Login"
     method: "POST"
-    #middleware:
+    #middleware: "Auth"
 groups:
   admin:
     prefix: "/admin"
     routes:
       test:
         path: "/test"
-        action: "TestUserAction"
+        action: "TestUser"
         method: "GET" # default method
-      #middleware:
-  #middleware:
-  #  - RefreshTokenMiddleware
-  #  - AuthMiddleware
-
+        #middleware:
+    middleware:
+      - RefreshToken
+      - Auth
 ## NOT WORKING - JUST FOR EXAMPLE

@@ -15,7 +15,7 @@ type Action struct {
 	Controller controller.Controller
 }
 
-func NewAction(w http.ResponseWriter, r *http.Request) *Action {
+func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	action := new(Action)
 	if err := Container.Invoke(func(conf config.Conf, auth *helper.Auth) {
 		action.Controller.Config = conf
@@ -54,8 +54,8 @@ func NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	return action
 }
 
-func HomeAction(w http.ResponseWriter, r *http.Request) {
-	action := NewAction(w, r)
+func (Action) HomeAction(w http.ResponseWriter, r *http.Request) {
+	action := Action{}.NewAction(w, r)
 	homeController := controller.HomeController{
 		Controller: action.Controller,
 	}
@@ -63,8 +63,8 @@ func HomeAction(w http.ResponseWriter, r *http.Request) {
 	homeController.Show()
 }
 
-func NewUserAction(w http.ResponseWriter, r *http.Request) {
-	action := NewAction(w, r)
+func (Action) NewUser(w http.ResponseWriter, r *http.Request) {
+	action := Action{}.NewAction(w, r)
 	userController := controller.UserController{
 		Controller: action.Controller,
 	}
@@ -72,8 +72,8 @@ func NewUserAction(w http.ResponseWriter, r *http.Request) {
 	userController.Insert()
 }
 
-func TestUserAction(w http.ResponseWriter, r *http.Request) {
-	action := NewAction(w, r)
+func (Action) TestUser(w http.ResponseWriter, r *http.Request) {
+	action := Action{}.NewAction(w, r)
 	userController := controller.UserController{
 		Controller: action.Controller,
 	}
@@ -81,8 +81,8 @@ func TestUserAction(w http.ResponseWriter, r *http.Request) {
 	userController.Profile()
 }
 
-func LoginAction(w http.ResponseWriter, r *http.Request) {
-	action := NewAction(w, r)
+func (Action) Login(w http.ResponseWriter, r *http.Request) {
+	action := Action{}.NewAction(w, r)
 	authController := controller.AuthController{
 		Controller: action.Controller,
 	}
