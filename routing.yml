@@ -1,0 +1,28 @@
+home:
+  path: "/"
+  action: "HomeAction" # Bind controller@method instead of single action
+  method: "GET"
+  #middleware:
+users:
+  path: "/users"
+  action: "NewUserAction"
+  mathod: "POST"
+  #middleware:
+login:
+  path: "/login"
+  action: "LoginAction"
+  method: "POST"
+  #middleware:
+prefix:
+  path: "/admin"
+  routes:
+    test:
+      path: "/test"
+      action: "TestUserAction"
+      method: "GET" # default method
+      #middleware:
+  middleware:
+    - RefreshTokenMiddleware
+    - AuthMiddleware
+
+## NOT WORKING - JUST FOR EXAMPLE
