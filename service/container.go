@@ -23,6 +23,10 @@ func BuildContainer(router *mux.Router) *dig.Container {
 		exception.ProcessError(err)
 	}
 
+	if err := container.Provide(config.ConfigurationWeb); err != nil {
+		exception.ProcessError(err)
+	}
+
 	err = container.Invoke(func(conf config.Conf) {
 		if len(conf.Redis.Host) > 0 {
 			if err := container.Provide(database.ConnectRedis); err != nil {
