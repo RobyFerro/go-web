@@ -6,7 +6,7 @@ The project are currently in work in progress. Feel free to contribute!
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
 
 **WARNING**
-To ensure that your authentication is completely secure you've to change app.key variables.
+To ensure that your authentication/authorization flow is completely secure you've to change "app.key" variables.
 
 ## Getting started
 ### Routing
