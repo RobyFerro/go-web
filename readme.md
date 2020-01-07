@@ -47,15 +47,22 @@ To create a seeder you've to create a Seed method inside your model. This method
 (see the built-in models).
 
 ## Service container (Dependency Injection)
-
+// Todo
 
 ## Other service
 Go-Web is dispatched with a Redis and MongoDB integrations.
 
 ### Redis
+// Todo
 
 ### MongoDB
+// Todo
 
+## CLI Tool
+// Todo
+
+## Commands
+// Todo
 
 
 
