@@ -11,7 +11,7 @@ To ensure that your authentication/authorization flow is completely secure you'v
 ## Getting started
 ### Routing
 Routes in Go-Web are handled by routing.yml file in root directory. This is an abstraction of [Gorilla Mux](https://github.com/gorilla/mux).
-Every route are compose with:
+Every route are composed with:
 
 * Path: URI of this route
 * Action: Business logic (simple binder to your controller)
