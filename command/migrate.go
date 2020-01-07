@@ -14,8 +14,19 @@ func RunMigration() {
 
 	err := container.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()
-
 		migrate(models, db)
+	})
+
+	if err != nil {
+		exception.ProcessError(err)
+	}
+}
+
+func RunSeeder() {
+	container := service.BuildContainer(http.WebRouter())
+
+	err := container.Invoke(func(db *gorm.DB) {
+		models := database.GetModels()
 		seed(models, db)
 	})
 

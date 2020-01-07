@@ -17,6 +17,9 @@ func main() {
 		case "migrate":
 			command.RunMigration()
 			break
+		case "seed":
+			command.RunSeeder()
+			break
 		case "run:server":
 			command.RunServer()
 			break
