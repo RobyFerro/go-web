@@ -50,6 +50,24 @@ To create a seeder you've to create a Seed method inside your model. This method
 (see the built-in models).
 To run seeder `./goweb seed`
 
+## Schedule async jobs
+Jobs in Go-Web are handled by a simple Redis List. 
+To register a new Job you must extend Job structure in job directory. 
+You can use Schedule and Execute method to handle it. 
+
+**WARNING** To run schedule jobs you must start queue 
+
+Example of jobs schedule:
+```
+j := job.Job{
+ 	Name:       "Send email",
+ 	MethodName: "Mail",
+ 	Params:     []reflect.Value{},
+ }
+ 
+ j.Schedule("default", c.Redis)
+```
+
 ## Service container (Dependency Injection)
 // Todo
 
