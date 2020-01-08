@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Connect to sql database
 func ConnectDB(conf config.Conf) *gorm.DB {
 	connectionString, driver := createConnectionString(conf)
 	db, err := gorm.Open(driver, connectionString)
@@ -24,6 +25,7 @@ func ConnectDB(conf config.Conf) *gorm.DB {
 	return db
 }
 
+// Connect to Redis
 func ConnectRedis(conf config.Conf) *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", conf.Redis.Host, conf.Redis.Port),
@@ -40,6 +42,7 @@ func ConnectRedis(conf config.Conf) *redis.Client {
 	return client
 }
 
+// Connect to MongoDB
 func ConnectMongo(conf config.Conf) *mongo.Database {
 	client, err := mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", conf.Mongo.Host, conf.Mongo.Port)))
 
@@ -53,6 +56,7 @@ func ConnectMongo(conf config.Conf) *mongo.Database {
 	return client.Database(conf.Mongo.Database)
 }
 
+// Create string for SQL connection
 func createConnectionString(conf config.Conf) (string, string) {
 	return fmt.Sprintf(
 		"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",

@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Main Go-Web entry point.
 func main() {
 	arguments := os.Args
 

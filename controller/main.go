@@ -9,7 +9,8 @@ type HomeController struct {
 	Controller
 }
 
-func (c *HomeController) Show() {
+// Main method
+func (c *HomeController) Main() {
 	c.Response.WriteHeader(http.StatusOK)
 	if _, err := fmt.Fprintf(c.Response, "Welcome to smartcherry.io!"); err != nil {
 		fmt.Println(err)

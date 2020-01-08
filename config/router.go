@@ -25,6 +25,7 @@ type Router struct {
 	Groups map[string]Group `yaml:"groups"`
 }
 
+// Get routing struct
 func ConfigurationWeb() Router {
 	var conf Router
 	getConfWeb(&conf)
@@ -32,6 +33,7 @@ func ConfigurationWeb() Router {
 	return conf
 }
 
+// Parse routing.yml file in struct
 func getConfWeb(conf *Router) {
 	c, err := os.Open("routing.yml")
 

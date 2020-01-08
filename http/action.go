@@ -11,10 +11,16 @@ import (
 	"net/http"
 )
 
+// Actions are used as binder for route and controllers
+// Every action must extends Action structure and implement NewAction method.
+// See the below code to have an example of implementation
 type Action struct {
 	Controller controller.Controller
 }
 
+// Main action constructor.
+// This method should be called by every actions. It will get every dependencies from service container and create an instance
+// of base controller.
 func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	action := new(Action)
 	if err := Container.Invoke(func(conf config.Conf, auth *helper.Auth) {
@@ -54,15 +60,18 @@ func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	return action
 }
 
+// Action that handle default "/" route.
+// Feel free to customize it
 func (Action) Main(w http.ResponseWriter, r *http.Request) {
 	action := Action{}.NewAction(w, r)
 	homeController := controller.HomeController{
 		Controller: action.Controller,
 	}
 
-	homeController.Show()
+	homeController.Main()
 }
 
+// Action that handle a user registration.
 func (Action) NewUser(w http.ResponseWriter, r *http.Request) {
 	action := Action{}.NewAction(w, r)
 	userController := controller.UserController{
@@ -72,6 +81,7 @@ func (Action) NewUser(w http.ResponseWriter, r *http.Request) {
 	userController.Insert()
 }
 
+// Test method. It's used to check authenticated user.
 func (Action) TestUser(w http.ResponseWriter, r *http.Request) {
 	action := Action{}.NewAction(w, r)
 	userController := controller.UserController{
@@ -81,6 +91,7 @@ func (Action) TestUser(w http.ResponseWriter, r *http.Request) {
 	userController.Profile()
 }
 
+// Handle user login
 func (Action) Login(w http.ResponseWriter, r *http.Request) {
 	action := Action{}.NewAction(w, r)
 	authController := controller.AuthController{

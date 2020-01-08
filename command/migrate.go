@@ -9,6 +9,7 @@ import (
 	"reflect"
 )
 
+// Run database migrations
 func RunMigration() {
 	container := service.BuildContainer(http.WebRouter())
 
@@ -22,6 +23,7 @@ func RunMigration() {
 	}
 }
 
+// Run database seeder
 func RunSeeder() {
 	container := service.BuildContainer(http.WebRouter())
 
@@ -35,6 +37,7 @@ func RunSeeder() {
 	}
 }
 
+// Parse model register and run every migration
 func migrate(models []interface{}, db *gorm.DB) {
 	for _, m := range models {
 		v := reflect.ValueOf(m)
@@ -43,6 +46,7 @@ func migrate(models []interface{}, db *gorm.DB) {
 	}
 }
 
+// Parse model register and run every seed
 func seed(models []interface{}, db *gorm.DB) {
 	for _, m := range models {
 		v := reflect.ValueOf(m)

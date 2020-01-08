@@ -7,6 +7,7 @@ import (
 	"reflect"
 )
 
+// Parse routing structure and set every route
 func WebRouter() *mux.Router {
 	routes := config.ConfigurationWeb()
 	router := mux.NewRouter()
@@ -17,6 +18,8 @@ func WebRouter() *mux.Router {
 	return router
 }
 
+// Handle single path parting.
+// This method it's used to parse every single path. If middleware is present a subrouter with will be created
 func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 	for _, route := range routes {
 		r := reflect.ValueOf(Action{})
@@ -47,6 +50,7 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 	}
 }
 
+// Parse route groups.
 func handleGroups(groups map[string]config.Group, router *mux.Router) {
 	for _, group := range groups {
 		subRouter := router.PathPrefix(group.Prefix).Subrouter()

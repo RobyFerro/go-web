@@ -16,6 +16,7 @@ type Auth struct {
 	Conf  config.Conf
 }
 
+// Get user struct from authentication token (JWT)
 func (c *Auth) GetUser(req *http.Request) {
 	bearerSchema := "Bearer "
 	tokenString := req.Header.Get("Authorization")
@@ -37,6 +38,7 @@ func (c *Auth) GetUser(req *http.Request) {
 	}
 }
 
+// Issue new JWT token
 func (c *Auth) NewToken() bool {
 	c.User.Password = ""
 	userDataString, _ := json.Marshal(c.User)
@@ -56,6 +58,7 @@ func (c *Auth) NewToken() bool {
 	return true
 }
 
+// Refresh JWT token
 func (c *Auth) RefreshToken() bool {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	userDataString, _ := json.Marshal(c.User)

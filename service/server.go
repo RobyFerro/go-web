@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// Prepare HTTP server for Service Container
 func GetHttpServer(router *mux.Router, cfg config.Conf) *http.Server {
 	serverString := fmt.Sprintf("%s:%d", cfg.Server.Name, cfg.Server.Port)
 

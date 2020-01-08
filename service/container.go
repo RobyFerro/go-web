@@ -8,6 +8,7 @@ import (
 	"ikdev/go-web/exception"
 )
 
+// Create service container
 func BuildContainer(router *mux.Router) *dig.Container {
 	container := dig.New()
 

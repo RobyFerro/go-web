@@ -12,6 +12,8 @@ type AuthController struct {
 	Controller
 }
 
+// User login method.
+// This method will set JWT in HTTP response
 func (c *AuthController) Login() {
 	var user model.User
 

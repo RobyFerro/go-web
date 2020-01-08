@@ -9,6 +9,8 @@ import (
 	"net/http"
 )
 
+// Main controller structure
+// This structure will be extended by every controllers
 type Controller struct {
 	DB       *gorm.DB
 	Response http.ResponseWriter

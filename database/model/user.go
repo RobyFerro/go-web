@@ -15,16 +15,19 @@ type User struct {
 	Password string `gorm:"type:varchar(255)"`
 }
 
+// Execute model migration
 func (User) Migrate(db *gorm.DB) {
 	db.AutoMigrate(&User{})
 }
 
+// Execute model drop
 func (User) Drop(db *gorm.DB) {
 	if err := db.DropTableIfExists(&User{}).Error; err != nil {
 		exception.ProcessError(err)
 	}
 }
 
+// Execute model seeding
 func (User) Seed(db *gorm.DB) {
 	for i := 0; i < 10; i++ {
 		password := gofakeit.Password(true, true, true, true, false, 32)

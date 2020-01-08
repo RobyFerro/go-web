@@ -37,6 +37,7 @@ type Conf struct {
 	} `yaml:"app"`
 }
 
+// Get configuration struct
 func Configuration() Conf {
 	var conf Conf
 	getConf(&conf)
@@ -44,6 +45,7 @@ func Configuration() Conf {
 	return conf
 }
 
+// Parse configuration .yml file in struct
 func getConf(conf *Conf) {
 	c, err := os.Open("config.yml")
 

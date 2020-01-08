@@ -5,6 +5,7 @@ import (
 	"ikdev/go-web/helper"
 )
 
+// Prepare Auth structure for Service Container
 func SetAuth(conf config.Conf) *helper.Auth {
 	return &helper.Auth{Conf: conf}
 }

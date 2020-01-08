@@ -11,6 +11,7 @@ type UserController struct {
 	Controller
 }
 
+// This method will be used to insert a new user in main DB (SQL)
 func (c *UserController) Insert() {
 
 	type NewUser struct {
@@ -57,6 +58,7 @@ func (c *UserController) Insert() {
 	c.Response.WriteHeader(200)
 }
 
+//Used to check authenticated user
 func (c *UserController) Profile() {
 	c.Auth.GetUser(c.Request)
 

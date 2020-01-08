@@ -7,8 +7,10 @@ import (
 	"net/http"
 )
 
+// Http package service container.
 var Container *dig.Container
 
+// Start HTTP server
 func StartServer() {
 	router := WebRouter()
 	Container = service.BuildContainer(router)
