@@ -4,14 +4,17 @@ routes:
     path: "/"
     action: "Main"
     method: "GET"
+    #middleware:""
   users:
     path: "/users"
     action: "NewUser"
     method: "POST"
+    #middleware:""
   login:
     path: "/login"
     action: "Login"
     method: "POST"
+    #middleware:""
 #Define groups of routes
 groups:
   admin:
