@@ -9,6 +9,8 @@ Copy config.yml.example to new file named config.yml. You can customize your app
 To ensure that your authentication/authorization flow is completely secure you've to change "app.key" variables.
 
 ## Getting started
+To run webserver `./goweb run:server` 
+
 ### Routing
 Routes in Go-Web are handled by routing.yml file in root directory. This is an abstraction of [Gorilla Mux](https://github.com/gorilla/mux).
 Every route are composed with:
@@ -41,10 +43,12 @@ This registration is mandatory to use Migration/Seed/Drop method by goweb CLI to
 
 ### Migrations
 Every model should have a Migration method. This method it's just a wrapper of GORM auto migrate tool.
+To run migration `./goweb migrate`
 
 ### Seeding
 To create a seeder you've to create a Seed method inside your model. This method should insert something into the handled table.
 (see the built-in models).
+To run seeder `./goweb seed`
 
 ## Service container (Dependency Injection)
 // Todo
