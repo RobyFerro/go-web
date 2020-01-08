@@ -24,7 +24,9 @@ func main() {
 		case "run:server":
 			command.RunServer()
 			break
-		case "run:job":
+		case "run:queue":
+			queueName := os.Args[i+1]
+			command.RunQueue(queueName)
 			break
 		}
 	}
