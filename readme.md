@@ -86,7 +86,8 @@ j.Schedule("default", c.Redis)
 ```
 
 ## Service container (Dependency Injection)
-// Todo
+Go-Web implement [Uber dig](https://github.com/uber-go/dig) library. This allow to use service container and dependency injection everything.
+Service container is declared into service/container.go. Feel free to add your custom dependency.
 
 ## Other service
 Go-Web is dispatched with a Redis and MongoDB integrations.
@@ -95,12 +96,6 @@ Go-Web is dispatched with a Redis and MongoDB integrations.
 // Todo
 
 ### MongoDB
-// Todo
-
-## CLI Tool
-// Todo
-
-## Commands
 // Todo
 
 
