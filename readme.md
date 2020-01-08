@@ -90,13 +90,9 @@ Go-Web implement [Uber dig](https://github.com/uber-go/dig) library. This allow 
 Service container is declared into service/container.go. Feel free to add your custom dependency.
 
 ## Other service
-Go-Web is dispatched with a Redis and MongoDB integrations.
-
-### Redis
-// Todo
-
-### MongoDB
-// Todo
+Go-Web is dispatched with:
+* MongoDB
+* Redis
 
 
 
