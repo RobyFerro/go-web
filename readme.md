@@ -59,25 +59,26 @@ You can use Schedule and Execute method to handle it.
 
 Example of jobs schedule:
 ```
+
 // Schedule new job
-var parameters []job.Param
+data := job.MailStruct{
+	To: []string{
+		"test@test.com",
+		"test@test1.com",
+	},
+	Message: "Hello world",
+	}
 
-parameters = append(parameters, job.Param{
-	Name:    "to",
-	Payload: []byte("info@ikdev.eu"),
-	Type:    "string",
-})
-
-parameters = append(parameters, job.Param{
-	Name:    "message",
-	Payload: []byte("1"),
-	Type:    "int",
-})
+serializedPayload, _ := json.Marshal(data)
 
 j := job.Job{
 	Name:       "Send email",
 	MethodName: "Mail",
-	Params:     parameters,
+	Params:     job.Param{
+		Name:    "message",
+		Payload: string(serializedPayload),
+		Type:    "int",
+	},
 }
 
 j.Schedule("default", c.Redis)

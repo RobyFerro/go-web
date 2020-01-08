@@ -6,19 +6,21 @@ import (
 	"github.com/go-redis/redis/v7"
 	"ikdev/go-web/exception"
 	"reflect"
-	"strconv"
 )
 
 type Param struct {
 	Name    string
-	Payload []byte
+	Payload string
 	Type    string
 }
 
+// This structure will be used to handle every jobs.
+// Every method (except "Schedule" and "Execute") accept only one string parameter.
+// This param will be decoded into a specific structure (manually defined into your job)
 type Job struct {
 	Name       string
 	MethodName string
-	Params     []Param
+	Params     Param
 }
 
 // Schedule specific job
@@ -36,48 +38,5 @@ func (j *Job) Schedule(queueName string, redis *redis.Client) {
 func (j *Job) Execute() {
 	r := reflect.ValueOf(Job{})
 	method := r.MethodByName(j.MethodName)
-
-	var in []reflect.Value
-	// Decode payload byte to Type
-	for _, params := range j.Params {
-		strPayload := string(params.Payload)
-
-		switch params.Type {
-		// To be implemented with other types
-		case "string":
-			in = append(in, reflect.ValueOf(strPayload))
-			break
-		case "int":
-			data, _ := strconv.Atoi(strPayload)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "int64":
-			data, _ := strconv.ParseInt(strPayload, 10, 64)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "bool":
-			data, _ := strconv.ParseBool(strPayload)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "float32":
-			data, _ := strconv.ParseFloat(strPayload, 32)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "float64":
-			data, _ := strconv.ParseFloat(strPayload, 64)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "uint32":
-			data, _ := strconv.ParseUint(strPayload, 10, 32)
-			in = append(in, reflect.ValueOf(data))
-			break
-		case "uint64":
-			data, _ := strconv.ParseUint(strPayload, 10, 64)
-			in = append(in, reflect.ValueOf(data))
-			break
-		}
-	}
-	// End decode
-
-	method.Call(in)
+	method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
 }
