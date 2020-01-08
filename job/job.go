@@ -40,3 +40,8 @@ func (j *Job) Execute() {
 	method := r.MethodByName(j.MethodName)
 	method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
 }
+
+// Insert failed job in failed queue
+func (Job) PutOnFailed(payload string, r *redis.Client) {
+	r.RPush("queue:failed", payload)
+}

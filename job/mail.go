@@ -3,7 +3,8 @@ package job
 import (
 	"encoding/json"
 	"fmt"
-	"ikdev/go-web/exception"
+	"ikdev/go-web/config"
+	"ikdev/go-web/database"
 )
 
 type MailStruct struct {
@@ -13,8 +14,10 @@ type MailStruct struct {
 
 func (Job) Mail(payload string) {
 	var data MailStruct
+
 	if err := json.Unmarshal([]byte(payload), &data); err != nil {
-		exception.ProcessError(err)
+		redis := database.ConnectRedis(config.Configuration())
+		Job{}.PutOnFailed(payload, redis)
 	}
 
 	fmt.Println("Mail sent!")
