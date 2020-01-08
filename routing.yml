@@ -1,7 +1,8 @@
+#Define single routes
 routes:
   home:
     path: "/"
-    action: "Main" # Bind controller@method instead of single action
+    action: "Main"
     method: "GET"
   users:
     path: "/users"
@@ -11,6 +12,7 @@ routes:
     path: "/login"
     action: "Login"
     method: "POST"
+#Define groups of routes
 groups:
   admin:
     prefix: "/admin"

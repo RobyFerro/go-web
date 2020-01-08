@@ -1,23 +1,41 @@
+## Define main database connection 
+## This section is mandatory to start Go-Web
 database:
   driver: "mysql"
   host: "localhost"
-  port: 3306
-  database: "test"
+  port: 3308
+  database: "go_web"
   user: "user"
   password: "secret"
+## Define Redis connection
+## If is not present you can simple remove this node
 redis:
   host: "localhost"
   port: 6379
   user: ""
   password: ""
+## Define MongoDB connection
+## If is not present you can simple remove this node
 mongodb:
   database: "go_queue"
   host: "localhost"
   port: 27017
   user: ""
   password: ""
+## Define main server configuration
+## This section is mandatory to start Go-Web
 server:
-  name: smartcherry.test
-  port: 8000
+  name: localhost
+  port: 8005
+## Define global app configuration
+## This section is mandatory to start Go-Web
 app:
   key: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+## Define mail configuration
+## This section is mandatory if you'd like to send email with Go-Web
+mail:
+  from: "pirate@goweb.dev"
+  host: "localhost"
+  username: "test"
+  password: "test"
+  port: 25
