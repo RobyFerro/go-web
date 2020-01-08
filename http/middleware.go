@@ -30,7 +30,7 @@ func (Middleware) Logging() http.Handler {
 func (Middleware) RefreshToken() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		err := Container.Invoke(func(a *helper.Auth) {
+		err := container.Invoke(func(a *helper.Auth) {
 			a.RefreshToken()
 		})
 
@@ -46,7 +46,7 @@ func (Middleware) RefreshToken() http.Handler {
 func (Middleware) Auth() http.Handler {
 	var key string
 
-	err := Container.Invoke(func(c config.Conf) {
+	err := container.Invoke(func(c config.Conf) {
 		key = c.App.Key
 	})
 

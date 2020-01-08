@@ -23,14 +23,14 @@ type Action struct {
 // of base controller.
 func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 	action := new(Action)
-	if err := Container.Invoke(func(conf config.Conf, auth *helper.Auth) {
+	if err := container.Invoke(func(conf config.Conf, auth *helper.Auth) {
 		action.Controller.Config = conf
 		action.Controller.Auth = auth
 		action.Controller.Response = w
 		action.Controller.Request = r
 
 		if len(conf.Redis.Host) > 0 {
-			if err := Container.Invoke(func(redis *redis.Client) {
+			if err := container.Invoke(func(redis *redis.Client) {
 				action.Controller.Redis = redis
 			}); err != nil {
 				exception.ProcessError(err)
@@ -38,7 +38,7 @@ func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 		}
 
 		if len(conf.Database.Host) > 0 {
-			if err := Container.Invoke(func(db *gorm.DB) {
+			if err := container.Invoke(func(db *gorm.DB) {
 				action.Controller.DB = db
 			}); err != nil {
 				exception.ProcessError(err)
@@ -46,7 +46,7 @@ func (Action) NewAction(w http.ResponseWriter, r *http.Request) *Action {
 		}
 
 		if len(conf.Mongo.Host) > 0 {
-			if err := Container.Invoke(func(mongo *mongo.Database) {
+			if err := container.Invoke(func(mongo *mongo.Database) {
 				action.Controller.Mongo = mongo
 			}); err != nil {
 				exception.ProcessError(err)

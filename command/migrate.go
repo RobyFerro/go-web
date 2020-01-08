@@ -2,18 +2,15 @@ package command
 
 import (
 	"github.com/jinzhu/gorm"
+	"go.uber.org/dig"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
-	"ikdev/go-web/http"
-	"ikdev/go-web/service"
 	"reflect"
 )
 
 // Run database migrations
-func RunMigration() {
-	container := service.BuildContainer(http.WebRouter())
-
-	err := container.Invoke(func(db *gorm.DB) {
+func RunMigration(sc *dig.Container) {
+	err := sc.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()
 		migrate(models, db)
 	})
@@ -24,10 +21,8 @@ func RunMigration() {
 }
 
 // Run database seeder
-func RunSeeder() {
-	container := service.BuildContainer(http.WebRouter())
-
-	err := container.Invoke(func(db *gorm.DB) {
+func RunSeeder(sc *dig.Container) {
+	err := sc.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()
 		seed(models, db)
 	})
