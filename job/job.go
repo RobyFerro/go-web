@@ -21,6 +21,7 @@ type Job struct {
 	Params     []Param
 }
 
+// Schedule specific job
 func (j *Job) Schedule(queueName string, redis *redis.Client) {
 	jobStr, err := json.Marshal(j)
 	if err != nil {
@@ -31,13 +32,14 @@ func (j *Job) Schedule(queueName string, redis *redis.Client) {
 	redis.RPush(queue, jobStr)
 }
 
+// Execute specific job
 func (j *Job) Execute() {
 	r := reflect.ValueOf(Job{})
 	method := r.MethodByName(j.MethodName)
 
 	var in []reflect.Value
+	// Decode payload byte to Type
 	for _, params := range j.Params {
-		// Decode payload byte to Type
 		strPayload := string(params.Payload)
 
 		switch params.Type {
@@ -49,9 +51,33 @@ func (j *Job) Execute() {
 			data, _ := strconv.Atoi(strPayload)
 			in = append(in, reflect.ValueOf(data))
 			break
+		case "int64":
+			data, _ := strconv.ParseInt(strPayload, 10, 64)
+			in = append(in, reflect.ValueOf(data))
+			break
+		case "bool":
+			data, _ := strconv.ParseBool(strPayload)
+			in = append(in, reflect.ValueOf(data))
+			break
+		case "float32":
+			data, _ := strconv.ParseFloat(strPayload, 32)
+			in = append(in, reflect.ValueOf(data))
+			break
+		case "float64":
+			data, _ := strconv.ParseFloat(strPayload, 64)
+			in = append(in, reflect.ValueOf(data))
+			break
+		case "uint32":
+			data, _ := strconv.ParseUint(strPayload, 10, 32)
+			in = append(in, reflect.ValueOf(data))
+			break
+		case "uint64":
+			data, _ := strconv.ParseUint(strPayload, 10, 64)
+			in = append(in, reflect.ValueOf(data))
+			break
 		}
-		// End decode
 	}
+	// End decode
 
 	method.Call(in)
 }
