@@ -59,13 +59,29 @@ You can use Schedule and Execute method to handle it.
 
 Example of jobs schedule:
 ```
+// Schedule new job
+var parameters []job.Param
+
+parameters = append(parameters, job.Param{
+	Name:    "to",
+	Payload: []byte("info@ikdev.eu"),
+	Type:    "string",
+})
+
+parameters = append(parameters, job.Param{
+	Name:    "message",
+	Payload: []byte("1"),
+	Type:    "int",
+})
+
 j := job.Job{
- 	Name:       "Send email",
- 	MethodName: "Mail",
- 	Params:     []reflect.Value{},
- }
- 
- j.Schedule("default", c.Redis)
+	Name:       "Send email",
+	MethodName: "Mail",
+	Params:     parameters,
+}
+
+j.Schedule("default", c.Redis)
+// End schedule
 ```
 
 ## Service container (Dependency Injection)
