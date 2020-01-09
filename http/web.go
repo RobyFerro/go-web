@@ -92,7 +92,7 @@ func parseMiddleware(mwList []string) []mux.MiddlewareFunc {
 	return midFunc
 }
 
-// Get specific controller interface
+// Get specific controller interface by its directive
 func GetControllerInterface(directive []string, w http.ResponseWriter, r *http.Request) interface{} {
 	var controller interface{}
 	for _, contr := range GetControllers(w, r) {
