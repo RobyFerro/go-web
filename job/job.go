@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v7"
+	"ikdev/go-web/config"
+	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
+	"ikdev/go-web/helper"
 	"reflect"
 )
 
@@ -38,7 +41,14 @@ func (j *Job) Schedule(queueName string, redis *redis.Client) {
 func (j *Job) Execute() {
 	r := reflect.ValueOf(Job{})
 	method := r.MethodByName(j.MethodName)
-	method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
+	result := method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
+	err := result[1].Interface().(error)
+
+	if err != nil {
+		r := database.ConnectRedis(config.Configuration())
+		j.PutOnFailed(j.Params.Payload, r)
+		helper.Log(err.Error())
+	}
 }
 
 // Insert failed job in failed queue

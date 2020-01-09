@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 	"ikdev/go-web/config"
@@ -24,7 +23,6 @@ func (Middleware) Logging(next http.Handler) http.Handler {
 		log.Println(r.RequestURI)
 		// Call the next handler, which can be another middleware in the chain, or the final handler.
 		next.ServeHTTP(w, r)
-		fmt.Println("test")
 	})
 }
 

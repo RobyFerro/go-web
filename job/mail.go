@@ -2,9 +2,7 @@ package job
 
 import (
 	"encoding/json"
-	"fmt"
-	"ikdev/go-web/config"
-	"ikdev/go-web/database"
+	"github.com/pkg/errors"
 )
 
 type MailStruct struct {
@@ -12,13 +10,14 @@ type MailStruct struct {
 	Message string   `json:"message"`
 }
 
-func (Job) Mail(payload string) {
+// Example job
+// Every job must return a tuple (bool, error)
+func (Job) Mail(payload string) (bool, error) {
 	var data MailStruct
 
 	if err := json.Unmarshal([]byte(payload), &data); err != nil {
-		redis := database.ConnectRedis(config.Configuration())
-		Job{}.PutOnFailed(payload, redis)
+		return false, errors.New("Cannot unmarshal payload")
 	}
 
-	fmt.Println("Mail sent!")
+	return true, nil
 }
