@@ -3,6 +3,7 @@ package http
 import (
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
+	"golang.org/x/time/rate"
 	"ikdev/go-web/config"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/helper"
@@ -27,7 +28,7 @@ func (Middleware) Logging(next http.Handler) http.Handler {
 }
 
 // Refresh JWT token
-func (Middleware) RefreshToken() http.Handler {
+func (Middleware) RefreshToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		err := container.Invoke(func(a *helper.Auth) {
@@ -38,12 +39,12 @@ func (Middleware) RefreshToken() http.Handler {
 			exception.ProcessError(err)
 		}
 
-		Middleware{}.Handler.ServeHTTP(w, r)
+		next.ServeHTTP(w, r)
 	})
 }
 
 // Check user authentication
-func (Middleware) Auth() http.Handler {
+func (Middleware) Auth(next http.Handler) http.Handler {
 	var key string
 
 	err := container.Invoke(func(c config.Conf) {
@@ -64,5 +65,19 @@ func (Middleware) Auth() http.Handler {
 		SigningMethod: jwt.SigningMethodHS256,
 	})
 
-	return jwtMiddleware.Handler(Middleware{}.Handler)
+	return jwtMiddleware.Handler(next)
+}
+
+// Set a limit of request allowed in a specific time
+func (Middleware) RateLimiter(next http.Handler) http.Handler {
+	var limiter = rate.NewLimiter(1, 3)
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if limiter.Allow() == false {
+			http.Error(w, http.StatusText(429), http.StatusTooManyRequests)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }

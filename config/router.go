@@ -7,11 +7,11 @@ import (
 )
 
 type Route struct {
-	Path       string `yaml:"path"`
-	Action     string `yaml:"action"`
-	Method     string `yaml:"method"`
-	Middleware string `yaml:"middleware"`
-	Prefix     string `yaml:"prefix"`
+	Path       string   `yaml:"path"`
+	Action     string   `yaml:"action"`
+	Method     string   `yaml:"method"`
+	Middleware []string `yaml:"middleware"`
+	Prefix     string   `yaml:"prefix"`
 }
 
 type Group struct {

@@ -4,7 +4,9 @@ routes:
     path: "/"
     action: "Main"
     method: "GET"
-    #middleware:""
+    middleware:
+      - RateLimiter
+      - Logging
   users:
     path: "/users"
     action: "NewUser"
@@ -14,7 +16,8 @@ routes:
     path: "/login"
     action: "Login"
     method: "POST"
-    middleware: "Logging"
+    middleware:
+      - Logging
 #Define groups of routes
 groups:
   admin:

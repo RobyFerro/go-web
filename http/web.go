@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"ikdev/go-web/config"
 	"net/http"
@@ -24,31 +25,34 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 	for _, route := range routes {
 		r := reflect.ValueOf(Action{})
 		method := r.MethodByName(route.Action)
-		hasMiddleware := route.Middleware != ""
+		hasMiddleware := len(route.Middleware) > 0
 
 		if hasMiddleware {
-			subRouter := router.Path(route.Path).Subrouter()
-			subRouter.HandleFunc("", func(writer http.ResponseWriter, request *http.Request) {
+			subRouter := mux.NewRouter()
+			subRouter.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
 				in := []reflect.Value{reflect.ValueOf(writer), reflect.ValueOf(request)}
 				method.Call(in)
 			}).Methods(route.Method)
 
-			subRouter.Use(func(handler http.Handler) http.Handler {
-				middleware := Middleware{Handler: handler}
-				m := reflect.ValueOf(middleware)
-				method := m.MethodByName(route.Middleware)
-				test := method.Call([]reflect.Value{reflect.ValueOf(handler)})
+			var midFunc []mux.MiddlewareFunc
+			for _, mw := range route.Middleware {
+				m := reflect.ValueOf(Middleware{})
+				method := m.MethodByName(mw)
 
-				return test[0].Interface().(http.Handler)
-			})
+				callable := method.Interface().(func(handler http.Handler) http.Handler)
+				midFunc = append(midFunc, callable)
+			}
+
+			subRouter.Use(midFunc...)
+			router.Handle(route.Path, subRouter)
 		} else {
 			router.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
 				in := []reflect.Value{reflect.ValueOf(writer), reflect.ValueOf(request)}
 				method.Call(in)
 			}).Methods(route.Method)
 		}
-
 	}
+	fmt.Println("Test")
 }
 
 // Parse route groups.
@@ -65,15 +69,15 @@ func handleGroups(groups map[string]config.Group, router *mux.Router) {
 			}).Methods(route.Method)
 		}
 
+		var midFunc []mux.MiddlewareFunc
 		for _, mw := range group.Middleware {
-			subRouter.Use(func(handler http.Handler) http.Handler {
-				middleware := Middleware{Handler: handler}
-				m := reflect.ValueOf(middleware)
-				method := m.MethodByName(mw)
-				test := method.Call([]reflect.Value{reflect.ValueOf(handler)})
+			m := reflect.ValueOf(Middleware{})
+			method := m.MethodByName(mw)
 
-				return test[0].Interface().(http.Handler)
-			})
+			callable := method.Interface().(func(handler http.Handler) http.Handler)
+			midFunc = append(midFunc, callable)
 		}
+
+		subRouter.Use(midFunc...)
 	}
 }
