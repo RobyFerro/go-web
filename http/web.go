@@ -34,16 +34,7 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 				method.Call(in)
 			}).Methods(route.Method)
 
-			var midFunc []mux.MiddlewareFunc
-			for _, mw := range route.Middleware {
-				m := reflect.ValueOf(Middleware{})
-				method := m.MethodByName(mw)
-
-				callable := method.Interface().(func(handler http.Handler) http.Handler)
-				midFunc = append(midFunc, callable)
-			}
-
-			subRouter.Use(midFunc...)
+			subRouter.Use(parseMiddleware(route.Middleware)...)
 			router.Handle(route.Path, subRouter)
 		} else {
 			router.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
@@ -52,7 +43,6 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 			}).Methods(route.Method)
 		}
 	}
-	fmt.Println("Test")
 }
 
 // Parse route groups.
@@ -63,21 +53,39 @@ func handleGroups(groups map[string]config.Group, router *mux.Router) {
 			r := reflect.ValueOf(Action{})
 			method := r.MethodByName(route.Action)
 
-			subRouter.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
-				in := []reflect.Value{reflect.ValueOf(writer), reflect.ValueOf(request)}
-				method.Call(in)
-			}).Methods(route.Method)
+			if len(route.Middleware) > 0 {
+				nestedRouter := mux.NewRouter()
+				fullPath := fmt.Sprintf("%s%s", group.Prefix, route.Path)
+				nestedRouter.HandleFunc(fullPath, func(writer http.ResponseWriter, request *http.Request) {
+					in := []reflect.Value{reflect.ValueOf(writer), reflect.ValueOf(request)}
+					method.Call(in)
+				}).Methods(route.Method)
+
+				nestedRouter.Use(parseMiddleware(route.Middleware)...)
+				subRouter.Handle(route.Path, nestedRouter)
+			} else {
+				subRouter.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
+					in := []reflect.Value{reflect.ValueOf(writer), reflect.ValueOf(request)}
+					method.Call(in)
+				}).Methods(route.Method)
+			}
 		}
 
-		var midFunc []mux.MiddlewareFunc
-		for _, mw := range group.Middleware {
-			m := reflect.ValueOf(Middleware{})
-			method := m.MethodByName(mw)
-
-			callable := method.Interface().(func(handler http.Handler) http.Handler)
-			midFunc = append(midFunc, callable)
-		}
-
-		subRouter.Use(midFunc...)
+		subRouter.Use(parseMiddleware(group.Middleware)...)
 	}
+}
+
+// Parse list of middleware and get an array of []mux.Middleware func
+// Required by Gorilla Mux
+func parseMiddleware(mwList []string) []mux.MiddlewareFunc {
+	var midFunc []mux.MiddlewareFunc
+	for _, mw := range mwList {
+		m := reflect.ValueOf(Middleware{})
+		method := m.MethodByName(mw)
+
+		callable := method.Interface().(func(handler http.Handler) http.Handler)
+		midFunc = append(midFunc, callable)
+	}
+
+	return midFunc
 }

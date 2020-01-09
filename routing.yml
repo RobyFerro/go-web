@@ -27,6 +27,9 @@ groups:
         path: "/test"
         action: "TestUser"
         method: "GET"
+        middleware:
+          - Logging
+          - RateLimiter
     middleware:
       - RefreshToken
       - Auth
