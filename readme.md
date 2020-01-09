@@ -22,10 +22,6 @@ Every route are composed with:
 
 You can regroup a set of routes by insert your route under "group" node
 
-### Actions
-Actions are stored in http package and its used to bind the HTTP router with a controller.
-To create a new actions you've to extend the base Action structure as built-in actions (see "Main" action)
-
 ### Controllers
 Controllers are the main responsible of the business logic.
 You can find all controller into controller directory. Every controller must extends Controller structure.
