@@ -2,19 +2,19 @@
 routes:
   home:
     path: "/"
-    action: "Main"
+    action: "HomeController@Main"
     method: "GET"
     middleware:
       - RateLimiter
       - Logging
   users:
     path: "/users"
-    action: "NewUser"
+    action: "UserController@Insert"
     method: "POST"
     #middleware:""
   login:
     path: "/login"
-    action: "Login"
+    action: "AuthController@Login"
     method: "POST"
     middleware:
       - Logging
@@ -25,7 +25,7 @@ groups:
     routes:
       test:
         path: "/test"
-        action: "TestUser"
+        action: "UserController@Profile"
         method: "GET"
         middleware:
           - Logging

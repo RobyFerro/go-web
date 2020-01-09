@@ -11,7 +11,7 @@ import (
 
 // Main controller structure
 // This structure will be extended by every controllers
-type Controller struct {
+type BaseController struct {
 	DB       *gorm.DB
 	Response http.ResponseWriter
 	Request  *http.Request

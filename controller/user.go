@@ -8,7 +8,7 @@ import (
 )
 
 type UserController struct {
-	Controller
+	BaseController
 }
 
 // This method will be used to insert a new user in main DB (SQL)

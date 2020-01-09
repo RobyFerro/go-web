@@ -1,4 +1,4 @@
-package database
+package http
 
 import "ikdev/go-web/database/model"
 

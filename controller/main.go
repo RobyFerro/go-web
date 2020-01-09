@@ -6,7 +6,7 @@ import (
 )
 
 type HomeController struct {
-	Controller
+	BaseController
 }
 
 // Main method
