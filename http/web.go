@@ -35,12 +35,12 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 			}).Methods(route.Method)
 
 			subRouter.Use(func(handler http.Handler) http.Handler {
-				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					middleware := Middleware{Handler: handler}
-					m := reflect.ValueOf(middleware)
-					method := m.MethodByName(route.Middleware)
-					method.Call([]reflect.Value{})
-				})
+				middleware := Middleware{Handler: handler}
+				m := reflect.ValueOf(middleware)
+				method := m.MethodByName(route.Middleware)
+				test := method.Call([]reflect.Value{reflect.ValueOf(handler)})
+
+				return test[0].Interface().(http.Handler)
 			})
 		} else {
 			router.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
@@ -69,12 +69,12 @@ func handleGroups(groups map[string]config.Group, router *mux.Router) {
 
 		for _, mw := range group.Middleware {
 			subRouter.Use(func(handler http.Handler) http.Handler {
-				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					middleware := Middleware{Handler: handler}
-					m := reflect.ValueOf(middleware)
-					method := m.MethodByName(mw)
-					method.Call([]reflect.Value{})
-				})
+				middleware := Middleware{Handler: handler}
+				m := reflect.ValueOf(middleware)
+				method := m.MethodByName(mw)
+				test := method.Call([]reflect.Value{reflect.ValueOf(handler)})
+
+				return test[0].Interface().(http.Handler)
 			})
 		}
 	}

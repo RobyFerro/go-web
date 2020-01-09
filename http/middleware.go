@@ -18,12 +18,12 @@ type Middleware struct {
 }
 
 // Log every actions printing used route
-func (Middleware) Logging() http.Handler {
+func (Middleware) Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Do stuff here
 		log.Println(r.RequestURI)
 		// Call the next handler, which can be another middleware in the chain, or the final handler.
-		Middleware{}.Handler.ServeHTTP(w, r)
+		next.ServeHTTP(w, r)
 		fmt.Println("test")
 	})
 }
