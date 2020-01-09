@@ -2,24 +2,44 @@ package exception
 
 import (
 	"fmt"
-	"github.com/getsentry/sentry-go"
+	"gopkg.in/yaml.v2"
+	"os"
 )
+
+type ErrorConfiguration struct {
+	Exception struct {
+		Sentry string `yaml:"sentry"`
+	} `yaml:"exception"`
+}
+
+var configuration ErrorConfiguration
 
 // Generic method to handle errors.
 // You can customize this method to implement your error handling.
 // Es.: You can implement "Sentry" or other error tracking system
 func ProcessError(err error) {
-	SentryReport(err)
+	configuration = getSentryIntegrationData()
+
+	if configuration.Exception.Sentry != "" {
+		SentryReport(err)
+	}
+
+	fmt.Println(err.Error())
 }
 
-func SentryReport(report error) {
-	err := sentry.Init(sentry.ClientOptions{
-		Dsn: "https://4b98c76e810948eca928a81fd9e4e6c4@sentry.io/1876468",
-	})
+func getSentryIntegrationData() ErrorConfiguration {
+	var data ErrorConfiguration
+	c, err := os.Open("config.yml")
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	sentry.CaptureException(report)
+	decoder := yaml.NewDecoder(c)
+
+	if err := decoder.Decode(&data); err != nil {
+		fmt.Println(err.Error())
+	}
+
+	return data
 }

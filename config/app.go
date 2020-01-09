@@ -35,9 +35,6 @@ type Conf struct {
 	App struct {
 		Key string `yaml:"key"`
 	} `yaml:"app"`
-	Integration struct {
-		Sentry string `yaml:"sentry"`
-	} `yaml:"integration"`
 }
 
 // Get configuration struct
