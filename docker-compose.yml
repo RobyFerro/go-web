@@ -23,3 +23,8 @@ services:
       - MONGO_INITDB_DATABASE={MONGO_DATABASE}
     ports:
       - "27017:27017"
+  go_web_elastic:
+    container_name: "elastic"
+    image: "elasticsearch:7.5.1"
+    ports:
+      - "9200:9200"
