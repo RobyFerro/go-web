@@ -1,11 +1,9 @@
 package http
 
 import (
-	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"ikdev/go-web/config"
-	"ikdev/go-web/exception"
 	"net/http"
 	"reflect"
 	"strings"
@@ -28,7 +26,6 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 	for _, route := range routes {
 		hasMiddleware := len(route.Middleware) > 0
 		directive := strings.Split(route.Action, "@")
-		exception.ProcessError(errors.New("Test exception"))
 		if hasMiddleware {
 			subRouter := mux.NewRouter()
 			subRouter.HandleFunc(route.Path, func(writer http.ResponseWriter, request *http.Request) {
