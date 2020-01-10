@@ -27,6 +27,7 @@ func ProcessError(err error) {
 	Log(err.Error())
 }
 
+// Obtain exception configuration from global app settings
 func getExceptionConfig() ErrorConfiguration {
 	var data ErrorConfiguration
 	c, err := os.Open("config.yml")
