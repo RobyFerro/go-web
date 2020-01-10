@@ -40,4 +40,4 @@ mail:
   password: "test"
   port: 25
 exception:
-  sentry: "https://4b98c76e810948eca928a81fd9e4e6c4@sentry.io/1876468"
+  sentry: ""
