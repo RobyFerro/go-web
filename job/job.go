@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v7"
+	"github.com/jinzhu/gorm"
 	"ikdev/go-web/config"
 	"ikdev/go-web/database"
+	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 	"reflect"
 )
@@ -23,6 +25,7 @@ type Job struct {
 	Name       string
 	MethodName string
 	Params     Param
+	Queue      string
 }
 
 // Schedule specific job
@@ -44,13 +47,21 @@ func (j *Job) Execute() {
 	err := result[1].Interface().(error)
 
 	if err != nil {
-		r := database.ConnectRedis(config.Configuration())
-		j.PutOnFailed(j.Params.Payload, r)
+		r := database.ConnectDB(config.Configuration())
+		j.PutOnFailed(j.Queue, j.Params.Payload, r, err)
 		exception.Log(err.Error())
 	}
 }
 
-// Insert failed job in failed queue
-func (Job) PutOnFailed(payload string, r *redis.Client) {
-	r.RPush("queue:failed", payload)
+// Insert failed job in failed_job table
+func (Job) PutOnFailed(queue, payload string, db *gorm.DB, err error) {
+	failed := model.FailedJob{
+		Payload:   payload,
+		Queue:     queue,
+		Exception: err.Error(),
+	}
+
+	if err := db.Save(&failed).Error; err != nil {
+		exception.ProcessError(err)
+	}
 }

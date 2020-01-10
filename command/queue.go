@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v7"
+	"github.com/jinzhu/gorm"
 	"go.uber.org/dig"
+	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/job"
 	"time"
@@ -37,4 +39,26 @@ func RunQueue(name string, sc *dig.Container) {
 
 		j.Execute()
 	}
+}
+
+// Retry all failed jobs
+// This method will put every failed job present in SQL db into original Redis queue
+func RetryFailedQueue(container *dig.Container) {
+	var failed []model.FailedJob
+
+	err := container.Invoke(func(db *gorm.DB, r *redis.Client) {
+		if err := db.Find(&failed).Error; err != nil {
+			exception.ProcessError(err)
+		}
+
+		for _, f := range failed {
+			queue := fmt.Sprintf("queue:%s", f.Queue)
+			r.RPush(queue, f.Payload)
+		}
+	})
+
+	if err != nil {
+		exception.ProcessError(err)
+	}
+
 }

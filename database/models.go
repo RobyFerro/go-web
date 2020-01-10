@@ -9,6 +9,7 @@ func GetModels() []interface{} {
 	var models []interface{}
 
 	models = append(models, model.User{})
+	models = append(models, model.FailedJob{})
 
 	return models
 

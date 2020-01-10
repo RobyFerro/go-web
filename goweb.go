@@ -33,6 +33,9 @@ func main() {
 			queueName := os.Args[i+1]
 			command.RunQueue(queueName, container)
 			break
+		case "run:failed":
+			command.RetryFailedQueue(container)
+			break
 		}
 	}
 }
