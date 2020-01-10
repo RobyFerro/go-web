@@ -16,9 +16,7 @@ import (
 // Used to handle migration, seeding and drop operations.
 // Every time you add a new model you should register it in this method
 func GetControllers(res http.ResponseWriter, req *http.Request) []interface{} {
-	var controllers []interface{}
 	var baseController controller.BaseController
-
 	if err := container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth) {
 		baseController = controller.BaseController{
 			DB:       db,
@@ -34,26 +32,16 @@ func GetControllers(res http.ResponseWriter, req *http.Request) []interface{} {
 	// Insert implementation
 	// Es: Redis, Elastic, Mongo connections
 	checkIntegrations(&baseController)
+	return register(baseController)
+}
 
-	// Improve configuration
-	userController := controller.UserController{
-		BaseController: baseController,
+// App controller register
+func register(bc controller.BaseController) []interface{} {
+	return []interface{}{
+		&controller.UserController{BaseController: bc},
+		&controller.AuthController{BaseController: bc},
+		&controller.HomeController{BaseController: bc},
 	}
-
-	authController := controller.AuthController{
-		BaseController: baseController,
-	}
-
-	homeController := controller.HomeController{
-		BaseController: baseController,
-	}
-	// End improve configuration
-
-	controllers = append(controllers, &userController)
-	controllers = append(controllers, &authController)
-	controllers = append(controllers, &homeController)
-
-	return controllers
 }
 
 // Insert implementation
