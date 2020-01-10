@@ -22,6 +22,11 @@ mongodb:
   port: 27017
   user: ""
   password: ""
+## Define Elasticsearch connection
+elasticsearch:
+  hosts:
+    - http://localhost:9200
+    - http://localhost:9201
 ## Define main server configuration
 ## This section is mandatory to start Go-Web
 server:
