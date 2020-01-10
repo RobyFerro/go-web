@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,4 +20,5 @@ type BaseController struct {
 	Auth     *helper.Auth
 	Redis    *redis.Client
 	Mongo    *mongo.Database
+	Elastic  *elasticsearch.Client
 }

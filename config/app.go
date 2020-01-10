@@ -28,6 +28,9 @@ type Conf struct {
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
 	} `yaml:"mongodb"`
+	Elastic struct {
+		Hosts []string `yaml:"hosts"`
+	} `yaml:"elasticsearch"`
 	Server struct {
 		Name string `yaml:"name"`
 		Port int    `yaml:"port"`

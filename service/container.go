@@ -42,6 +42,12 @@ func BuildContainer(router *mux.Router) *dig.Container {
 				exception.ProcessError(err)
 			}
 		}
+
+		if len(conf.Elastic.Hosts) > 0 {
+			if err := container.Provide(database.ConnectElastic); err != nil {
+				exception.ProcessError(err)
+			}
+		}
 	})
 
 	if err != nil {

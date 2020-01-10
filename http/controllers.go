@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -17,19 +18,22 @@ import (
 func GetControllers(res http.ResponseWriter, req *http.Request) []interface{} {
 	var controllers []interface{}
 	var baseController controller.BaseController
-	if err := container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth, r *redis.Client, m *mongo.Database) {
+
+	if err := container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth) {
 		baseController = controller.BaseController{
 			DB:       db,
 			Response: res,
 			Request:  req,
 			Config:   c,
 			Auth:     a,
-			Redis:    r,
-			Mongo:    m,
 		}
 	}); err != nil {
 		exception.ProcessError(err)
 	}
+
+	// Insert implementation
+	// Es: Redis, Elastic, Mongo connections
+	checkIntegrations(&baseController)
 
 	// Improve configuration
 	userController := controller.UserController{
@@ -50,4 +54,32 @@ func GetControllers(res http.ResponseWriter, req *http.Request) []interface{} {
 	controllers = append(controllers, &homeController)
 
 	return controllers
+}
+
+// Insert implementation
+// Es: Redis, Elastic, Mongo connections
+func checkIntegrations(base *controller.BaseController) {
+	if len(appConf.Mongo.Host) > 0 {
+		if err := container.Invoke(func(m *mongo.Database) {
+			base.Mongo = m
+		}); err != nil {
+			exception.ProcessError(err)
+		}
+	}
+
+	if len(appConf.Redis.Host) > 0 {
+		if err := container.Invoke(func(r *redis.Client) {
+			base.Redis = r
+		}); err != nil {
+			exception.ProcessError(err)
+		}
+	}
+
+	if len(appConf.Elastic.Hosts) > 0 {
+		if err := container.Invoke(func(e *elasticsearch.Client) {
+			base.Elastic = e
+		}); err != nil {
+			exception.ProcessError(err)
+		}
+	}
 }
