@@ -7,7 +7,6 @@ import (
 	"ikdev/go-web/config"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
-	"ikdev/go-web/helper"
 	"reflect"
 )
 
@@ -47,7 +46,7 @@ func (j *Job) Execute() {
 	if err != nil {
 		r := database.ConnectRedis(config.Configuration())
 		j.PutOnFailed(j.Params.Payload, r)
-		helper.Log(err.Error())
+		exception.Log(err.Error())
 	}
 }
 

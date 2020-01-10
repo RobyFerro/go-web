@@ -18,16 +18,16 @@ var configuration ErrorConfiguration
 // You can customize this method to implement your error handling.
 // Es.: You can implement "Sentry" or other error tracking system
 func ProcessError(err error) {
-	configuration = getSentryIntegrationData()
+	configuration = getExceptionConfig()
 
 	if configuration.Exception.Sentry != "" {
 		SentryReport(err)
 	}
 
-	fmt.Println(err.Error())
+	Log(err.Error())
 }
 
-func getSentryIntegrationData() ErrorConfiguration {
+func getExceptionConfig() ErrorConfiguration {
 	var data ErrorConfiguration
 	c, err := os.Open("config.yml")
 
