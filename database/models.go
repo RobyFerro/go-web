@@ -6,11 +6,8 @@ import "ikdev/go-web/database/model"
 // Used to handle migration, seeding and drop operations.
 // Every time you add a new model you should register it in this method
 func GetModels() []interface{} {
-	var models []interface{}
-
-	models = append(models, model.User{})
-	models = append(models, model.FailedJob{})
-
-	return models
-
+	return []interface{}{
+		model.User{},
+		model.FailedJob{},
+	}
 }

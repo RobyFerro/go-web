@@ -35,7 +35,9 @@ func GetControllers(res http.ResponseWriter, req *http.Request) []interface{} {
 	return register(baseController)
 }
 
-// App controller register
+// This method will return an array of controllers.
+// Used by Go-Web routing
+// Every time you add a new controller you should register it in this method
 func register(bc controller.BaseController) []interface{} {
 	return []interface{}{
 		&controller.UserController{BaseController: bc},
