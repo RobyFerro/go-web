@@ -15,6 +15,8 @@ type MailStruct struct {
 func (Job) Mail(payload string) (bool, error) {
 	var data MailStruct
 
+	return false, errors.New("test failed handler")
+
 	if err := json.Unmarshal([]byte(payload), &data); err != nil {
 		return false, errors.New("Cannot unmarshal payload")
 	}

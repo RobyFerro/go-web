@@ -44,13 +44,23 @@ func (j *Job) Execute() {
 	r := reflect.ValueOf(Job{})
 	method := r.MethodByName(j.MethodName)
 	result := method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
-	err := result[1].Interface().(error)
 
-	if err != nil {
+	if result[1].Interface() != nil {
+		err := result[1].Interface().(error)
 		r := database.ConnectDB(config.Configuration())
-		j.PutOnFailed(j.Queue, j.Params.Payload, r, err)
+
+		jobStr, errMarshal := json.Marshal(j)
+		if errMarshal != nil {
+			exception.ProcessError(errMarshal)
+		}
+
+		j.PutOnFailed(j.Queue, string(jobStr), r, err)
 		exception.Log(err.Error())
+		fmt.Printf("ERROR on job %s\n", j.Name)
+		return
 	}
+
+	fmt.Printf("Job %s executed\n", j.Name)
 }
 
 // Insert failed job in failed_job table

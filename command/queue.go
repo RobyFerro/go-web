@@ -54,6 +54,8 @@ func RetryFailedQueue(container *dig.Container) {
 		for _, f := range failed {
 			queue := fmt.Sprintf("queue:%s", f.Queue)
 			r.RPush(queue, f.Payload)
+
+			removeFailedJob(&f, db)
 		}
 	})
 
@@ -61,4 +63,11 @@ func RetryFailedQueue(container *dig.Container) {
 		exception.ProcessError(err)
 	}
 
+}
+
+// Remove failed job from SQL failed_job table
+func removeFailedJob(job *model.FailedJob, db *gorm.DB) {
+	if err := db.Unscoped().Delete(&job).Error; err != nil {
+		exception.ProcessError(err)
+	}
 }
