@@ -32,6 +32,9 @@ elasticsearch:
 server:
   name: localhost
   port: 8005
+  ssl:	false
+  sslcert: certs/tls.crt
+  sslkey:  certs/tls.key
 ## Define global app configuration
 ## This section is mandatory to start Go-Web
 app:

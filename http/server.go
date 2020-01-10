@@ -1,10 +1,11 @@
 package http
 
 import (
-	"go.uber.org/dig"
 	"ikdev/go-web/config"
 	"ikdev/go-web/exception"
 	"net/http"
+
+	"go.uber.org/dig"
 )
 
 var container *dig.Container
@@ -17,8 +18,18 @@ func StartServer(sc *dig.Container) {
 		// Declaring global app configuration
 		appConf = conf
 
-		if err := s.ListenAndServe(); err != nil {
-			exception.ProcessError(err)
+		if appConf.Server.Ssl {
+
+			if httpErr := s.ListenAndServeTLS(appConf.Server.SslCert, appConf.Server.SslKey); httpErr != nil {
+				exception.ProcessError(httpErr)
+			}
+
+		} else {
+
+			if httpsErr := s.ListenAndServe(); httpsErr != nil {
+				exception.ProcessError(httpsErr)
+			}
+
 		}
 	})
 

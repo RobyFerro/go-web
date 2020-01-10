@@ -1,9 +1,10 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
 	"ikdev/go-web/exception"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Conf struct {
@@ -32,8 +33,11 @@ type Conf struct {
 		Hosts []string `yaml:"hosts"`
 	} `yaml:"elasticsearch"`
 	Server struct {
-		Name string `yaml:"name"`
-		Port int    `yaml:"port"`
+		Name    string `yaml:"name"`
+		Port    int    `yaml:"port"`
+		Ssl     bool   `yaml:"ssl"`
+		SslCert string `yaml:"sslcert"`
+		SslKey  string `yaml:"sslkey"`
 	} `yaml:"server"`
 	App struct {
 		Key string `yaml:"key"`
