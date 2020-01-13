@@ -26,6 +26,8 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -60,3 +62,5 @@ services:
       - goweb
 networks:
   goweb:
+volumes:
+  mysql:
