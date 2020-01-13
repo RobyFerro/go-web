@@ -1,7 +1,24 @@
 version: "3.3"
 services:
+  # Go-Web main container
   go_web:
-    container_name: "go_web"
+    container_name: go-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ikdev/go-web
+    restart: unless-stopped
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./config.yml:/app/config.yml
+    ports:
+      - "8009:8005"
+    networks:
+      - goweb
+  # MySQL container
+  go_web_mysql:
+    container_name: "go_web_mysql"
     image: "mysql:5.7.28"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
@@ -10,12 +27,18 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3308:3306"
+      - "3306:3306"
+    networks:
+      - goweb
+  # Redis container
   go_web_redis:
     container_name: "redis_queue"
     image: "redis:latest"
     ports:
       - "6379:6379"
+    networks:
+      - goweb
+  # MongoDB container
   go_web_mongo:
     container_name: "mongo"
     image: "mongo"
@@ -23,6 +46,9 @@ services:
       - MONGO_INITDB_DATABASE={MONGO_DATABASE}
     ports:
       - "27017:27017"
+    networks:
+      - goweb
+  # Elasticsearch container
   go_web_elastic:
     container_name: "elastic"
     image: "elasticsearch:7.5.1"
@@ -30,3 +56,7 @@ services:
       - discovery.type=single-node
     ports:
       - "9200:9200"
+    networks:
+      - goweb
+networks:
+  goweb:
