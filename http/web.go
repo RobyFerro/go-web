@@ -28,7 +28,7 @@ func handleSingleRoute(routes map[string]config.Route, router *mux.Router) {
 	wg.Add(len(routes))
 
 	for _, route := range routes {
-		func(r config.Route) {
+		go func(r config.Route) {
 			hasMiddleware := len(r.Middleware) > 0
 			directive := strings.Split(r.Action, "@")
 			if hasMiddleware {
