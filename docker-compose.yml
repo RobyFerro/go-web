@@ -9,6 +9,13 @@ services:
     image: ikdev/go-web
     restart: unless-stopped
     tty: true
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     working_dir: /app
     volumes:
       - goweb:/app/storage
@@ -22,6 +29,13 @@ services:
     container_name: "go_web_mysql"
     image: "mysql:5.7.28"
     restart: unless-stopped
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -40,6 +54,13 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     restart: unless-stopped
     image: "redis:latest"
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     ports:
       - "6379:6379"
     volumes:
@@ -51,6 +72,13 @@ services:
     container_name: "mongo"
     restart: unless-stopped
     image: "mongo"
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     environment:
       - MONGO_INITDB_DATABASE={MONGO_DATABASE}
     ports:
@@ -67,6 +95,13 @@ services:
     container_name: "elastic"
     image: "elasticsearch:7.5.1"
     restart: unless-stopped
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     environment:
       - discovery.type=single-node
     ports:
