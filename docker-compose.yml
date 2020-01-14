@@ -11,6 +11,7 @@ services:
     tty: true
     working_dir: /app
     volumes:
+      - goweb:/app/storage
       - ./config.yml:/app/config.yml
     ports:
       - "8009:8005"
@@ -75,6 +76,8 @@ services:
 networks:
   goweb:
 volumes:
+  goweb:
+    driver: local
   mysql:
     driver: local
   redis-data:
