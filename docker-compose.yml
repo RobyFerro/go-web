@@ -20,6 +20,7 @@ services:
   go_web_mysql:
     container_name: "go_web_mysql"
     image: "mysql:5.7.28"
+    restart: unless-stopped
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -35,25 +36,36 @@ services:
   # Redis container
   go_web_redis:
     container_name: "redis_queue"
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
     image: "redis:latest"
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
     networks:
       - goweb
   # MongoDB container
   go_web_mongo:
     container_name: "mongo"
+    restart: unless-stopped
     image: "mongo"
     environment:
       - MONGO_INITDB_DATABASE={MONGO_DATABASE}
     ports:
       - "27017:27017"
+    volumes:
+      - mongo:/data/db
     networks:
       - goweb
   # Elasticsearch container
+  # This container was build just for development purpose.
+  # If you'd like to use Elastic in production environment
+  # check https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html
   go_web_elastic:
     container_name: "elastic"
     image: "elasticsearch:7.5.1"
+    restart: unless-stopped
     environment:
       - discovery.type=single-node
     ports:
@@ -64,3 +76,8 @@ networks:
   goweb:
 volumes:
   mysql:
+    driver: local
+  redis-data:
+    driver: local
+  mongo:
+    driver: local
