@@ -29,6 +29,9 @@ func main() {
 		case "run:server":
 			command.RunServer(container)
 			break
+		case "run:daemon":
+			command.RunDaemon(container)
+			break
 		case "run:queue":
 			queueName := os.Args[i+1]
 			command.RunQueue(queueName, container)

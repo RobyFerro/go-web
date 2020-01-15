@@ -18,6 +18,10 @@ routes:
     method: "POST"
     middleware:
       - Logging
+  usercheck:
+    path: "/userCheck"
+    action: "UserCheck@Check"
+    method: "GET"
 #Define groups of routes
 groups:
   admin:

@@ -33,11 +33,13 @@ type Conf struct {
 		Hosts []string `yaml:"hosts"`
 	} `yaml:"elasticsearch"`
 	Server struct {
-		Name    string `yaml:"name"`
-		Port    int    `yaml:"port"`
-		Ssl     bool   `yaml:"ssl"`
-		SslCert string `yaml:"sslcert"`
-		SslKey  string `yaml:"sslkey"`
+		Name     string `yaml:"name"`
+		Port     int    `yaml:"port"`
+		Ssl      bool   `yaml:"ssl"`
+		SslCert  string `yaml:"sslcert"`
+		SslKey   string `yaml:"sslkey"`
+		RunUser  string `yaml:"run-user"`
+		RunGroup string `yaml:"run-group"`
 	} `yaml:"server"`
 	App struct {
 		Key string `yaml:"key"`

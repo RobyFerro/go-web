@@ -13,11 +13,13 @@ require (
 	github.com/gorilla/mux v1.7.3
 	github.com/jinzhu/gorm v1.9.11
 	github.com/pkg/errors v0.8.1
+	github.com/sevlyar/go-daemon v0.1.5
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.2.0
 	go.uber.org/dig v1.8.0
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
+	golang.org/x/sys v0.0.0-20191010194322-b09406accb47
 	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 	gopkg.in/yaml.v2 v2.2.7
