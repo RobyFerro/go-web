@@ -43,7 +43,6 @@ func register(bc controller.BaseController) []interface{} {
 		&controller.UserController{BaseController: bc},
 		&controller.AuthController{BaseController: bc},
 		&controller.HomeController{BaseController: bc},
-		&controller.UserCheck{BaseController: bc},
 	}
 }
 

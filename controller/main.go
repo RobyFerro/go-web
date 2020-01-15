@@ -2,8 +2,10 @@ package controller
 
 import (
 	"fmt"
-	"ikdev/go-web/exception"
 	"net/http"
+	"os"
+	"os/user"
+	"strconv"
 )
 
 type HomeController struct {
@@ -13,7 +15,13 @@ type HomeController struct {
 // Main method
 func (c *HomeController) Main() {
 	c.Response.WriteHeader(http.StatusOK)
-	if _, err := fmt.Fprintf(c.Response, "Welcome to smartcherry.io!"); err != nil {
-		exception.ProcessError(err)
-	}
+
+	uid := os.Getuid()
+	gid := os.Getgid()
+
+	uidString, _ := user.LookupId(strconv.Itoa(uid))
+	gidString, _ := user.LookupGroupId(strconv.Itoa(gid))
+	outString := fmt.Sprintf("You are running as user \"%s\" (%d) with group \"%s\" (%d)", uidString.Name, uid, gidString.Name, gid)
+
+	_, _ = c.Response.Write([]byte(outString))
 }
