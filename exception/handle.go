@@ -24,6 +24,7 @@ func ProcessError(err error) {
 		SentryReport(err)
 	}
 
+	fmt.Println(err.Error())
 	Log(err.Error())
 }
 

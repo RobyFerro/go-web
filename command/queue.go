@@ -9,6 +9,8 @@ import (
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/job"
+	"runtime"
+	"sync"
 	"time"
 )
 
@@ -16,6 +18,7 @@ import (
 func RunQueue(name string, sc *dig.Container) {
 	var rc *redis.Client
 	queue := fmt.Sprintf("queue:%s", name)
+	cpus := runtime.NumCPU()
 
 	err := sc.Invoke(func(r *redis.Client) {
 		rc = r
@@ -25,9 +28,26 @@ func RunQueue(name string, sc *dig.Container) {
 		exception.ProcessError(err)
 	}
 
+	var wg sync.WaitGroup
+	wg.Add(cpus)
+	for i := 0; i < cpus; i++ {
+		go worker(queue, rc, &wg)
+	}
+
+	wg.Wait()
+}
+
+// Execute worker
+// This method will schedule one worker for each CPU
+func worker(queue string, rc *redis.Client, wg *sync.WaitGroup) {
 	for true {
-		tasks, _ := rc.BLPop(5*time.Second, queue).Result()
 		var j job.Job
+		tasks, err := rc.BLPop(5*time.Second, queue).Result()
+
+		if err != nil && err.Error() != "redis: nil" {
+			exception.ProcessError(err)
+			break
+		}
 
 		if len(tasks) != 2 {
 			continue
@@ -39,6 +59,8 @@ func RunQueue(name string, sc *dig.Container) {
 
 		j.Execute()
 	}
+
+	wg.Done()
 }
 
 // Retry all failed jobs

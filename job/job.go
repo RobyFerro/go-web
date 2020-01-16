@@ -45,6 +45,8 @@ func (j *Job) Execute() {
 	method := r.MethodByName(j.MethodName)
 	result := method.Call([]reflect.Value{reflect.ValueOf(j.Params.Payload)})
 
+	// Put job on failed table
+	// Beware of "too many connections.
 	if result[1].Interface() != nil {
 		err := result[1].Interface().(error)
 		r := database.ConnectDB(config.Configuration())
