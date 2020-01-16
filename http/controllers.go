@@ -49,6 +49,8 @@ func register(bc controller.BaseController) []interface{} {
 // Insert implementation
 // Es: Redis, Elastic, Mongo connections
 func checkIntegrations(base *controller.BaseController) {
+
+	// If is configured MongoDB will be implemented into service container
 	if len(appConf.Mongo.Host) > 0 {
 		if err := container.Invoke(func(m *mongo.Database) {
 			base.Mongo = m
@@ -57,6 +59,7 @@ func checkIntegrations(base *controller.BaseController) {
 		}
 	}
 
+	// If is configured Redis will be implemented into service container
 	if len(appConf.Redis.Host) > 0 {
 		if err := container.Invoke(func(r *redis.Client) {
 			base.Redis = r
@@ -65,6 +68,7 @@ func checkIntegrations(base *controller.BaseController) {
 		}
 	}
 
+	// If is configured ElasticSearch will be implemented into service container
 	if len(appConf.Elastic.Hosts) > 0 {
 		if err := container.Invoke(func(e *elasticsearch.Client) {
 			base.Elastic = e
