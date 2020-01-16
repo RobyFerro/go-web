@@ -1,10 +1,9 @@
 package config
 
 import (
+	"gopkg.in/yaml.v2"
 	"ikdev/go-web/exception"
 	"os"
-
-	"gopkg.in/yaml.v2"
 )
 
 type Conf struct {
@@ -56,7 +55,8 @@ func Configuration() Conf {
 
 // Parse configuration .yml file in struct
 func getConf(conf *Conf) {
-	c, err := os.Open("config.yml")
+	confFile := GetFilePath("config.yml")
+	c, err := os.Open(confFile)
 
 	if err != nil {
 		exception.ProcessError(err)

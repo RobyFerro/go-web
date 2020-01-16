@@ -35,7 +35,8 @@ func ConfigurationWeb() Router {
 
 // Parse routing.yml file in struct
 func getConfWeb(conf *Router) {
-	c, err := os.Open("routing.yml")
+	routePath := GetFilePath("routing.yml")
+	c, err := os.Open(routePath)
 
 	if err != nil {
 		exception.ProcessError(err)
