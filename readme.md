@@ -4,54 +4,172 @@ The project are currently in work in progress. Feel free to contribute!
 
 ## Configuration
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
+If you need to add some extra configuration you've to update "Conf" structure in "configuration" package.
 
-**WARNING**
-To ensure that your authentication/authorization flow is completely secure you've to change "app.key" variables.
+1. Database
+In this section you've to set your database connection
 
-## Getting started
-To run webserver `./goweb run:server` 
+2. Redis 
+Set Redis connection. Mandatory for async jobs.
 
-### Routing
+3. MongoDB
+Set MongoDB connection.
+
+4. Elastic Search
+Set ElasticSearch connections
+
+5. Server
+This section handle the main HTTP server configuration.
+
+6. App
+Actually this section is used only to handle JWT key but you can use it to handle main app configuration.
+
+7. Mail (WIP)
+Used to handle SMTP connection.
+
+8. Exception
+Here you can find all exception implementation.
+
+## Basic CLI commands
+Go-Web is bundled with a numbers of helpful commands:
+
+* `./goweb run:server` Run the HTTP server
+* `./goweb run:daemon` Run the HTTP server as a daemon
+* `./goweb migrate` Run the database migration
+* `./goweb seed` Run the database seeder
+* `./goweb run:queue <queue_name>` Run the selected job queue
+* `./goweb run:failed` Retry all failed jobs
+
+You can implement your custom commands by adding your code into "command" package and register it into ./goweb.go switch statement.
+
+## Routing
 Routes in Go-Web are handled by routing.yml file in root directory. This is an abstraction of [Gorilla Mux](https://github.com/gorilla/mux).
 Every route are composed with:
 
 * Path: URI of this route
-* Action: Business logic (simple binder to your controller)
+* Action: Is the coords of your business logic. The syntax is "ControllerName@MethodName".
 * Method: HTTP method (GET, POST, PUT, DELETE, PATCH)
 * Middleware: Middleware for this route
 
-You can regroup a set of routes by insert your route under "group" node
+You can regroup a set of routes by insert your route under "group" node.
 
 ### Controllers
-Controllers are the main responsible of the business logic.
-You can find all controller into controller directory. Every controller must extends Controller structure.
+Controllers are the main responsible of the business logic.You can find all controller into "controller" package. 
+Every controller must extends BaseController structure (which provides access to the service container) ad it must be registered in "register" method present into "http" package.
+
+```
+// This method will return an array of controllers.
+// Used by Go-Web routing
+// Every time you add a new controller you should register it in this method
+func register(bc controller.BaseController) []interface{} {
+	return []interface{}{
+		&controller.UserController{BaseController: bc},
+		&controller.AuthController{BaseController: bc},
+		&controller.HomeController{BaseController: bc},
+        // Here is where you've to register your custom controller
+	}
+}
+```
+
+### Structure of BaseController
+The following structure is how BaseController is build.
+
+````
+type BaseController struct {
+	DB       *gorm.DB               // Provide access to MySql instance
+	Response http.ResponseWriter    // HTTP response
+	Request  *http.Request          // HTTP request
+	Config   config.Conf            // Go-Web configuration
+	Auth     *helper.Auth           // Authentication/Authorization method
+	Redis    *redis.Client          // Provide access to Redis instance
+	Mongo    *mongo.Database        // Provide access to MongoDB instance
+	Elastic  *elasticsearch.Client  // Provide access to ElasticSearch instance
+}
+````
+
+Extending the BaseController every controller can access to all resources by a simple call. Es:
+
+````
+//Used to check authenticated user
+func (c *UserController) Profile() {
+	c.Auth.GetUser(c.Request)
+
+	_, _ = c.Response.Write([]byte("Authorization ok"))
+}
+````
+
+As you can see we've got access to Auth methods simply calling "c.Auth".
 
 ### Authentication
 Go-Web is dispatched with a built-in JWT Auth method. 
-This integration checks credentials passed with an HTTP POST request with the contents of users table located in SQL database (see next chapter).
+To get a new token you must follow this flow:
+
+1. Execute user login by sending credentials to "/login" route with POST method. 
+2. If previous request has succeeded a new JWT Token will be return [[1]](https://jwt.io/introduction/).
+3. Include the given token in the future requests header. Es: Authentication: Bearer <your JWT token>
+
+This authentication requires that you've used the basic database boilerplate bundled with "Go-Web" (see next section).
 
 ## Database
-To customize your database connection you've to edit config.yml file in project root directory. This integration is an abstraction of [Gorm](https://gorm.io/)
+First of all you've to set database connection inside "config.yml" file (at the time only MySql is supported).
+This integration is an abstraction of [Gorm](https://gorm.io/).
+
+Database instance is available by default inside your controller (by implementing a service container).
 
 ### Models
-Models are stored in database/model directory and registered into database/models.go file.
-This registration is mandatory to use Migration/Seed/Drop method by goweb CLI tool.
+Models are stored in "model" package and registered into "database/models.go" file.
+If you need to add a new model this bust be registered into "GetModels" method (database package). 
 
-### Migrations
-Every model should have a Migration method. This method it's just a wrapper of GORM auto migrate tool.
-To run migration `./goweb migrate`
+````
+// This method will return an array of models.
+// Used to handle migration, seeding and drop operations.
+// Every time you add a new model you should register it in this method
+func GetModels() []interface{} {
+	return []interface{}{
+		model.User{},
+		model.FailedJob{},
+		// Here is where you've to register your custom models
+	}
+}
+````
 
-### Seeding
-To create a seeder you've to create a Seed method inside your model. This method should insert something into the handled table.
-(see the built-in models).
-To run seeder `./goweb seed`
+Every model must extends "gorm.Model" and implements "Migrate, Drop and Seed" method.
 
-## Schedule async jobs
-Jobs in Go-Web are handled by a simple Redis List. 
-To register a new Job you must extend Job structure in job directory. 
+#### Migration
+By implementing "Migrate" method you're able to create the database table referred to your model.
+Have a look to [GORM Documentation](http://gorm.io/docs/models.html)
+
+#### Seeding
+By implementing "Seed" method you'te able to seed your table with a "fake" data.
+Go-Web uses [gofakeit](https://github.com/brianvoe/gofakeit) as faker library.
+
+See the below example:
+````
+// Execute model seeding
+func (User) Seed(db *gorm.DB) {
+	for i := 0; i < 10; i++ {
+		password := gofakeit.Password(true, true, true, true, false, 32)
+		encryptedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), 14)
+
+		user := User{
+			Name:     gofakeit.FirstName(),
+			Surname:  gofakeit.LastName(),
+			Username: gofakeit.Username(),
+			Password: string(encryptedPassword),
+		}
+
+		if err := db.Create(&user).Error; err != nil {
+			exception.ProcessError(err)
+		}
+	}
+}
+````
+
+## Async jobs
+Jobs in Go-Web are handled by a simple Redis List. To register a new Job you must extend Job structure in job directory. 
 You can use Schedule and Execute method to handle it. 
 
-**WARNING** To run schedule jobs you must start queue 
+**WARNING** To run schedule jobs you must start queue (see CLI commands) 
 
 Example of jobs schedule:
 ```
@@ -85,17 +203,9 @@ j.Schedule("default", c.Redis)
 Go-Web implement [Uber dig](https://github.com/uber-go/dig) library. This allow to use service container and dependency injection everything.
 Service container is declared into service/container.go. Feel free to add your custom dependency.
 
-## Other service
-Go-Web is dispatched with:
-* MongoDB
-* Redis
-
-
-
-
-
-
-
+## Error handling
+Every error in Go-Web should be handled by "ProcessError" in "exception" package and stored in "storage/log/error.log" file. 
+If you've implemented Sentry URI in "config.yml" all error will be sent to your Sentry account.
 
 
 

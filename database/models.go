@@ -9,5 +9,6 @@ func GetModels() []interface{} {
 	return []interface{}{
 		model.User{},
 		model.FailedJob{},
+		// Here is where you've to register your custom models
 	}
 }

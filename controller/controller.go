@@ -13,12 +13,12 @@ import (
 // Main controller structure
 // This structure will be extended by every controllers
 type BaseController struct {
-	DB       *gorm.DB
-	Response http.ResponseWriter
-	Request  *http.Request
-	Config   config.Conf
-	Auth     *helper.Auth
-	Redis    *redis.Client
-	Mongo    *mongo.Database
-	Elastic  *elasticsearch.Client
+	DB       *gorm.DB              // Provide access to MySql instance
+	Response http.ResponseWriter   // HTTP response
+	Request  *http.Request         // HTTP request
+	Config   config.Conf           // Go-Web configuration
+	Auth     *helper.Auth          // Authentication/Authorization method
+	Redis    *redis.Client         // Provide access to Redis instance
+	Mongo    *mongo.Database       // Provide access to MongoDB instance
+	Elastic  *elasticsearch.Client // Provide access to ElasticSearch instance
 }
