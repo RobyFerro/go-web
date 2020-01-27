@@ -6,28 +6,28 @@ The project are currently in work in progress. Feel free to contribute!
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
 If you need to add some extra configuration you've to update "Conf" structure in "configuration" package.
 
-######1. Database
+###### 1. Database
 In this section you've to set your database connection
 
-######2. Redis 
+###### 2. Redis 
 Set Redis connection. Mandatory for async jobs.
 
-######3. MongoDB
+###### 3. MongoDB
 Set MongoDB connection.
 
-######4. Elastic Search
+###### 4. Elastic Search
 Set ElasticSearch connections
 
-######5. Server
+###### 5. Server
 This section handle the main HTTP server configuration.
 
-######6. App
+###### 6. App
 Actually this section is used only to handle JWT key but you can use it to handle main app configuration.
 
-######7. Mail (WIP)
+###### 7. Mail (WIP)
 Used to handle SMTP connection.
 
-######8. Exception
+###### 8. Exception
 Here you can find all exception implementation.
 
 ## Basic CLI commands
