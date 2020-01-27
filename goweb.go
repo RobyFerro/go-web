@@ -23,6 +23,9 @@ func main() {
 		case "migrate":
 			command.RunMigration(container)
 			break
+		case "migrate:new":
+			command.Migrate()
+			break
 		case "seed":
 			command.RunSeeder(container)
 			break
