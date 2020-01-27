@@ -207,6 +207,9 @@ Service container is declared into service/container.go. Feel free to add your c
 Every error in Go-Web should be handled by "ProcessError" in "exception" package and stored in "storage/log/error.log" file. 
 If you've implemented Sentry URI in "config.yml" all error will be sent to your Sentry account.
 
+## Docker integration
+A Docker file and docker-compose.yml are already provided in Go-Web. Feel free to edit docker-compose.yml to customize your services. 
+To simplify docker configuration the "env.example" file contains basic service configuration. Copy and edit "env.example" content to a new ".env" file
 
 
 
