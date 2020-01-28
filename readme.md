@@ -33,14 +33,14 @@ Here you can find all exception implementation.
 ## Basic CLI commands
 Go-Web is bundled with a numbers of helpful commands:
 
-* `./goweb run:server` Run the HTTP server
-* `./goweb run:daemon` Run the HTTP server as a daemon
-* `./goweb make:migration <migration_name>` Create migrations .sql files
-* `./goweb migrate:up` Run the database migration
-* `./goweb migrate:rollback <steps>` Run the database migration
+* `./goweb server:run` Run the HTTP server
+* `./goweb server:daemon` Run the HTTP server as a daemon
+* `./goweb migration:create <migration_name>` Create migrations .sql files
+* `./goweb migration:up` Run the database migration
+* `./goweb migratuin:rollback <steps>` Run the database migration
 * `./goweb seed` Run the database seeder
-* `./goweb run:queue <queue_name>` Run the selected job queue
-* `./goweb run:failed` Retry all failed jobs
+* `./goweb queue:run <queue_name>` Run the selected job queue
+* `./goweb queue:failed` Retry all failed jobs
 
 You can implement your custom commands by adding your code into "command" package and register it into ./goweb.go switch statement.
 
@@ -138,7 +138,7 @@ func GetModels() []interface{} {
 Every model must extends "gorm.Model" and implements "Migrate, Drop and Seed" method.
 
 #### Migration
-Migration are now handled by simple .sql file. You can create new migration by `./goweb make:migration <migration_name>`.
+Migration are now handled by simple .sql file. You can create new migration by `./goweb migration:create <migration_name>`.
 This command will generate two kind of file: ".up.sql" and ".down.sql."
 
 * The ".up.sql" file will be used to migrate.
