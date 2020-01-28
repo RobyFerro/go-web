@@ -6,5 +6,6 @@ CREATE TABLE users(
     username VARCHAR(255),
     password VARCHAR(255),
     created_at TIMESTAMP,
-    updated_at TIMESTAMP NULL
+    updated_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL
 )

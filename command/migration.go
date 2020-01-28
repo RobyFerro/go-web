@@ -54,7 +54,7 @@ func RollbackMigration(step int) {
 
 	for i := 0; i < step; i++ {
 		var migrations []Migration
-		if err := db.Find(&migrations).Order("created_at", true).Where("batch = ?", batch).Error; err != nil {
+		if err := db.Order("created_at", true).Where("batch LIKE ?", batch).Find(&migrations).Error; err != nil {
 			exception.ProcessError(err)
 		}
 
