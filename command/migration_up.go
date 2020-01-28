@@ -24,7 +24,7 @@ type Migration struct {
 	Batch int    `gorm:"type:int(11)"`
 }
 
-func (c *MigrationUp) Run(sc *dig.Container) {
+func (c *MigrationUp) Run(sc *dig.Container, args string) {
 
 	var db *gorm.DB
 	if err := sc.Invoke(func(client *gorm.DB) {

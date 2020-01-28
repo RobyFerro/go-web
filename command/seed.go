@@ -12,7 +12,7 @@ type Seeder struct {
 	Signature string
 }
 
-func (c *Seeder) Run(sc *dig.Container) {
+func (c *Seeder) Run(sc *dig.Container, args string) {
 	err := sc.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()
 		seed(models, db)

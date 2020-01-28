@@ -14,7 +14,7 @@ type QueueFailed struct {
 }
 
 // Run jobs in Redis queue
-func (c *QueueFailed) Run(sc *dig.Container) {
+func (c *QueueFailed) Run(sc *dig.Container, args string) {
 	var failed []model.FailedJob
 
 	err := sc.Invoke(func(db *gorm.DB, r *redis.Client) {

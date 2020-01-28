@@ -14,7 +14,7 @@ type ServerDaemon struct {
 }
 
 // Run Go-Web as a daemon
-func (c *ServerDaemon) Run(sc *dig.Container) {
+func (c *ServerDaemon) Run(sc *dig.Container, args string) {
 	err := sc.Invoke(func(conf config.Conf) {
 
 		// Simple way to check is a string contains only digits

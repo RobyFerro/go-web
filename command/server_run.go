@@ -10,6 +10,6 @@ type ServerRun struct {
 }
 
 // Start Go-Web server
-func (c *ServerRun) Run(sc *dig.Container) {
+func (c *ServerRun) Run(sc *dig.Container, args string) {
 	http.StartServer(sc)
 }

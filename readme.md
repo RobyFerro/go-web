@@ -214,8 +214,19 @@ If you've implemented Sentry URI in "config.yml" all error will be sent to your 
 
 ## Docker integration
 A Docker file and docker-compose.yml are already provided in Go-Web. Feel free to edit docker-compose.yml to customize your services. 
-To simplify docker configuration the "env.example" file contains basic service configuration. Copy and edit "env.example" content to a new ".env" file
+To simplify docker configuration the "env.example" file contains basic service configuration. Copy and edit "env.example" content to a new ".env" file.
 
+## Custom commands
+You can create custom command by creating new structure inside "command" package.
+Every struct must have a "Signature string" property and a "Run" method. 
+This method must have the following signature: 
 
+````
+func (c *ServerDaemon) Run(sc *dig.Container, args string) {
+    // Your logic
+}
+````
 
+Thanks to "sc" parameter you have complete access to your service container and with "args" to the argument passed in your command.
+Last but not least you've to register the new created command in "GetCommands" method (kernel.go).
 
