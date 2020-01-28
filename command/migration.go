@@ -69,6 +69,7 @@ func RollbackMigration(step int) {
 func rollbackMigrations(migrations []Migration, db *gorm.DB) {
 	for _, m := range migrations {
 		rollbackFile := strings.ReplaceAll(m.Name, ".up.sql", ".down.sql")
+		fmt.Printf("\nRolling back '%s' migration...\n", rollbackFile)
 
 		if payload, err := ioutil.ReadFile(rollbackFile); err != nil {
 			exception.ProcessError(err)
@@ -79,6 +80,8 @@ func rollbackMigrations(migrations []Migration, db *gorm.DB) {
 		if err := db.Unscoped().Delete(&m).Error; err != nil {
 			exception.ProcessError(err)
 		}
+
+		fmt.Printf("Success! %s has been rolled back!", rollbackFile)
 	}
 }
 
@@ -93,13 +96,20 @@ func CreateMigration(name string) {
 	filenameUp := fmt.Sprintf("%s/%d_%s.up.sql", path, date, name)
 	filenameDown := fmt.Sprintf("%s/%d_%s.down.sql", path, date, name)
 
+	fmt.Printf("\nCreating new '%s'...\n", filenameUp)
+
 	if err := ioutil.WriteFile(filenameUp, []byte("/* MIGRATION UP */"), 0755); err != nil {
 		exception.ProcessError(err)
 	}
 
+	fmt.Printf("Created new up migration: %s\n", filenameUp)
+	fmt.Printf("Creating new '%s'...\n", filenameDown)
+
 	if err := ioutil.WriteFile(filenameDown, []byte("/* MIGRATION DOWN */"), 0755); err != nil {
 		exception.ProcessError(err)
 	}
+
+	fmt.Printf("Created new down migration: %s\n", filenameDown)
 }
 
 // Run database migrations
@@ -167,10 +177,12 @@ func setMigrationAsDone(db *gorm.DB, hash string, name string, batch int) {
 	}
 
 	db.Create(&m)
+	fmt.Printf("Success! Migration %s has been executed", name)
 }
 
 // Execute migration
 func executeMigration(db *gorm.DB, migration string, hash string, batch int) {
+	fmt.Printf("\nMigrating '%s'\n", migration)
 	if payload, err := ioutil.ReadFile(migration); err != nil {
 		exception.ProcessError(err)
 	} else {
