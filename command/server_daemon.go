@@ -9,22 +9,15 @@ import (
 	"log"
 )
 
-var appConf config.Conf
-
-// Start Go-Web server
-func RunServer(container *dig.Container) {
-	http.StartServer(container)
-
+type ServerDaemon struct {
+	Signature string
 }
 
-func RunDaemon(container *dig.Container) {
-
-	err := container.Invoke(func(conf config.Conf) {
-
-		appConf = conf
+// Run Go-Web as a daemon
+func (c *ServerDaemon) Run(sc *dig.Container) {
+	err := sc.Invoke(func(conf config.Conf) {
 
 		// Simple way to check is a string contains only digits
-
 		cntxt := &daemon.Context{
 			PidFileName: "storage/log/go-web.pid",
 			PidFilePerm: 0754,
@@ -43,14 +36,15 @@ func RunDaemon(container *dig.Container) {
 			return
 		}
 
-		defer cntxt.Release()
+		defer func() {
+			_ = cntxt.Release()
+		}()
 
-		http.StartServer(container)
+		http.StartServer(sc)
 
 	})
 
 	if err != nil {
 		exception.ProcessError(err)
 	}
-
 }
