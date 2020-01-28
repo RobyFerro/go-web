@@ -5,10 +5,12 @@ import (
 	"ikdev/go-web/http"
 	"ikdev/go-web/service"
 	"os"
+	"strconv"
 )
 
 // Main Go-Web entry point.
 // Service container will be passed as parameter for every method
+// Todo: Improve this method with reflection
 func main() {
 	arguments := os.Args
 	router := http.WebRouter()
@@ -20,8 +22,8 @@ func main() {
 		}
 
 		switch os.Args[i] {
-		case "migrate":
-			command.RunMigration(container)
+		case "migrate:up":
+			command.Migrate()
 			break
 		case "seed":
 			command.RunSeeder(container)
@@ -38,6 +40,14 @@ func main() {
 			break
 		case "run:failed":
 			command.RetryFailedQueue(container)
+			break
+		case "make:migration":
+			queueName := os.Args[i+1]
+			command.CreateMigration(queueName)
+			break
+		case "migrate:rollback":
+			steps, _ := strconv.Atoi(os.Args[i+1])
+			command.RollbackMigration(steps)
 			break
 		}
 	}

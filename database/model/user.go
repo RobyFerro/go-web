@@ -16,11 +16,13 @@ type User struct {
 }
 
 // Execute model migration
+// Deprecated: this method has been replaced by global .sql migration system
 func (User) Migrate(db *gorm.DB) {
 	db.AutoMigrate(&User{})
 }
 
 // Execute model drop
+// Deprecated: this method has been replaced by global .sql migration system
 func (User) Drop(db *gorm.DB) {
 	if err := db.DropTableIfExists(&User{}).Error; err != nil {
 		exception.ProcessError(err)

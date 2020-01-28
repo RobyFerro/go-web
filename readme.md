@@ -35,7 +35,9 @@ Go-Web is bundled with a numbers of helpful commands:
 
 * `./goweb run:server` Run the HTTP server
 * `./goweb run:daemon` Run the HTTP server as a daemon
-* `./goweb migrate` Run the database migration
+* `./goweb make:migration <migration_name>` Create migrations .sql files
+* `./goweb migrate:up` Run the database migration
+* `./goweb migrate:rollback <steps>` Run the database migration
 * `./goweb seed` Run the database seeder
 * `./goweb run:queue <queue_name>` Run the selected job queue
 * `./goweb run:failed` Retry all failed jobs
@@ -136,8 +138,11 @@ func GetModels() []interface{} {
 Every model must extends "gorm.Model" and implements "Migrate, Drop and Seed" method.
 
 #### Migration
-By implementing "Migrate" method you're able to create the database table referred to your model.
-Have a look to [GORM Documentation](http://gorm.io/docs/models.html)
+Migration are now handled by simple .sql file. You can create new migration by `./goweb make:migration <migration_name>`.
+This command will generate two kind of file: ".up.sql" and ".down.sql."
+
+* The ".up.sql" file will be used to migrate.
+* The ".down.sql" file will be used to rollback.
 
 #### Seeding
 By implementing "Seed" method you'te able to seed your table with a "fake" data.
