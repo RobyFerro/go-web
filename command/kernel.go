@@ -13,6 +13,8 @@ func GetCommands() map[string]interface{} {
 		"seed":               &Seeder{Signature: "seed"},
 		"server:daemon":      &ServerDaemon{Signature: "server:daemon"},
 		"server:run":         &ServerRun{Signature: "server:run"},
+		"controller:create":  &ControllerCreate{Signature: "controller:create"},
+		"model:create":       &ModelCreate{Signature: "model:create"},
 		// Here is where you've to register your custom command
 	}
 }

@@ -42,6 +42,8 @@ Go-Web is bundled with a numbers of helpful commands:
 * `./goweb migration:create <migration_name>` Create migrations .sql files
 * `./goweb migration:up` Run the database migration
 * `./goweb migration:rollback <steps>` Run the database migration
+* `./goweb controller:craete <name>` Create new controller
+* `./goweb model:craete <name>` Create new model
 * `./goweb seed` Run the database seeder
 * `./goweb queue:run <queue_name>` Run the selected job queue
 * `./goweb queue:failed` Retry all failed jobs
@@ -62,6 +64,8 @@ You can regroup a set of routes by insert your route under "group" node.
 ### Controllers
 Controllers are the main responsible of the business logic.You can find all controller into "controller" package. 
 Every controller must extends BaseController structure (which provides access to the service container) ad it must be registered in "register" method present into "http" package.
+You can also use `./goweb controller:create <name>` to create a new controller. This tool allows just to create a new controller. 
+The registration part still remains.
 
 ```
 // This method will return an array of controllers.
@@ -124,7 +128,8 @@ Database instance is available by default inside your controller (by implementin
 
 ### Models
 Models are stored in "model" package and registered into "database/models.go" file.
-If you need to add a new model this bust be registered into "GetModels" method (database package). 
+To create a new model you've just to use `./goweb model:create <name>` command.
+The newly created model must be registered into "GetModels" method (database package). 
 
 ````
 // This method will return an array of models.
