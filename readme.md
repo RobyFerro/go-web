@@ -1,4 +1,6 @@
-![Go-Web](logo.png)
+<p align="center">
+<img src="logo.png" alt="Go-Web">
+</p>
 # Go-Web
 A simple lightweight web framework written in Go for Golang lovers!.
 The project are currently in work in progress. Feel free to contribute!
