@@ -42,8 +42,8 @@ Go-Web is bundled with a numbers of helpful commands:
 * `./goweb migration:create <migration_name>` Create migrations .sql files
 * `./goweb migration:up` Run the database migration
 * `./goweb migration:rollback <steps>` Run the database migration
-* `./goweb controller:craete <name>` Create new controller
-* `./goweb model:craete <name>` Create new model
+* `./goweb controller:create <name>` Create new controller
+* `./goweb model:create <name>` Create new model
 * `./goweb seed` Run the database seeder
 * `./goweb queue:run <queue_name>` Run the selected job queue
 * `./goweb queue:failed` Retry all failed jobs
