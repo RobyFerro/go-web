@@ -2,7 +2,11 @@ package job
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/pkg/errors"
+	"ikdev/go-web/config"
+	"ikdev/go-web/exception"
+	"net/smtp"
 )
 
 type MailStruct struct {
@@ -10,15 +14,19 @@ type MailStruct struct {
 	Message string   `json:"message"`
 }
 
-// Example job
-// Every job must return a tuple (bool, error)
+// Execute send mail
 func (Job) Mail(payload string) (bool, error) {
 	var data MailStruct
+	conf := config.Configuration()
 
-	return false, errors.New("test failed handler")
-
+	auth := smtp.PlainAuth("", conf.Mail.Host, conf.Mail.Password, conf.Mail.Host)
 	if err := json.Unmarshal([]byte(payload), &data); err != nil {
 		return false, errors.New("Cannot unmarshal payload")
+	}
+
+	server := fmt.Sprintf("%s:%d", conf.Mail.Host, conf.Mail.Port)
+	if err := smtp.SendMail(server, auth, conf.Mail.From, data.To, []byte(data.Message)); err != nil {
+		exception.ProcessError(err)
 	}
 
 	return true, nil
