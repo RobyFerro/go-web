@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"ikdev/go-web/command"
 	"ikdev/go-web/http"
 	"ikdev/go-web/service"
@@ -18,6 +19,12 @@ func main() {
 	// New command handler
 	commands := command.GetCommands()
 	cmd := commands[os.Args[1]]
+
+	if cmd == nil {
+		fmt.Println("Command not found!")
+		os.Exit(1)
+	}
+
 	v := reflect.ValueOf(cmd).MethodByName("Run")
 
 	if len(os.Args) == 3 {
