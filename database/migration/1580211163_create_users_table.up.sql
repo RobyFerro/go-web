@@ -1,6 +1,6 @@
 /* MIGRATION UP */
 CREATE TABLE users(
-    id bigint PRIMARY KEY ,
+    id bigint unsigned auto_increment PRIMARY KEY ,
     name VARCHAR(255),
     surname VARCHAR(255),
     username VARCHAR(255),
