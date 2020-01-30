@@ -30,7 +30,7 @@ func (c *ShowRoute) Run(sc *dig.Container, args string) {
 	showGroupRoutes(routes.Groups, &data)
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"METHOD", "ACTION", "PATH", "PREFIX", "MIDDLEWARE"})
+	table.SetHeader([]string{"METHOD", "ACTION", "PREFIX", "PATH", "MIDDLEWARE", "DESCRIPTION"})
 
 	for _, v := range data {
 		table.Append(v)
@@ -42,7 +42,14 @@ func (c *ShowRoute) Run(sc *dig.Container, args string) {
 // Show single routes
 func showSingleRoute(routes map[string]config.Route, data *[][]string) {
 	for _, r := range routes {
-		*data = append(*data, []string{r.Method, r.Action, r.Path, r.Prefix, strings.ToLower(strings.Join(r.Middleware, ", "))})
+		*data = append(*data, []string{
+			r.Method,
+			r.Action,
+			r.Prefix,
+			r.Path,
+			strings.ToLower(strings.Join(r.Middleware, ", ")),
+			r.Description,
+		})
 	}
 }
 
@@ -53,7 +60,14 @@ func showGroupRoutes(routes map[string]config.Group, data *[][]string) {
 		middleware = append(middleware, g.Middleware...)
 		for _, gr := range g.Routes {
 			middleware = append(middleware, gr.Middleware...)
-			*data = append(*data, []string{gr.Method, gr.Action, gr.Path, g.Prefix, strings.ToLower(strings.Join(middleware, ", "))})
+			*data = append(*data, []string{
+				gr.Method,
+				gr.Action,
+				g.Prefix,
+				gr.Path,
+				strings.ToLower(strings.Join(middleware, ", ")),
+				gr.Description,
+			})
 		}
 	}
 }

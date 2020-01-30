@@ -60,6 +60,7 @@ Every route are composed with:
 * Path: URI of this route
 * Action: Is the coords of your business logic. The syntax is "ControllerName@MethodName".
 * Method: HTTP method (GET, POST, PUT, DELETE, PATCH)
+* Description: Describe route action
 * Middleware: Middleware for this route
 
 You can regroup a set of routes by insert your route under "group" node.
