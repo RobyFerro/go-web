@@ -1,5 +1,6 @@
 .idea
 .env
+goweb
 config.yml
 http-client.env.json
 .vscode
