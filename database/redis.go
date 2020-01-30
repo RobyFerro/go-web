@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 	"github.com/go-redis/redis/v7"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 )
 

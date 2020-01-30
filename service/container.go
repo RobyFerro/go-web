@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/gorilla/mux"
 	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
 )

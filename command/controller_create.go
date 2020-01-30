@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"strings"

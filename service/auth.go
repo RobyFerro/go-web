@@ -1,7 +1,7 @@
 package service
 
 import (
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/helper"
 )
 

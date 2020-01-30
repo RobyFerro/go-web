@@ -3,7 +3,7 @@ package http
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"net/http"
 	"reflect"
 	"strings"

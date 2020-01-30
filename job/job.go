@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/database"
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"

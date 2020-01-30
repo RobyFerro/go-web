@@ -11,7 +11,7 @@ var (
 )
 
 func GetFilePath(path string) string {
-	return filepath.Join(filepath.Join(bPath, "../"), path)
+	return filepath.Join(filepath.Join(bPath, "../../"), path)
 }
 
 func GetBasePath() string {

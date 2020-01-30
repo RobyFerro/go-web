@@ -3,7 +3,7 @@ package command
 import (
 	daemon "github.com/sevlyar/go-daemon"
 	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/http"
 	"log"

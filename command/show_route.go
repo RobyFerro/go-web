@@ -3,7 +3,7 @@ package command
 import (
 	"github.com/olekukonko/tablewriter"
 	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"os"
 	"strings"
 )
