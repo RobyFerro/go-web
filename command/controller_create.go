@@ -30,4 +30,5 @@ func (c *ControllerCreate) Run(sc *dig.Container, args string) {
 	}
 
 	fmt.Printf("\nSUCCESS: Your %sController has been created at %s", cName, cFile)
+	fmt.Printf("Do not forget to register it!")
 }

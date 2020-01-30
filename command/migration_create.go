@@ -44,4 +44,5 @@ func (c *MigrationCreate) Run(sc *dig.Container, args string) {
 	}
 
 	fmt.Printf("Created new down migration: %s\n", filenameDown)
+	fmt.Printf("Do not forget to register it!")
 }

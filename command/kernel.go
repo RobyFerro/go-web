@@ -1,10 +1,5 @@
 package command
 
-type Command struct {
-	Signature   string
-	Description string
-}
-
 // This method will return an array of commands.
 // Used by Go-Web routing
 // Every time you add a new controller you should register it in this method
@@ -22,6 +17,7 @@ func GetCommands() map[string]interface{} {
 		"model:create":       &ModelCreate{},
 		"show:route":         &ShowRoute{},
 		"show:commands":      &ShowCommands{},
+		"cmd:create":         &CmdCreate{},
 		// Here is where you've to register your custom command
 	}
 }

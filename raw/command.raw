@@ -1,0 +1,23 @@
+package command
+
+import (
+	"go.uber.org/dig"
+)
+
+type @@TMP@@ struct {
+	Signature   string
+	Description string
+}
+
+// Command registration
+func (c *@@TMP@@) Register() {
+	c.Signature = "command:signature"               // Change command signature
+	c.Description = "Execute database seeder"       // Change command description
+}
+
+// Command business logic
+func (c *@@TMP@@) Run(sc *dig.Container, args string) {
+	// Insert command logic
+}
+
+

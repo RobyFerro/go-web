@@ -49,6 +49,7 @@ Go-Web is bundled with a numbers of helpful commands:
 * `./goweb queue:failed` Retry all failed jobs
 * `./goweb show:commands` Show all Go-Web commands
 * `./goweb show:route` Show all Go-Web routes
+* `./goweb cmd:create` Create new CLI command
 
 You can implement your custom commands by adding your code into "command" package and register it into ./goweb.go switch statement.
 
@@ -229,10 +230,16 @@ To simplify docker configuration the "env.example" file contains basic service c
 
 ## Custom commands
 You can create custom command by creating new structure inside "command" package.
-Every struct must have a "Signature string" property and a "Run" method. 
+Every struct must have a "Signature string" and "Description" property.
+Also the "Run" and "Register" method must be present 
 This method must have the following signature: 
 
 ````
+func (c *ServerDaemon) Register() {
+	c.Signature = "server:daemon"
+	c.Description = "Run Go-Web server as a daemon"
+}
+
 func (c *ServerDaemon) Run(sc *dig.Container, args string) {
     // Your logic
 }
@@ -259,4 +266,6 @@ func GetCommands() map[string]interface{} {
 	}
 }
 ````
+
+You can create a new command by `./goweb cmd:create <name>`
 
