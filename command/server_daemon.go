@@ -2,7 +2,7 @@ package command
 
 import (
 	daemon "github.com/sevlyar/go-daemon"
-	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/http"
@@ -20,8 +20,8 @@ func (c *ServerDaemon) Register() {
 }
 
 // Run Go-Web as a daemon
-func (c *ServerDaemon) Run(sc *dig.Container, args string) {
-	err := sc.Invoke(func(conf config.Conf) {
+func (c *ServerDaemon) Run(kernel *app.HttpKernel, args string) {
+	err := kernel.Container.Invoke(func(conf config.Conf) {
 
 		// Simple way to check is a string contains only digits
 		cntxt := &daemon.Context{
@@ -46,7 +46,7 @@ func (c *ServerDaemon) Run(sc *dig.Container, args string) {
 			_ = cntxt.Release()
 		}()
 
-		http.StartServer(sc)
+		http.StartServer(kernel.Container)
 
 	})
 

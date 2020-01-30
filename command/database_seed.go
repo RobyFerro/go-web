@@ -3,8 +3,7 @@ package command
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"go.uber.org/dig"
-	"ikdev/go-web/database"
+	"ikdev/go-web/app"
 	"ikdev/go-web/exception"
 	"reflect"
 	"strings"
@@ -21,9 +20,9 @@ func (c *Seeder) Register() {
 }
 
 // Todo: Improve this method to run a single seeder
-func (c *Seeder) Run(sc *dig.Container, args string) {
-	err := sc.Invoke(func(db *gorm.DB) {
-		models := database.GetModels()
+func (c *Seeder) Run(kernel *app.HttpKernel, args string) {
+	err := kernel.Container.Invoke(func(db *gorm.DB) {
+		models := kernel.Models
 
 		if len(args) > 0 {
 			extractSpecificModel(args, &models)

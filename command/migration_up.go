@@ -4,7 +4,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"io/ioutil"
@@ -30,10 +30,10 @@ type Migration struct {
 	Batch int    `gorm:"type:int(11)"`
 }
 
-func (c *MigrationUp) Run(sc *dig.Container, args string) {
+func (c *MigrationUp) Run(kernel *app.HttpKernel, args string) {
 
 	var db *gorm.DB
-	if err := sc.Invoke(func(client *gorm.DB) {
+	if err := kernel.Container.Invoke(func(client *gorm.DB) {
 		db = client
 	}); err != nil {
 		exception.ProcessError(err)

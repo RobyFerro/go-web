@@ -3,8 +3,9 @@ package command
 // This method will return an array of commands.
 // Used by Go-Web routing
 // Every time you add a new controller you should register it in this method
-func GetCommands() map[string]interface{} {
-	return map[string]interface{}{
+
+var (
+	Register = map[string]interface{}{
 		"migration:up":       &MigrationUp{},
 		"migration:create":   &MigrationCreate{},
 		"migration:rollback": &MigrateRollback{},
@@ -18,6 +19,5 @@ func GetCommands() map[string]interface{} {
 		"show:route":         &ShowRoute{},
 		"show:commands":      &ShowCommands{},
 		"cmd:create":         &CmdCreate{},
-		// Here is where you've to register your custom command
 	}
-}
+)

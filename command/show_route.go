@@ -2,7 +2,7 @@ package command
 
 import (
 	"github.com/olekukonko/tablewriter"
-	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"os"
 	"strings"
@@ -19,7 +19,7 @@ func (c *ShowRoute) Register() {
 }
 
 // Show the current go-web routes
-func (c *ShowRoute) Run(sc *dig.Container, args string) {
+func (c *ShowRoute) Run(sc *app.HttpKernel, args string) {
 	var data [][]string
 	routes := config.ConfigurationWeb()
 

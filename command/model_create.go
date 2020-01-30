@@ -2,7 +2,7 @@ package command
 
 import (
 	"fmt"
-	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"io/ioutil"
@@ -19,7 +19,7 @@ func (c *ModelCreate) Register() {
 	c.Description = "Create new database model"
 }
 
-func (c *ModelCreate) Run(sc *dig.Container, args string) {
+func (c *ModelCreate) Run(kernel *app.HttpKernel, args string) {
 	cName := strings.Title(strings.ToLower(args))
 	input, _ := ioutil.ReadFile(config.GetFilePath("raw/model.raw"))
 

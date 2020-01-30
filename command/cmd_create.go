@@ -2,7 +2,7 @@ package command
 
 import (
 	"fmt"
-	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"io/ioutil"
@@ -19,7 +19,7 @@ func (c *CmdCreate) Register() {
 	c.Description = "Create new command"
 }
 
-func (c *CmdCreate) Run(sc *dig.Container, args string) {
+func (c *CmdCreate) Run(kernel *app.HttpKernel, args string) {
 
 	splitName := strings.Split(strings.ToLower(args), "_")
 	for i, name := range splitName {
