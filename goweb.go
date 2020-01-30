@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/common-nighthawk/go-figure"
 	"ikdev/go-web/command"
 	"ikdev/go-web/http"
 	"ikdev/go-web/service"
@@ -15,6 +16,8 @@ func main() {
 	var args string
 	router := http.WebRouter()
 	container := service.BuildContainer(router)
+
+	printHeader()
 
 	// New command handler
 	commands := command.GetCommands()
@@ -32,4 +35,12 @@ func main() {
 	}
 
 	v.Call([]reflect.Value{reflect.ValueOf(container), reflect.ValueOf(args)})
+}
+
+// Print Go-Web CLI header
+func printHeader() {
+	myFigure := figure.NewFigure("Go-Web", "graffiti", true)
+	myFigure.Print()
+
+	fmt.Println("Go-Web CLI tool - Author: roberto.ferro@ikdev.eu")
 }
