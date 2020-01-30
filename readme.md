@@ -47,6 +47,8 @@ Go-Web is bundled with a numbers of helpful commands:
 * `./goweb database:seed` Run the database seeder
 * `./goweb queue:run <queue_name>` Run the selected job queue
 * `./goweb queue:failed` Retry all failed jobs
+* `./goweb show:commands` Show all Go-Web commands
+* `./goweb show:route` Show all Go-Web routes
 
 You can implement your custom commands by adding your code into "command" package and register it into ./goweb.go switch statement.
 
