@@ -14,6 +14,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.8.0
 	github.com/gorilla/mux v1.7.3
 	github.com/jinzhu/gorm v1.9.11
+	github.com/olekukonko/tablewriter v0.0.4
 	github.com/pkg/errors v0.8.1
 	github.com/sevlyar/go-daemon v0.1.5
 	go.mongodb.org/mongo-driver v1.2.0

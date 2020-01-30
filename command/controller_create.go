@@ -10,7 +10,13 @@ import (
 )
 
 type ControllerCreate struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *ControllerCreate) Register() {
+	c.Signature = "controller:create <name>"
+	c.Description = "Create new controller"
 }
 
 func (c *ControllerCreate) Run(sc *dig.Container, args string) {

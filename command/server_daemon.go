@@ -10,7 +10,13 @@ import (
 )
 
 type ServerDaemon struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *ServerDaemon) Register() {
+	c.Signature = "server:daemon"
+	c.Description = "Run Go-Web server as a daemon"
 }
 
 // Run Go-Web as a daemon

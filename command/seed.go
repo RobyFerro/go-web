@@ -9,9 +9,16 @@ import (
 )
 
 type Seeder struct {
-	Signature string
+	Signature   string
+	Description string
 }
 
+func (c *Seeder) Register() {
+	c.Signature = "database:seed"
+	c.Description = "Execute database seeder"
+}
+
+// Todo: Improve this method to run a single seeder
 func (c *Seeder) Run(sc *dig.Container, args string) {
 	err := sc.Invoke(func(db *gorm.DB) {
 		models := database.GetModels()

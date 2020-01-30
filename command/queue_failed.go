@@ -10,7 +10,13 @@ import (
 )
 
 type QueueFailed struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *QueueFailed) Register() {
+	c.Signature = "queue:failed"
+	c.Description = "Move failed jobs into a queue"
 }
 
 // Run jobs in Redis queue

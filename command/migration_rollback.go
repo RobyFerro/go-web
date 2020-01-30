@@ -11,7 +11,13 @@ import (
 )
 
 type MigrateRollback struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *MigrateRollback) Register() {
+	c.Signature = "migration:rollback <steps>"
+	c.Description = "Rollback migrations"
 }
 
 func (c *MigrateRollback) Run(sc *dig.Container, args string) {

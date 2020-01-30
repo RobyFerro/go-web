@@ -14,7 +14,13 @@ import (
 )
 
 type MigrationUp struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *MigrationUp) Register() {
+	c.Signature = "migration:up"
+	c.Description = "Execute migration"
 }
 
 type Migration struct {

@@ -10,7 +10,13 @@ import (
 )
 
 type MigrationCreate struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *MigrationCreate) Register() {
+	c.Signature = "migration:create <name>"
+	c.Description = "Create new migration files"
 }
 
 // Create migration files

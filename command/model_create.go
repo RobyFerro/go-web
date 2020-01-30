@@ -10,7 +10,13 @@ import (
 )
 
 type ModelCreate struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *ModelCreate) Register() {
+	c.Signature = "model:create <name>"
+	c.Description = "Create new database model"
 }
 
 func (c *ModelCreate) Run(sc *dig.Container, args string) {

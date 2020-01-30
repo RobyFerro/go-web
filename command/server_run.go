@@ -6,7 +6,13 @@ import (
 )
 
 type ServerRun struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *ServerRun) Register() {
+	c.Signature = "server:run"
+	c.Description = "Run Go-Web server"
 }
 
 // Start Go-Web server

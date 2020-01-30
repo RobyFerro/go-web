@@ -13,7 +13,13 @@ import (
 )
 
 type QueueRun struct {
-	Signature string
+	Signature   string
+	Description string
+}
+
+func (c *QueueRun) Register() {
+	c.Signature = "queue:run <name>"
+	c.Description = "Run a specific queue"
 }
 
 func (c *QueueRun) Run(sc *dig.Container, args string) {
