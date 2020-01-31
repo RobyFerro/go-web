@@ -1,7 +1,8 @@
 package http
 
 import (
-	"ikdev/go-web/config"
+	"go.uber.org/dig"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"log"
 	"net"
@@ -9,8 +10,6 @@ import (
 	"os/user"
 	"strconv"
 	"strings"
-
-	"go.uber.org/dig"
 )
 
 import (
@@ -19,12 +18,12 @@ import (
 	"C"
 )
 
-var container *dig.Container
+var ServiceContainer *dig.Container
 var appConf config.Conf
 
 // Start HTTP server
 func StartServer(sc *dig.Container) {
-	container = sc
+	ServiceContainer = sc
 
 	err := sc.Invoke(func(s *http.Server, conf config.Conf) {
 		// Declaring global app configuration

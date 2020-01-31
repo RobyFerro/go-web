@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"time"
@@ -23,9 +23,9 @@ func (c *MigrationCreate) Register() {
 // This method will create two file UP and DOWN.
 // UP: Work only for migrate operation
 // DOWN: Work only for rollback operation
-func (c *MigrationCreate) Run(sc *dig.Container, args string) {
+func (c *MigrationCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	date := time.Now().Unix()
-	path := config.GetFilePath("database/migration")
+	path := config.GetDynamicPath("database/migration")
 
 	filenameUp := fmt.Sprintf("%s/%d_%s.up.sql", path, date, args)
 	filenameDown := fmt.Sprintf("%s/%d_%s.down.sql", path, date, args)

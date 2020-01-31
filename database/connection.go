@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 )
 

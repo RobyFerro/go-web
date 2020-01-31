@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
-	"go.uber.org/dig"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
 )
@@ -20,10 +20,10 @@ func (c *QueueFailed) Register() {
 }
 
 // Run jobs in Redis queue
-func (c *QueueFailed) Run(sc *dig.Container, args string) {
+func (c *QueueFailed) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	var failed []model.FailedJob
 
-	err := sc.Invoke(func(db *gorm.DB, r *redis.Client) {
+	err := kernel.Container.Invoke(func(db *gorm.DB, r *redis.Client) {
 		if err := db.Find(&failed).Error; err != nil {
 			exception.ProcessError(err)
 		}

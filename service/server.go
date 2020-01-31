@@ -3,7 +3,7 @@ package service
 import (
 	"crypto/tls"
 	"fmt"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"net/http"
 
 	"github.com/gorilla/mux"

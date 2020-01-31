@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"os"
@@ -30,10 +30,10 @@ type Migration struct {
 	Batch int    `gorm:"type:int(11)"`
 }
 
-func (c *MigrationUp) Run(sc *dig.Container, args string) {
+func (c *MigrationUp) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 
 	var db *gorm.DB
-	if err := sc.Invoke(func(client *gorm.DB) {
+	if err := kernel.Container.Invoke(func(client *gorm.DB) {
 		db = client
 	}); err != nil {
 		exception.ProcessError(err)
@@ -61,7 +61,7 @@ func (c *MigrationUp) Run(sc *dig.Container, args string) {
 // Retrieve all migration files located in database/migration folder.
 func getAllMigrations() []string {
 	var migrations []string
-	err := filepath.Walk(config.GetFilePath("database/migration"), func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(config.GetDynamicPath("database/migration"), func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}

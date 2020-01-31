@@ -1,7 +1,7 @@
 package command
 
 import (
-	"go.uber.org/dig"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/http"
 )
 
@@ -16,6 +16,6 @@ func (c *ServerRun) Register() {
 }
 
 // Start Go-Web server
-func (c *ServerRun) Run(sc *dig.Container, args string) {
-	http.StartServer(sc)
+func (c *ServerRun) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+	http.StartServer(kernel.Container)
 }

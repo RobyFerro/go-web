@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v7"
-	"go.uber.org/dig"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/job"
 	"runtime"
@@ -22,12 +22,12 @@ func (c *QueueRun) Register() {
 	c.Description = "Run a specific queue"
 }
 
-func (c *QueueRun) Run(sc *dig.Container, args string) {
+func (c *QueueRun) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	var rc *redis.Client
 	queue := fmt.Sprintf("queue:%s", args)
 	cpus := runtime.NumCPU()
 
-	err := sc.Invoke(func(r *redis.Client) {
+	err := kernel.Container.Invoke(func(r *redis.Client) {
 		rc = r
 	})
 

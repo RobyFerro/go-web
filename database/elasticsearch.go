@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/elastic/go-elasticsearch/v8"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 )
 

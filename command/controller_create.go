@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"go.uber.org/dig"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"strings"
@@ -19,12 +19,12 @@ func (c *ControllerCreate) Register() {
 	c.Description = "Create new controller"
 }
 
-func (c *ControllerCreate) Run(sc *dig.Container, args string) {
+func (c *ControllerCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	cName := strings.Title(strings.ToLower(args))
-	input, _ := ioutil.ReadFile(config.GetFilePath("raw/controller.raw"))
+	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/controller.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetFilePath("controller"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("controller"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
 		exception.ProcessError(err)
 	}

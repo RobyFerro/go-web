@@ -4,7 +4,7 @@ import (
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/time/rate"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/helper"
 	"log"
@@ -31,7 +31,7 @@ func (Middleware) Logging(next http.Handler) http.Handler {
 func (Middleware) RefreshToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		err := container.Invoke(func(a *helper.Auth) {
+		err := ServiceContainer.Invoke(func(a *helper.Auth) {
 			a.RefreshToken()
 		})
 
@@ -47,7 +47,7 @@ func (Middleware) RefreshToken(next http.Handler) http.Handler {
 func (Middleware) Auth(next http.Handler) http.Handler {
 	var key string
 
-	err := container.Invoke(func(c config.Conf) {
+	err := ServiceContainer.Invoke(func(c config.Conf) {
 		key = c.App.Key
 	})
 

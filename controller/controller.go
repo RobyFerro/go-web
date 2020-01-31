@@ -5,7 +5,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"go.mongodb.org/mongo-driver/mongo"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/helper"
 	"net/http"
 )

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"ikdev/go-web/config"
+	"ikdev/go-web/app/config"
 	"ikdev/go-web/exception"
 	"time"
 )
