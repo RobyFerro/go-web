@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"strings"
@@ -19,7 +19,7 @@ func (c *CmdCreate) Register() {
 	c.Description = "Create new command"
 }
 
-func (c *CmdCreate) Run(kernel *app.HttpKernel, args string) {
+func (c *CmdCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 
 	splitName := strings.Split(strings.ToLower(args), "_")
 	for i, name := range splitName {

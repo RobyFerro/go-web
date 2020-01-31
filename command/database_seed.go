@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/app"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"reflect"
 	"strings"
@@ -20,7 +20,7 @@ func (c *Seeder) Register() {
 }
 
 // Todo: Improve this method to run a single seeder
-func (c *Seeder) Run(kernel *app.HttpKernel, args string) {
+func (c *Seeder) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	err := kernel.Container.Invoke(func(db *gorm.DB) {
 		models := kernel.Models
 

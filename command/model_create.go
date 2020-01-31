@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"strings"
@@ -19,7 +19,7 @@ func (c *ModelCreate) Register() {
 	c.Description = "Create new database model"
 }
 
-func (c *ModelCreate) Run(kernel *app.HttpKernel, args string) {
+func (c *ModelCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	cName := strings.Title(strings.ToLower(args))
 	input, _ := ioutil.ReadFile(config.GetFilePath("raw/model.raw"))
 

@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/app"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"strconv"
@@ -20,7 +20,7 @@ func (c *MigrateRollback) Register() {
 	c.Description = "Rollback migrations"
 }
 
-func (c *MigrateRollback) Run(kernel *app.HttpKernel, args string) {
+func (c *MigrateRollback) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	var db *gorm.DB
 	if err := kernel.Container.Invoke(func(client *gorm.DB) {
 		db = client

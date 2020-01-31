@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"io/ioutil"
 	"time"
@@ -23,7 +23,7 @@ func (c *MigrationCreate) Register() {
 // This method will create two file UP and DOWN.
 // UP: Work only for migrate operation
 // DOWN: Work only for rollback operation
-func (c *MigrationCreate) Run(kernel *app.HttpKernel, args string) {
+func (c *MigrationCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	date := time.Now().Unix()
 	path := config.GetFilePath("database/migration")
 

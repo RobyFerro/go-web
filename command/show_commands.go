@@ -2,7 +2,7 @@ package command
 
 import (
 	"github.com/olekukonko/tablewriter"
-	"ikdev/go-web/app"
+	"ikdev/go-web/app/kernel"
 	"os"
 	"reflect"
 )
@@ -17,10 +17,10 @@ func (c *ShowCommands) Register() {
 	c.Description = "Show Go-Web commands list"
 }
 
-func (c *ShowCommands) Run(sc *app.HttpKernel, args string) {
+func (c *ShowCommands) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	var data [][]string
 
-	for _, c := range Register {
+	for _, c := range console {
 		m := reflect.ValueOf(c).MethodByName("Register")
 		m.Call([]reflect.Value{})
 

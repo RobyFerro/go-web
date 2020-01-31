@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/common-nighthawk/go-figure"
-	"ikdev/go-web/app"
-	"ikdev/go-web/command"
+	"ikdev/go-web/app/console"
+	"ikdev/go-web/app/kernel"
 	"os"
 	"reflect"
 )
@@ -13,13 +13,15 @@ import (
 // Service container will be passed as parameter for every method
 func main() {
 	var args string
-	httpKernel := app.StartKernel()
+
+	// Start HTTP Kernel
+	httpKernel := kernel.StartKernel()
 
 	// Print Go-Web container
 	printHeader()
 
 	// New command handler
-	cmd := command.Register[os.Args[1]]
+	cmd := console.Commands[os.Args[1]]
 	if cmd == nil {
 		fmt.Println("Command not found!")
 		os.Exit(1)
@@ -31,7 +33,7 @@ func main() {
 		args = os.Args[2]
 	}
 
-	v.Call([]reflect.Value{reflect.ValueOf(httpKernel), reflect.ValueOf(args)})
+	v.Call([]reflect.Value{reflect.ValueOf(httpKernel), reflect.ValueOf(args), reflect.ValueOf(console.Commands)})
 }
 
 // Print Go-Web CLI header

@@ -2,8 +2,8 @@ package command
 
 import (
 	daemon "github.com/sevlyar/go-daemon"
-	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/kernel"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/http"
 	"log"
@@ -20,7 +20,7 @@ func (c *ServerDaemon) Register() {
 }
 
 // Run Go-Web as a daemon
-func (c *ServerDaemon) Run(kernel *app.HttpKernel, args string) {
+func (c *ServerDaemon) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	err := kernel.Container.Invoke(func(conf config.Conf) {
 
 		// Simple way to check is a string contains only digits
