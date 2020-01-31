@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/gorilla/mux"
 	"go.uber.org/dig"
+	"ikdev/go-web/app"
 	"ikdev/go-web/app/config"
 	"ikdev/go-web/database"
 	"ikdev/go-web/exception"
@@ -26,7 +27,7 @@ func BuildContainer(router *mux.Router) *dig.Container {
 
 	err = container.Invoke(func(conf config.Conf) {
 		if len(conf.Redis.Host) > 0 {
-			if err := container.Provide(database.ConnectRedis); err != nil {
+			if err := container.Provide(app.ConnectRedis); err != nil {
 				exception.ProcessError(err)
 			}
 		}
@@ -38,13 +39,13 @@ func BuildContainer(router *mux.Router) *dig.Container {
 		}
 
 		if len(conf.Mongo.Host) > 0 {
-			if err := container.Provide(database.ConnectMongo); err != nil {
+			if err := container.Provide(app.ConnectMongo); err != nil {
 				exception.ProcessError(err)
 			}
 		}
 
 		if len(conf.Elastic.Hosts) > 0 {
-			if err := container.Provide(database.ConnectElastic); err != nil {
+			if err := container.Provide(app.ConnectElastic); err != nil {
 				exception.ProcessError(err)
 			}
 		}

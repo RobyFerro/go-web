@@ -4,8 +4,8 @@ import (
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 	"ikdev/go-web/app/config"
+	http2 "ikdev/go-web/app/http"
 	"ikdev/go-web/exception"
-	http2 "ikdev/go-web/http"
 	"log"
 	"net/http"
 )

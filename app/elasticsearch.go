@@ -1,4 +1,4 @@
-package database
+package app
 
 import (
 	"github.com/elastic/go-elasticsearch/v8"

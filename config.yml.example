@@ -33,8 +33,8 @@ server:
   name: localhost
   port: 8005
   ssl:	false
-  sslcert: app/certs/tls.crt
-  sslkey:  app/certs/tls.key
+  sslcert: certs/tls.crt
+  sslkey:  certs/tls.key
 ## The following parameters are considered just in case
 ## you are running go-web with run:daemon
 ## (pay attention: you need to be root and, of course, your

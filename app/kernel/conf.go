@@ -3,8 +3,8 @@ package kernel
 import (
 	"go.uber.org/dig"
 	"ikdev/go-web/app/config"
+	"ikdev/go-web/app/http/controller"
 	"ikdev/go-web/database/model"
-	"ikdev/go-web/http/controller"
 )
 
 var (
