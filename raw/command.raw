@@ -16,7 +16,7 @@ func (c *@@TMP@@) Register() {
 }
 
 // Command business logic
-func (c *@@TMP@@) Run(sc *dig.Container, args string, console map[string]interface{}) {
+func (c *@@TMP@@) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	// Insert command logic
 }
 

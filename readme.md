@@ -50,6 +50,7 @@ Go-Web is bundled with a numbers of helpful commands:
 * `./goweb show:commands` Show all Go-Web commands
 * `./goweb show:route` Show all Go-Web routes
 * `./goweb cmd:create` Create new CLI command
+* `./goweb middleware:create` Create middleware
 
 You can implement your custom commands by adding your code into "command" package and register it into ./goweb.go switch statement.
 
@@ -64,6 +65,10 @@ Every route are composed with:
 * Middleware: Middleware for this route
 
 You can regroup a set of routes by insert your route under "group" node.
+
+### Middleware 
+Middleware provide a convenient mechanism for filtering HTTP requests entering your application. 
+All middleware are stored into "middleware" package and can be created by `./goweb middleware:create <name>`
 
 ### Controllers
 Controllers are the main responsible of the business logic.You can find all controller into "controller" package. 
