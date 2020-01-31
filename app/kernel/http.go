@@ -10,10 +10,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/dig"
 	"ikdev/go-web/app/config"
-	"ikdev/go-web/controller"
 	"ikdev/go-web/exception"
 	"ikdev/go-web/helper"
-	http2 "ikdev/go-web/http"
+	"ikdev/go-web/http/controller"
+	"ikdev/go-web/http/middleware"
 	"ikdev/go-web/service"
 	"net/http"
 	"reflect"
@@ -186,7 +186,7 @@ func handleGroups(groups map[string]config.Group, router *mux.Router) {
 func parseMiddleware(mwList []string) []mux.MiddlewareFunc {
 	var midFunc []mux.MiddlewareFunc
 	for _, mw := range mwList {
-		m := reflect.ValueOf(http2.Middleware{})
+		m := reflect.ValueOf(middleware.Middleware{})
 		method := m.MethodByName(mw)
 
 		callable := method.Interface().(func(handler http.Handler) http.Handler)
