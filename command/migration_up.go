@@ -61,7 +61,7 @@ func (c *MigrationUp) Run(kernel *kernel.HttpKernel, args string, console map[st
 // Retrieve all migration files located in database/migration folder.
 func getAllMigrations() []string {
 	var migrations []string
-	err := filepath.Walk(config.GetFilePath("database/migration"), func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(config.GetDynamicPath("database/migration"), func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}

@@ -25,7 +25,7 @@ func (c *MigrationCreate) Register() {
 // DOWN: Work only for rollback operation
 func (c *MigrationCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	date := time.Now().Unix()
-	path := config.GetFilePath("database/migration")
+	path := config.GetDynamicPath("database/migration")
 
 	filenameUp := fmt.Sprintf("%s/%d_%s.up.sql", path, date, args)
 	filenameDown := fmt.Sprintf("%s/%d_%s.down.sql", path, date, args)

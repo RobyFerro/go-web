@@ -10,7 +10,7 @@ var (
 	bPath      = filepath.Dir(b)
 )
 
-func GetFilePath(path string) string {
+func GetDynamicPath(path string) string {
 	return filepath.Join(filepath.Join(bPath, "../../"), path)
 }
 

@@ -21,10 +21,10 @@ func (c *ControllerCreate) Register() {
 
 func (c *ControllerCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	cName := strings.Title(strings.ToLower(args))
-	input, _ := ioutil.ReadFile(config.GetFilePath("raw/controller.raw"))
+	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/controller.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetFilePath("controller"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("controller"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
 		exception.ProcessError(err)
 	}

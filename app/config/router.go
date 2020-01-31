@@ -36,7 +36,7 @@ func ConfigurationWeb() Router {
 
 // Parse routing.yml file in struct
 func getConfWeb(conf *Router) {
-	routePath := GetFilePath("routing.yml")
+	routePath := GetDynamicPath("routing.yml")
 	c, err := os.Open(routePath)
 
 	if err != nil {

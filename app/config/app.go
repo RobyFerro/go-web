@@ -62,7 +62,7 @@ func Configuration() Conf {
 
 // Parse configuration .yml file in struct
 func getConf(conf *Conf) {
-	confFile := GetFilePath("config.yml")
+	confFile := GetDynamicPath("config.yml")
 	c, err := os.Open(confFile)
 
 	if err != nil {
