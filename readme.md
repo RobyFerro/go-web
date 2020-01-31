@@ -67,7 +67,7 @@ You can regroup a set of routes by insert your route under "group" node.
 
 ### Controllers
 Controllers are the main responsible of the business logic.You can find all controller into "controller" package. 
-Every controller must extends BaseController structure (which provides access to the service container) ad it must be registered in "register" method present into "http" package.
+Every controller must extends BaseController structure (which provides access to the service container) ad it must be registered in registered in kernel configuration (app/kernel/conf.go)
 You can also use `./goweb controller:create <name>` to create a new controller. This tool allows just to create a new controller. 
 The registration part still remains.
 
@@ -131,24 +131,9 @@ This integration is an abstraction of [Gorm](https://gorm.io/).
 Database instance is available by default inside your controller (by implementing a service container).
 
 ### Models
-Models are stored in "model" package and registered into "database/models.go" file.
+Models are stored in "model" package and must be registered in kernel configuration (app/kernel/conf.go)
 To create a new model you've just to use `./goweb model:create <name>` command.
-The newly created model must be registered into "GetModels" method (database package). 
-
-````
-// This method will return an array of models.
-// Used to handle migration, seeding and drop operations.
-// Every time you add a new model you should register it in this method
-func GetModels() []interface{} {
-	return []interface{}{
-		model.User{},
-		model.FailedJob{},
-		// Here is where you've to register your custom models
-	}
-}
-````
-
-Every model must extends "gorm.Model" and implements "Migrate, Drop and Seed" method.
+Every model must extends "gorm.Model" and should implements "Seed" method.
 
 #### Migration
 Migration are now handled by simple .sql file. You can create new migration by `./goweb migration:create <migration_name>`.
@@ -247,25 +232,32 @@ func (c *ServerDaemon) Run(sc *dig.Container, args string) {
 ````
 
 Thanks to "sc" parameter you have complete access to your service container and with "args" to the argument passed in your command.
-Last but not least you've to register the new created command in "GetCommands" method (kernel.go).
+Last but not least you've to register the new created command in console kernel (app/console/kernel.go).
 
 ````
 // This method will return an array of commands.
 // Used by Go-Web routing
 // Every time you add a new controller you should register it in this method
-func GetCommands() map[string]interface{} {
-	return map[string]interface{}{
-		"migration:up":       &MigrationUp{Signature: "migration:up"},
-		"migration:create":   &MigrationCreate{Signature: "migration:create"},
-		"migration:rollback": &MigrateRollback{Signature: "migration:rollback"},
-		"queue:failed":       &QueueFailed{Signature: "queue:failed"},
-		"queue:run":          &QueueRun{Signature: "queue:run"},
-		"seed":               &Seeder{Signature: "seed"},
-		"server:daemon":      &ServerDaemon{Signature: "server:daemon"},
-		"server:run":         &ServerRun{Signature: "server:run"},
-		// Here is where you've to register your custom command
+
+var (
+	Commands = map[string]interface{}{
+		"migration:up":       &command.MigrationUp{},
+		"migration:create":   &command.MigrationCreate{},
+		"migration:rollback": &command.MigrateRollback{},
+		"queue:failed":       &command.QueueFailed{},
+		"queue:run":          &command.QueueRun{},
+		"database:seed":      &command.Seeder{},
+		"server:daemon":      &command.ServerDaemon{},
+		"server:run":         &command.ServerRun{},
+		"controller:create":  &command.ControllerCreate{},
+		"model:create":       &command.ModelCreate{},
+		"show:route":         &command.ShowRoute{},
+		"show:commands":      &command.ShowCommands{},
+		"cmd:create":         &command.CmdCreate{},
+        // Here is where you've to register your custom controller
 	}
-}
+)
+
 ````
 
 You can create a new command by `./goweb cmd:create <name>`

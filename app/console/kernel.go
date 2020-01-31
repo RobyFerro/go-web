@@ -21,5 +21,6 @@ var (
 		"show:route":         &command.ShowRoute{},
 		"show:commands":      &command.ShowCommands{},
 		"cmd:create":         &command.CmdCreate{},
+		// Here is where you've to register your custom controller
 	}
 )
