@@ -7,10 +7,6 @@ A simple lightweight web framework for Golang lovers!.
 Go-Web provide a simple approach to develop an up and running web service in less than an hour!
 This is possible because the project it's build more "over configuration".
 
-Go-Web in a nutshell:
-
-![architecture](https://ibb.co/bKZcG4x)
-
 ## Configuration
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
 If you need to add some extra configuration you've to update "Conf" structure in "configuration" package.
