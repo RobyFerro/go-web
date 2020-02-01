@@ -8,6 +8,7 @@ Go-Web provide a simple approach to develop an up and running web service in les
 This is possible because the project it's build more "over configuration".
 
 Go-Web in a nutshell:
+
 ![architecture](https://ibb.co/bKZcG4x)
 
 ## Configuration
