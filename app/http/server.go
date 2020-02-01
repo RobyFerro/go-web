@@ -25,7 +25,7 @@ var appConf config.Conf
 func StartServer(sc *dig.Container) {
 	ServiceContainer = sc
 
-	err := sc.Invoke(func(s *http.Server, conf config.Conf) {
+	if err := sc.Invoke(func(s *http.Server, conf config.Conf) {
 		appConf = conf
 		webListener, _ := net.Listen("tcp4", ":"+strconv.Itoa(conf.Server.Port))
 
@@ -39,14 +39,15 @@ func StartServer(sc *dig.Container) {
 				exception.ProcessError(httpsErr)
 			}
 		}
-	})
-
-	if err != nil {
+	}); err != nil {
 		exception.ProcessError(err)
 	}
 }
 
 // Change running user
+// This method works only on Linux systems
+// If you'd like to run go-web on Windows or OSX system you should
+// comment the following code and any other references.
 func changeRunningUser() {
 	var numUID int
 	var numGID int
