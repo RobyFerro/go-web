@@ -31,7 +31,7 @@ func (c *MiddlewareCreate) Run(kernel *kernel.HttpKernel, args string, console m
 	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/middleware.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("http/middleware"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("app/http/middleware"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
 		exception.ProcessError(err)
 	}

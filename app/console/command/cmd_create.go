@@ -30,7 +30,7 @@ func (c *CmdCreate) Run(kernel *kernel.HttpKernel, args string, console map[stri
 	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/command.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("command"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("app/console/command"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
 		exception.ProcessError(err)
 	}

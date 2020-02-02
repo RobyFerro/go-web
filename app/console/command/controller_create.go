@@ -24,7 +24,7 @@ func (c *ControllerCreate) Run(kernel *kernel.HttpKernel, args string, console m
 	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/controller.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("controller"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("app/http/controller"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
 		exception.ProcessError(err)
 	}
