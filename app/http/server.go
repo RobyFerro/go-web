@@ -10,12 +10,7 @@ import (
 	"os/user"
 	"strconv"
 	"strings"
-)
-
-//#include <unistd.h>
-//#include <errno.h>
-import (
-	"C"
+	"syscall"
 )
 
 var ServiceContainer *dig.Container
@@ -46,8 +41,7 @@ func StartServer(sc *dig.Container) {
 
 // Change running user
 // This method works only on Linux systems
-// If you'd like to run go-web on Windows or OSX system you should
-// comment the following code and any other references.
+// If you'd like to run go-web on Windows or OSX system you should avoid the following code
 func changeRunningUser() {
 	var numUID int
 	var numGID int
@@ -74,16 +68,29 @@ func changeRunningUser() {
 
 		log.Printf("Changing running user to %d:%d\n", uint32(numUID), uint32(numGID))
 
-		// Set running GID through setgid "C"  syscall
-		cerr, errno := C.setgid(C.__gid_t(numGID))
-		if cerr != 0 {
-			log.Fatalln("Unable to set GID due to error:", errno)
-		}
+		changeGID(numGID)
+		changeUID(numUID)
+	}
+}
 
-		// Set running GID through setuid "C"  syscall
-		cerr, errno = C.setuid(C.__uid_t(numUID))
-		if cerr != 0 {
-			log.Fatalln("Unable to set UID due to error:", errno)
-		}
+// Change user ID
+func changeUID(uid int) {
+	if syscall.Getuid() == uid {
+		return
+	}
+
+	if err := syscall.Setuid(uid); err != nil {
+		exception.ProcessError(err)
+	}
+}
+
+// Change group ID
+func changeGID(gid int) {
+	if syscall.Getgid() == gid {
+		return
+	}
+
+	if err := syscall.Setgid(gid); err != nil {
+		exception.ProcessError(err)
 	}
 }
