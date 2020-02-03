@@ -52,7 +52,17 @@ func changeRunningUser() {
 		if strings.IndexFunc(appConf.Server.RunUser, isNotDigit) == 0 {
 			// If UID is a string, we lookup it to an int
 			_uid, _ := user.Lookup(appConf.Server.RunUser)
-			numUID, _ = strconv.Atoi(_uid.Uid)
+
+			if _uid == nil {
+				return
+			}
+
+			if numUID, err := strconv.Atoi(_uid.Uid); err != nil {
+				exception.ProcessError(err)
+			} else {
+				changeUID(numUID)
+			}
+
 		} else {
 			numUID, _ = strconv.Atoi(appConf.Server.RunUser)
 		}
@@ -61,15 +71,22 @@ func changeRunningUser() {
 		if strings.IndexFunc(appConf.Server.RunGroup, isNotDigit) == 0 {
 			// If UID is a string, we lookup it to an int
 			_gid, _ := user.LookupGroup(appConf.Server.RunGroup)
-			numGID, _ = strconv.Atoi(_gid.Gid)
+
+			if _gid == nil {
+				return
+			}
+
+			if numGID, err := strconv.Atoi(_gid.Gid); err != nil {
+				exception.ProcessError(err)
+			} else {
+				changeGID(numGID)
+			}
+
 		} else {
 			numGID, _ = strconv.Atoi(appConf.Server.RunGroup)
 		}
 
 		log.Printf("Changing running user to %d:%d\n", uint32(numUID), uint32(numGID))
-
-		changeGID(numGID)
-		changeUID(numUID)
 	}
 }
 
