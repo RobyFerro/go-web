@@ -22,6 +22,7 @@ var (
 		"show:commands":      &command.ShowCommands{},
 		"cmd:create":         &command.CmdCreate{},
 		"middleware:create":  &command.MiddlewareCreate{},
+		"job:create":         &command.JobCreate{},
 		// Here is where you've to register your custom controller
 	}
 )
