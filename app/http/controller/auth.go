@@ -81,10 +81,8 @@ func (c *AuthController) BasicAuthentication() {
 func attemptLogin(db *gorm.DB, cred *Credentials) bool {
 	var user model.User
 
-	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil {
-		if err.RecordNotFound() {
-			return false
-		}
+	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil && err.RecordNotFound() {
+		return false
 	}
 
 	// Check password
