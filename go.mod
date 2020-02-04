@@ -6,7 +6,7 @@ require (
 	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.0
-	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a // indirect
+	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20191218082911-5398a82b748f
 	github.com/getsentry/sentry-go v0.4.0

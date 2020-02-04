@@ -6,6 +6,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/dig"
@@ -49,13 +50,14 @@ func StartKernel() *HttpKernel {
 
 // Register Base Controller in every custom controller
 func registerBaseControllers(res http.ResponseWriter, req *http.Request) []interface{} {
-	if err := Container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth) {
+	if err := Container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth, s *sessions.CookieStore) {
 		BaseController = controller.BaseController{
 			DB:       db,
 			Response: res,
 			Request:  req,
 			Config:   c,
 			Auth:     a,
+			Session:  s,
 		}
 	}); err != nil {
 		exception.ProcessError(err)
