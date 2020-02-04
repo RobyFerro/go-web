@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/go-web/database/model"
 	"ikdev/go-web/exception"
@@ -12,37 +13,28 @@ type AuthController struct {
 	BaseController
 }
 
+type Credentials struct {
+	Username string `json:"username" valid:"required"`
+	Password string `json:"password" valid:"required"`
+}
+
 // User login method.
 // This method will set JWT in HTTP response
 func (c *AuthController) Login() {
 	var user model.User
+	var payload Credentials
 
-	type AuthRequest struct {
-		Username string `json:"username" valid:"required"`
-		Password string `json:"password" valid:"required"`
-	}
-
-	var payload AuthRequest
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		exception.ProcessError(err)
 	}
 
-	if valid := helper.ValidateRequest(payload, c.Response); valid == false {
+	if valid := helper.ValidateRequest(payload, c.Response); !valid {
 		return
 	}
 
 	c.Response.Header().Add("Content-Type", "application/json")
-	if err := c.DB.Where("username = ?", payload.Username).Find(&user); err != nil {
-		if err.RecordNotFound() {
-			c.Response.WriteHeader(403)
-			_, _ = c.Response.Write([]byte("Invalid credentials"))
-			return
-		}
-	}
-
-	// Check password
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password)); err != nil {
-		c.Response.WriteHeader(403)
+	if auth := attemptLogin(c.DB, &payload); !auth {
+		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
 	}
@@ -59,4 +51,41 @@ func (c *AuthController) Login() {
 	_, _ = c.Response.Write([]byte(`{"token":"` + c.Auth.Token + `"}`))
 	// End JWT token generation
 	return
+}
+
+// Basic authentication method
+// Todo: complete this method to provide basic authentication
+func (c *AuthController) BasicAuthentication() {
+	var payload Credentials
+	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
+		exception.ProcessError(err)
+	}
+
+	if valid := helper.ValidateRequest(payload, c.Response); !valid {
+		return
+	}
+
+	if auth := attemptLogin(c.DB, &payload); !auth {
+		// login failed
+	}
+
+	// login successful
+}
+
+// Attempt login
+func attemptLogin(db *gorm.DB, cred *Credentials) bool {
+	var user model.User
+
+	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil {
+		if err.RecordNotFound() {
+			return false
+		}
+	}
+
+	// Check password
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password)); err != nil {
+		return false
+	}
+
+	return true
 }
