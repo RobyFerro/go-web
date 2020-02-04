@@ -3,10 +3,11 @@ package service
 import (
 	"crypto/tls"
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 	"ikdev/go-web/app/config"
 	"net/http"
-
-	"github.com/gorilla/mux"
+	"os"
 )
 
 // Prepare HTTP server for Service Container
@@ -49,4 +50,9 @@ func GetHttpServer(router *mux.Router, cfg config.Conf) *http.Server {
 	}
 
 	return &httpServerConf
+}
+
+// Create session CookieStore
+func CreateSessionStore(cfg config.Conf) *sessions.CookieStore {
+	return sessions.NewCookieStore([]byte(os.Getenv(cfg.App.Key)))
 }

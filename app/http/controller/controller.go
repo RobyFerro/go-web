@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
+	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
 	"go.mongodb.org/mongo-driver/mongo"
 	"ikdev/go-web/app/config"
@@ -21,4 +22,5 @@ type BaseController struct {
 	Redis    *redis.Client         // Provide access to Redis instance
 	Mongo    *mongo.Database       // Provide access to MongoDB instance
 	Elastic  *elasticsearch.Client // Provide access to ElasticSearch instance
+	Session  *sessions.CookieStore // Provide access to the CookieStore
 }

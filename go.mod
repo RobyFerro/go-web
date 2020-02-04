@@ -14,6 +14,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang-migrate/migrate/v4 v4.8.0
 	github.com/gorilla/mux v1.7.3
+	github.com/gorilla/sessions v1.2.0
 	github.com/jinzhu/gorm v1.9.11
 	github.com/olekukonko/tablewriter v0.0.4
 	github.com/pkg/errors v0.8.1
