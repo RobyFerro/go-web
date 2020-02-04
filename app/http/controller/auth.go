@@ -26,9 +26,11 @@ func (c *AuthController) Login() {
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		exception.ProcessError(err)
+		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
 	if valid := helper.ValidateRequest(payload, c.Response); !valid {
+		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
 
@@ -59,14 +61,17 @@ func (c *AuthController) BasicAuthentication() {
 	var payload Credentials
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		exception.ProcessError(err)
+		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
 	if valid := helper.ValidateRequest(payload, c.Response); !valid {
-		return
+		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	if auth := attemptLogin(c.DB, &payload); !auth {
-		// login failed
+		c.Response.WriteHeader(http.StatusForbidden)
+		_, _ = c.Response.Write([]byte("Invalid credentials"))
+		return
 	}
 
 	// login successful
@@ -83,7 +88,7 @@ func attemptLogin(db *gorm.DB, cred *Credentials) bool {
 	}
 
 	// Check password
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(cred.Password)); err != nil {
 		return false
 	}
 
