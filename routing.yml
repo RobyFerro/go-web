@@ -21,6 +21,13 @@ routes:
     description: "Perform login"
     middleware:
       - Logging
+  basic_login:
+    path: "/basic-auth"
+    action: "AuthController@BasicAuthentication"
+    method: "POST"
+    description: "Basic authentication"
+    middleware:
+      - Logging
   usercheck:
     path: "/userCheck"
     action: "UserCheck@Check"

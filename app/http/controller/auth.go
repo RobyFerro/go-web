@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"encoding/json"
+	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"ikdev/go-web/database/model"
@@ -21,8 +23,9 @@ type Credentials struct {
 // User login method.
 // This method will set JWT in HTTP response
 func (c *AuthController) Login() {
-	var user model.User
+	//var user model.User
 	var payload Credentials
+	var user *model.User
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		exception.ProcessError(err)
@@ -35,15 +38,17 @@ func (c *AuthController) Login() {
 	}
 
 	c.Response.Header().Add("Content-Type", "application/json")
-	if auth := attemptLogin(c.DB, &payload); !auth {
+	if u, auth := attemptLogin(c.DB, &payload); !auth {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
+	} else {
+		user = u
 	}
 	// End check password
 
 	// Generate JWT token
-	c.BaseController.Auth.User = user
+	c.BaseController.Auth.User = *user
 	if status := c.BaseController.Auth.NewToken(); !status {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
@@ -62,33 +67,56 @@ func (c *AuthController) BasicAuthentication() {
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		exception.ProcessError(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	if valid := helper.ValidateRequest(payload, c.Response); !valid {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
-	}
-
-	if auth := attemptLogin(c.DB, &payload); !auth {
-		c.Response.WriteHeader(http.StatusForbidden)
-		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
 	}
 
-	// login successful
+	if user, auth := attemptLogin(c.DB, &payload); !auth {
+		c.Response.WriteHeader(http.StatusForbidden)
+		_, _ = c.Response.Write([]byte("Invalid credentials"))
+		return
+	} else {
+		if err := createAuthSession(c.Session, user, c.Request, c.Response); err != nil {
+			c.Response.WriteHeader(http.StatusInternalServerError)
+			_, _ = c.Response.Write([]byte("Invalid credentials"))
+			return
+		}
+	}
+
+	c.Response.WriteHeader(http.StatusAccepted)
+}
+
+// Create auth session for the current user
+func createAuthSession(s *sessions.CookieStore, user *model.User, r *http.Request, w http.ResponseWriter) error {
+	if session, err := s.Get(r, "basic-auth"); err != nil {
+		return err
+	} else {
+		// Remove password from user structure
+		userJson, _ := json.Marshal(user)
+		session.Values["user"] = string(userJson)
+		if err := session.Save(r, w); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Attempt login
-func attemptLogin(db *gorm.DB, cred *Credentials) bool {
+func attemptLogin(db *gorm.DB, cred *Credentials) (*model.User, bool) {
 	var user model.User
-
 	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil && err.RecordNotFound() {
-		return false
+		return nil, false
 	}
 
 	// Check password
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(cred.Password)); err != nil {
-		return false
+		return nil, false
 	}
 
-	return true
+	return &user, true
 }

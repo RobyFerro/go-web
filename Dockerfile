@@ -19,4 +19,4 @@ EXPOSE 8005
 
 # Command to run when starting the container
 CMD ["./main","migrate"]
-CMD ["./main","run:server"]
+CMD ["./main","server:run"]
