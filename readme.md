@@ -42,6 +42,7 @@ Here you can find all exception implementation.
 ## Basic CLI commands
 Go-Web is bundled with a numbers of helpful commands:
 
+* `./goweb install <project_folder>` Install Go-Web into the selected folder
 * `./goweb server:run` Run the HTTP server
 * `./goweb server:daemon` Run the HTTP server as a daemon
 * `./goweb migration:create <migration_name>` Create migrations .sql files
