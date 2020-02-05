@@ -1,6 +1,6 @@
 package database
 
-import "ikdev/go-web/database/model"
+import "github.com/RobyFerro/go-web/database/model"
 
 // This method will return an array of models.
 // Used to handle migration, seeding and drop operations.

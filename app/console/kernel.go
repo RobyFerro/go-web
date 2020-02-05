@@ -1,6 +1,6 @@
 package console
 
-import "ikdev/go-web/app/console/command"
+import "github.com/RobyFerro/go-web/app/console/command"
 
 // This method will return an array of commands.
 // Used by Go-Web routing

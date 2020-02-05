@@ -2,9 +2,9 @@ package app
 
 import (
 	"fmt"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/go-redis/redis/v7"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/exception"
 )
 
 // Connect to Redis

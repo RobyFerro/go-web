@@ -2,9 +2,9 @@ package command
 
 import (
 	"fmt"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/app/kernel"
-	"ikdev/go-web/exception"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web/exception"
 	"io/ioutil"
 	"time"
 )

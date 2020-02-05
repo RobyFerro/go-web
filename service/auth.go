@@ -1,8 +1,8 @@
 package service
 
 import (
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/helper"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/helper"
 )
 
 // Prepare Auth structure for Service Container

@@ -3,10 +3,10 @@ package command
 import (
 	"crypto/sha256"
 	"fmt"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/app/kernel"
-	"ikdev/go-web/exception"
 	"io/ioutil"
 	"os"
 	"path/filepath"

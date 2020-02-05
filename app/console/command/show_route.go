@@ -1,9 +1,9 @@
 package command
 
 import (
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/app/kernel"
 	"github.com/olekukonko/tablewriter"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/app/kernel"
 	"os"
 	"strings"
 )

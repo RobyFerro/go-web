@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/RobyFerro/go-web/app/console"
+	"github.com/RobyFerro/go-web/app/kernel"
 	"github.com/common-nighthawk/go-figure"
-	"ikdev/go-web/app/console"
-	"ikdev/go-web/app/kernel"
 	"os"
 	"reflect"
 )

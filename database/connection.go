@@ -2,10 +2,10 @@ package database
 
 import (
 	"fmt"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/exception"
 )
 
 // Connect to sql database

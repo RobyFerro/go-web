@@ -2,11 +2,11 @@ package command
 
 import (
 	"fmt"
+	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web/database/model"
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/app/kernel"
-	"ikdev/go-web/database/model"
-	"ikdev/go-web/exception"
 )
 
 type QueueFailed struct {

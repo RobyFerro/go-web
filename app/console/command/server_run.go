@@ -1,8 +1,8 @@
 package command
 
 import (
-	"ikdev/go-web/app/http"
-	"ikdev/go-web/app/kernel"
+	"github.com/RobyFerro/go-web/app/http"
+	"github.com/RobyFerro/go-web/app/kernel"
 )
 
 type ServerRun struct {

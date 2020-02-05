@@ -1,9 +1,9 @@
 package app
 
 import (
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/elastic/go-elasticsearch/v8"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/exception"
 )
 
 func ConnectElastic(conf config.Conf) *elasticsearch.Client {

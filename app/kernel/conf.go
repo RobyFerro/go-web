@@ -1,10 +1,10 @@
 package kernel
 
 import (
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/app/http/controller"
+	"github.com/RobyFerro/go-web/database/model"
 	"go.uber.org/dig"
-	"ikdev/go-web/app/config"
-	"ikdev/go-web/app/http/controller"
-	"ikdev/go-web/database/model"
 )
 
 var (

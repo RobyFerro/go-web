@@ -1,8 +1,8 @@
 package model
 
 import (
+	"github.com/RobyFerro/go-web/exception"
 	"github.com/jinzhu/gorm"
-	"ikdev/go-web/exception"
 )
 
 type FailedJob struct {

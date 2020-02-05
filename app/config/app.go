@@ -1,8 +1,8 @@
 package config
 
 import (
+	"github.com/RobyFerro/go-web/exception"
 	"gopkg.in/yaml.v2"
-	"ikdev/go-web/exception"
 	"os"
 )
 

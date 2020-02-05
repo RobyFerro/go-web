@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"ikdev/go-web/helper"
+	"github.com/RobyFerro/go-web/helper"
 	"net/http"
 )
 
