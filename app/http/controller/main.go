@@ -10,6 +10,7 @@ type HomeController struct {
 }
 
 // Main method
+// Todo: implement gid and uid to HTML view
 func (c *HomeController) Main() {
 	c.Response.WriteHeader(http.StatusOK)
 
