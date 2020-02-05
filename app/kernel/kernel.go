@@ -34,6 +34,7 @@ func WebRouter() *mux.Router {
 
 	handleSingleRoute(routes.Routes, router)
 	handleGroups(routes.Groups, router)
+	giveAccessToPublicFolder(router)
 
 	return router
 }
@@ -214,4 +215,11 @@ func GetControllerInterface(directive []string, w http.ResponseWriter, r *http.R
 	}
 
 	return result
+}
+
+// Give access to public folder
+// With the /public prefix you can access to all of your assets
+func giveAccessToPublicFolder(router *mux.Router) {
+	publicDirectory := http.Dir(config.GetDynamicPath("public"))
+	router.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(publicDirectory)))
 }
