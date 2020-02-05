@@ -6,6 +6,11 @@ A simple lightweight web framework for Golang lovers!.
 ## About Go-Web
 Go-Web provide a simple approach to develop an up and running web service in less than an hour!
 
+## Installation
+You can install Go-Web with the `go get github.com/RobyFerro/go-web@develop`.
+To start a new project you should go in your $GOPATH and run `go-web install <project_directory>`.
+The last thing you have to do is change file permission. Run `chmod -R +w <project_directory>`
+
 ## Configuration
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
 If you need to add some extra configuration you've to update "Conf" structure in "configuration" package.
