@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"syscall"
 )
 
 type Install struct {
@@ -25,6 +26,14 @@ func (c *Install) Register() {
 // Command business logic
 func (c *Install) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
 	if err := Dir(config.GetDynamicPath("/"), args); err != nil {
+		exception.ProcessError(err)
+	}
+
+	if err := os.Chown(args, syscall.Getuid(), syscall.Getgid()); err != nil {
+		exception.ProcessError(err)
+	}
+
+	if err := os.Chmod(args, 775); err != nil {
 		exception.ProcessError(err)
 	}
 }
