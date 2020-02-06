@@ -33,7 +33,7 @@ func (c *Install) Run(kernel *kernel.HttpKernel, args string, console map[string
 		exception.ProcessError(err)
 	}
 
-	if err := os.Chmod(args, 775); err != nil {
+	if err := os.Chmod(args, 0755); err != nil {
 		exception.ProcessError(err)
 	}
 }
