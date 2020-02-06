@@ -28,14 +28,6 @@ func (c *Install) Run(kernel *kernel.HttpKernel, args string, console map[string
 	if err := Dir(config.GetDynamicPath("/"), args); err != nil {
 		exception.ProcessError(err)
 	}
-
-	if err := os.Chown(args, syscall.Getuid(), syscall.Getgid()); err != nil {
-		exception.ProcessError(err)
-	}
-
-	if err := os.Chmod(args, 0755); err != nil {
-		exception.ProcessError(err)
-	}
 }
 
 // Dir copies a whole directory recursively
@@ -95,5 +87,10 @@ func File(src, dst string) error {
 	if srcinfo, err = os.Stat(src); err != nil {
 		return err
 	}
+
+	if err := os.Chown(dst, syscall.Getuid(), syscall.Getgid()); err != nil {
+		exception.ProcessError(err)
+	}
+
 	return os.Chmod(dst, srcinfo.Mode())
 }
