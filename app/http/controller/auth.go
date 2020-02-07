@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"encoding/json"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/exception"
 	"github.com/RobyFerro/go-web/helper"
@@ -96,8 +95,8 @@ func createAuthSession(s *sessions.CookieStore, user *model.User, r *http.Reques
 		return err
 	} else {
 		// Remove password from user structure
-		userJson, _ := json.Marshal(user)
-		session.Values["user"] = string(userJson)
+		//userJson, _ := json.Marshal(user)
+		session.Values["user"] = user
 		if err := session.Save(r, w); err != nil {
 			return err
 		}

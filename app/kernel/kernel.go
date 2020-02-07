@@ -2,10 +2,12 @@ package kernel
 
 import "C"
 import (
+	"encoding/gob"
 	"fmt"
 	"github.com/RobyFerro/go-web/app/config"
 	"github.com/RobyFerro/go-web/app/http/controller"
 	"github.com/RobyFerro/go-web/app/http/middleware"
+	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/exception"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/RobyFerro/go-web/service"
@@ -42,6 +44,10 @@ func WebRouter() *mux.Router {
 // Start HTTP kernel
 func StartKernel() *HttpKernel {
 	Container = service.BuildContainer(Router)
+
+	// Register user model to allow easy session encoding/decoding
+	// Used only on basic-auth
+	gob.Register(model.User{})
 
 	return &HttpKernel{
 		Models:    Models,
