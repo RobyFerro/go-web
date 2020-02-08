@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Log an error into the main error.log file
 func Log(message string) {
 	logFile, err := os.OpenFile("storage/log/error.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 

@@ -20,7 +20,9 @@ type Param struct {
 
 // This structure will be used to handle every jobs.
 // Every method (except "Schedule" and "Execute") accept only one string parameter.
-// This param will be decoded into a specific structure (manually defined into your job)
+// This param will be decoded into a specific structure (manually defined into your job).
+// Redis and MySQL is mandatory to use this feature.
+// Redis will be used to handle every queue and MySQL to store failed jobs.
 type Job struct {
 	Name       string
 	MethodName string

@@ -14,7 +14,8 @@ type MailStruct struct {
 	Message string   `json:"message"`
 }
 
-// Execute send mail
+// Send an email
+// The payload must be a JSON object compliant with the MailStruct structure.
 func (Job) Mail(payload string) (bool, error) {
 	var data MailStruct
 	conf := config.Configuration()

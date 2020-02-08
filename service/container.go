@@ -9,7 +9,9 @@ import (
 	"go.uber.org/dig"
 )
 
-// Create service container
+// Here is where service container is built.
+// As you can see the service container is provided by Uber DIG library.
+// Se its documentation (https://godoc.org/go.uber.org/dig) to implement extra services.
 func BuildContainer(router *mux.Router) *dig.Container {
 	container := dig.New()
 
