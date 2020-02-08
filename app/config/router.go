@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Structure used to decode all route presents into routing.yml file.
 type Route struct {
 	Path        string   `yaml:"path"`
 	Action      string   `yaml:"action"`
@@ -15,27 +16,23 @@ type Route struct {
 	Prefix      string   `yaml:"prefix"`
 }
 
+// Structure used to decode all groups presents into the routing.yml file.
 type Group struct {
 	Prefix     string `yaml:"prefix"`
 	Routes     map[string]Route
 	Middleware []string
 }
 
+// Main structure of web router.
 type Router struct {
 	Routes map[string]Route `yaml:"routes"`
 	Groups map[string]Group `yaml:"groups"`
 }
 
-// Get routing struct
+// Parse router.yml file (present in Go-Web root dir) and return a Router structure.
+// This structure will be used by the HTTP kernel to setup every routes.
 func ConfigurationWeb() Router {
 	var conf Router
-	getConfWeb(&conf)
-
-	return conf
-}
-
-// Parse routing.yml file in struct
-func getConfWeb(conf *Router) {
 	routePath := GetDynamicPath("routing.yml")
 	c, err := os.Open(routePath)
 
@@ -45,7 +42,9 @@ func getConfWeb(conf *Router) {
 
 	decoder := yaml.NewDecoder(c)
 
-	if err := decoder.Decode(conf); err != nil {
+	if err := decoder.Decode(&conf); err != nil {
 		exception.ProcessError(err)
 	}
+
+	return conf
 }

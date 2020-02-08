@@ -7,7 +7,8 @@ import (
 	"net/http"
 )
 
-// Your custom middleware
+// Used to check if the basic auth session is present.
+// Use this middleware to protect resources with the basic authentication.
 func (Middleware) BasicAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if err := http2.ServiceContainer.Invoke(func(s *sessions.CookieStore) {

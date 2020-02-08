@@ -39,8 +39,7 @@ func StartServer(sc *dig.Container) {
 	}
 }
 
-// Change running user
-// This method works only on Linux systems
+// Change running user. This method works only on Linux systems
 // If you'd like to run go-web on Windows or OSX system you should avoid the following code
 func changeRunningUser() {
 	var numUID int
@@ -90,7 +89,7 @@ func changeRunningUser() {
 	}
 }
 
-// Change user ID
+// Execute a syscall to change active user.
 func changeUID(uid int) {
 	if syscall.Getuid() == uid {
 		return
@@ -101,7 +100,7 @@ func changeUID(uid int) {
 	}
 }
 
-// Change group ID
+// Execute a syscall to change active group
 func changeGID(gid int) {
 	if syscall.Getgid() == gid {
 		return

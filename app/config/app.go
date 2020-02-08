@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+// This is the main configuration of Go-Web
+// You can implement this method if wanna implement more configuration.
+// Remember: this struct will be populated by parsing the config.yml file present into the Go-Web main directory.
+// You've to implement both to works properly.
 type Conf struct {
 	Database struct {
 		Driver   string `yaml:"driver"`
@@ -52,16 +56,9 @@ type Conf struct {
 	} `yaml:"mail"`
 }
 
-// Get configuration struct
+// Get configuration struct by parsing the config.yml file.
 func Configuration() Conf {
 	var conf Conf
-	getConf(&conf)
-
-	return conf
-}
-
-// Parse configuration .yml file in struct
-func getConf(conf *Conf) {
 	confFile := GetDynamicPath("config.yml")
 	c, err := os.Open(confFile)
 
@@ -71,7 +68,9 @@ func getConf(conf *Conf) {
 
 	decoder := yaml.NewDecoder(c)
 
-	if err := decoder.Decode(conf); err != nil {
+	if err := decoder.Decode(&conf); err != nil {
 		exception.ProcessError(err)
 	}
+
+	return conf
 }

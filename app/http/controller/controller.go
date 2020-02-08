@@ -11,8 +11,9 @@ import (
 	"net/http"
 )
 
-// Main controller structure
-// This structure will be extended by every controllers
+// Main controller structure. This structure determines what you can find in the controllers instance.
+// Adding something else inside this struct will not directly implement the struct. This because is just a part of the
+// controller construction. See the "setBaseController" method inside app/kernel/kernel.go
 type BaseController struct {
 	DB       *gorm.DB              // Provide access to MySql instance
 	Response http.ResponseWriter   // HTTP response
