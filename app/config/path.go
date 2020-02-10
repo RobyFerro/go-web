@@ -20,5 +20,5 @@ func GetDynamicPath(path string) string {
 // Return the basic project path.
 // Deprecated: obsolete method, use the GetDynamicPath instead.
 func GetBasePath() string {
-	return bPath
+	return filepath.Join(bPath, "../..")
 }

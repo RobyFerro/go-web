@@ -1,0 +1,13 @@
+package config
+
+import (
+	"testing"
+)
+
+func TestConfiguration(t *testing.T) {
+	conf := Configuration()
+
+	if &conf == nil {
+		t.Error("Failed to parse config.yml file")
+	}
+}
