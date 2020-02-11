@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/helper"
+	"github.com/RobyFerro/go-web/service"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/gorilla/sessions"
@@ -19,7 +19,7 @@ type BaseController struct {
 	Response http.ResponseWriter   // HTTP response
 	Request  *http.Request         // HTTP request
 	Config   config.Conf           // Go-Web configuration
-	Auth     *helper.Auth          // Authentication/Authorization method
+	Auth     *service.Auth         // Authentication/Authorization method
 	Redis    *redis.Client         // Provide access to Redis instance
 	Mongo    *mongo.Database       // Provide access to MongoDB instance
 	Elastic  *elasticsearch.Client // Provide access to ElasticSearch instance

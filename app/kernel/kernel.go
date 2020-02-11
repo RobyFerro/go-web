@@ -7,7 +7,6 @@ import (
 	"github.com/RobyFerro/go-web/app/http/controller"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/exception"
-	"github.com/RobyFerro/go-web/helper"
 	"github.com/RobyFerro/go-web/service"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-redis/redis/v7"
@@ -73,7 +72,7 @@ func registerBaseController(res http.ResponseWriter, req *http.Request, controll
 // Here you can implement the BaseController content.
 // Remember to update even the structure (app/http/controller/controller.go)
 func setBaseController(res http.ResponseWriter, req *http.Request) {
-	if err := Container.Invoke(func(db *gorm.DB, c config.Conf, a *helper.Auth, s *sessions.CookieStore) {
+	if err := Container.Invoke(func(db *gorm.DB, c config.Conf, a *service.Auth, s *sessions.CookieStore) {
 		BaseController = controller.BaseController{
 			DB:       db,
 			Response: res,
