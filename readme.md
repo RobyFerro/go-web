@@ -2,7 +2,8 @@
 <img src="logo.png" alt="Go-Web">
 </p>
 
-A simple lightweight web framework for Golang lovers!. 
+A simple MVC web framework for Golang lovers!. 
+
 ## About Go-Web
 Go-Web provide a simple approach to develop an up and running web service in less than an hour!
 
