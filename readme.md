@@ -3,7 +3,6 @@
 </p>
 
 A simple MVC web framework for Golang lovers!. 
-
 ## About Go-Web
 Go-Web provide a simple approach to develop an up and running web service in less than an hour!
 

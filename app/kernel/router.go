@@ -89,13 +89,20 @@ func handleGroups(groups map[string]config.Group, router *mux.Router) {
 // Required by Gorilla Mux
 func parseMiddleware(mwList []string) []mux.MiddlewareFunc {
 	var midFunc []mux.MiddlewareFunc
-	for _, mw := range mwList {
-		m := reflect.ValueOf(middleware.Middleware{})
-		method := m.MethodByName(mw)
+	var wg sync.WaitGroup
+	wg.Add(len(mwList))
 
-		callable := method.Interface().(func(handler http.Handler) http.Handler)
-		midFunc = append(midFunc, callable)
+	for _, mw := range mwList {
+		go func(mwr string, waitGroup *sync.WaitGroup) {
+			m := reflect.ValueOf(middleware.Middleware{})
+			method := m.MethodByName(mwr)
+
+			callable := method.Interface().(func(handler http.Handler) http.Handler)
+			midFunc = append(midFunc, callable)
+			waitGroup.Done()
+		}(mw, &wg)
 	}
+	wg.Wait()
 
 	return midFunc
 }
