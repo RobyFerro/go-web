@@ -41,9 +41,6 @@ func StartKernel() *HttpKernel {
 func GetControllerInterface(directive []string, w http.ResponseWriter, r *http.Request) interface{} {
 	var result interface{}
 
-	// Insert request and response to every controller
-	//registerBaseControllers(w, r)
-
 	// Find the right controller
 	for _, contr := range Controllers {
 		controllerName := reflect.Indirect(reflect.ValueOf(contr)).Type().Name()
