@@ -25,6 +25,12 @@ func TestGetBasePath(t *testing.T) {
 	}
 }
 
+func BenchmarkGetBasePath(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = GetBasePath()
+	}
+}
+
 func TestGetDynamicPath(t *testing.T) {
 	type args struct {
 		path string
@@ -48,5 +54,11 @@ func TestGetDynamicPath(t *testing.T) {
 				t.Errorf("GetDynamicPath() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func BenchmarkGetDynamicPath(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = GetDynamicPath("/database")
 	}
 }

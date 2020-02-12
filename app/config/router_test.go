@@ -22,3 +22,9 @@ func TestConfigurationWeb(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkConfigurationWeb(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = ConfigurationWeb()
+	}
+}
