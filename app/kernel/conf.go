@@ -6,6 +6,7 @@ import (
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/gorilla/mux"
 	"go.uber.org/dig"
+	"sync"
 )
 
 var (
@@ -36,12 +37,28 @@ var (
 // Parse routing structures and set every route.
 // Return a Gorilla Mux router instance with all routes indicated in router.yml file.
 func WebRouter() *mux.Router {
+	var wg sync.WaitGroup
+	wg.Add(3)
+
 	routes := config.ConfigurationWeb()
 	router := mux.NewRouter()
 
-	handleSingleRoute(routes.Routes, router)
-	handleGroups(routes.Groups, router)
-	giveAccessToPublicFolder(router)
+	go func() {
+		handleSingleRoute(routes.Routes, router)
+		wg.Done()
+	}()
+
+	go func() {
+		handleGroups(routes.Groups, router)
+		wg.Done()
+	}()
+
+	go func() {
+		giveAccessToPublicFolder(router)
+		wg.Done()
+	}()
+
+	wg.Wait()
 
 	return router
 }
