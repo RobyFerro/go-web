@@ -16,7 +16,7 @@ routes:
     #middleware:""
   login:
     path: "/login"
-    action: "AuthController@Login"
+    action: "AuthController@JWTAuthentication"
     method: "POST"
     description: "Perform login"
     middleware:

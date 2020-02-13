@@ -21,7 +21,7 @@ type Credentials struct {
 
 // User login method.
 // This method will set JWT in HTTP response
-func (c *AuthController) Login() {
+func (c *AuthController) JWTAuthentication() {
 	//var user model.User
 	var payload Credentials
 	var user *model.User
