@@ -1,13 +1,121 @@
 version: "3.3"
 services:
+  # Go-Web main container
   go_web:
-    container_name: "go_web"
+    container_name: go-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ikdev/go-web
+    restart: unless-stopped
+    tty: true
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    working_dir: /app
+    volumes:
+      - goweb:/app/storage
+      - ./config.yml:/app/config.yml
+    ports:
+      - "8009:8005"
+    networks:
+      - goweb
+  # MySQL container
+  go_web_mysql:
+    container_name: "go_web_mysql"
     image: "mysql:5.7.28"
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
     ports:
-      - "3308:3306"
+      - "3306:3306"
+    networks:
+      - goweb
+  # Redis container
+  go_web_redis:
+    container_name: "redis_queue"
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
+    image: "redis:latest"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - goweb
+  # MongoDB container
+  go_web_mongo:
+    container_name: "mongo"
+    restart: unless-stopped
+    image: "mongo"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      - MONGO_INITDB_DATABASE={MONGO_DATABASE}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+    networks:
+      - goweb
+  # Elasticsearch container
+  # This container was build just for development purpose.
+  # If you'd like to use Elastic in production environment
+  # check https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html
+  go_web_elastic:
+    container_name: "elastic"
+    image: "elasticsearch:7.5.1"
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - goweb
+networks:
+  goweb:
+volumes:
+  goweb:
+    driver: local
+  mysql:
+    driver: local
+  redis-data:
+    driver: local
+  mongo:
+    driver: local

@@ -1,17 +1,25 @@
 package service
 
 import (
+	"github.com/RobyFerro/go-web/app"
+	"github.com/RobyFerro/go-web/app/config"
+	"github.com/RobyFerro/go-web/database"
+	"github.com/RobyFerro/go-web/exception"
+	"github.com/gorilla/mux"
 	"go.uber.org/dig"
-	"ikdev/go-web/config"
-	"ikdev/go-web/database"
-	"ikdev/go-web/exception"
-	"ikdev/go-web/router"
 )
 
-func BuildContainer() *dig.Container {
+// Here is where service container is built.
+// As you can see the service container is provided by Uber DIG library.
+// Se its documentation (https://godoc.org/go.uber.org/dig) to implement extra services.
+func BuildContainer(router *mux.Router) *dig.Container {
 	container := dig.New()
 
-	if err := container.Provide(router.WebRouter); err != nil {
+	err := container.Provide(func() *mux.Router {
+		return router
+	})
+
+	if err != nil {
 		exception.ProcessError(err)
 	}
 
@@ -19,7 +27,37 @@ func BuildContainer() *dig.Container {
 		exception.ProcessError(err)
 	}
 
-	if err := container.Provide(database.ConnectDB); err != nil {
+	if err := container.Provide(CreateSessionStore); err != nil {
+		exception.ProcessError(err)
+	}
+
+	err = container.Invoke(func(conf config.Conf) {
+		if len(conf.Redis.Host) > 0 {
+			if err := container.Provide(app.ConnectRedis); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+		if len(conf.Database.Host) > 0 {
+			if err := container.Provide(database.ConnectDB); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+		if len(conf.Mongo.Host) > 0 {
+			if err := container.Provide(app.ConnectMongo); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+
+		if len(conf.Elastic.Hosts) > 0 {
+			if err := container.Provide(app.ConnectElastic); err != nil {
+				exception.ProcessError(err)
+			}
+		}
+	})
+
+	if err != nil {
 		exception.ProcessError(err)
 	}
 

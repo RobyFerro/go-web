@@ -1,0 +1,51 @@
+#Define single routes
+routes:
+  home:
+    path: "/"
+    action: "HomeController@Main"
+    method: "GET"
+    description: "Main access to Go-Web application"
+    middleware:
+      - RateLimiter
+      - Logging
+  users:
+    path: "/users"
+    action: "UserController@Insert"
+    description: "Insert new user"
+    method: "POST"
+    #middleware:""
+  login:
+    path: "/login"
+    action: "AuthController@JWTAuthentication"
+    method: "POST"
+    description: "Perform login"
+    middleware:
+      - Logging
+  basic_login:
+    path: "/basic-auth"
+    action: "AuthController@BasicAuthentication"
+    method: "POST"
+    description: "Basic authentication"
+    middleware:
+      - Logging
+  usercheck:
+    path: "/userCheck"
+    action: "UserCheck@Check"
+    description: "Check user"
+    method: "GET"
+#Define groups of routes
+groups:
+  admin:
+    prefix: "/admin"
+    routes:
+      test:
+        path: "/test"
+        action: "UserController@Profile"
+        method: "GET"
+        description: "Test user authentication"
+        middleware:
+          - Logging
+          - RateLimiter
+    middleware:
+      - RefreshToken
+      - Auth

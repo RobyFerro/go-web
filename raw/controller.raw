@@ -1,0 +1,11 @@
+package controller
+
+
+type @@TMP@@Controller struct {
+	BaseController
+}
+
+// Main controller method
+func (c *@@TMP@@Controller) Main() {
+	// Insert your custom logic
+}

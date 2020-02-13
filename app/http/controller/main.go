@@ -1,0 +1,18 @@
+package controller
+
+import (
+	"github.com/RobyFerro/go-web/helper"
+	"net/http"
+)
+
+type HomeController struct {
+	BaseController
+}
+
+// Return the Go-Web welcome page. This is just an example of Go-Web controller. With the "c" parameter you've access to
+// the method/properties declared in BaseController (controller.go).
+// Of course you can edit this method with a custom logic.
+func (c *HomeController) Main() {
+	c.Response.WriteHeader(http.StatusOK)
+	helper.View("index.html", c.Response, nil)
+}
