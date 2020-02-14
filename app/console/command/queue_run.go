@@ -3,8 +3,7 @@ package command
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/job"
 	"github.com/go-redis/redis/v7"
 	"runtime"
@@ -22,7 +21,7 @@ func (c *QueueRun) Register() {
 	c.Description = "Run a specific queue"
 }
 
-func (c *QueueRun) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *QueueRun) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 	var rc *redis.Client
 	queue := fmt.Sprintf("queue:%s", args)
 	cpus := runtime.NumCPU()
@@ -32,7 +31,7 @@ func (c *QueueRun) Run(kernel *kernel.HttpKernel, args string, console map[strin
 	})
 
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	var wg sync.WaitGroup
@@ -52,7 +51,7 @@ func worker(queue string, rc *redis.Client, wg *sync.WaitGroup) {
 		tasks, err := rc.BLPop(5*time.Second, queue).Result()
 
 		if err != nil && err.Error() != "redis: nil" {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 			break
 		}
 
@@ -61,7 +60,7 @@ func worker(queue string, rc *redis.Client, wg *sync.WaitGroup) {
 		}
 
 		if err := json.Unmarshal([]byte(tasks[1]), &j); err != nil {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 		}
 
 		j.Execute()

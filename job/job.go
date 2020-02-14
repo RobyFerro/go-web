@@ -3,10 +3,8 @@ package job
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/database"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/exception"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"reflect"
@@ -34,7 +32,7 @@ type Job struct {
 func (j *Job) Schedule(queueName string, redis *redis.Client) {
 	jobStr, err := json.Marshal(j)
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	queue := fmt.Sprintf("queue:%s", queueName)
@@ -51,15 +49,17 @@ func (j *Job) Execute() {
 	// Beware of "too many connections.
 	if result[1].Interface() != nil {
 		err := result[1].Interface().(error)
-		r := database.ConnectDB(config.Configuration())
+
+		cf, _ := gwf.Configuration()
+		r := gwf.ConnectDB(cf)
 
 		jobStr, errMarshal := json.Marshal(j)
 		if errMarshal != nil {
-			exception.ProcessError(errMarshal)
+			gwf.ProcessError(errMarshal)
 		}
 
 		j.PutOnFailed(j.Queue, string(jobStr), r, err)
-		exception.Log(err.Error())
+		gwf.Log(err.Error())
 		fmt.Printf("ERROR on job %s\n", j.Name)
 		return
 	}
@@ -76,6 +76,6 @@ func (Job) PutOnFailed(queue, payload string, db *gorm.DB, err error) {
 	}
 
 	if err := db.Save(&failed).Error; err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 }

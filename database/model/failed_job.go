@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/jinzhu/gorm"
 )
 
@@ -22,6 +22,6 @@ func (FailedJob) Migrate(db *gorm.DB) {
 // Deprecated: this method has been replaced by global .sql migration system
 func (FailedJob) Drop(db *gorm.DB) {
 	if err := db.DropTableIfExists(&FailedJob{}).Error; err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 }

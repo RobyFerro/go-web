@@ -1,8 +1,6 @@
 package middleware
 
-import (
-	"net/http"
-)
+import "net/http"
 
 // Middleware struct is extended by every middleware.
 type Middleware struct {

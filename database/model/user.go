@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/brianvoe/gofakeit/v4"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
@@ -25,7 +25,7 @@ func (User) Migrate(db *gorm.DB) {
 // Deprecated: this method has been replaced by global .sql migration system
 func (User) Drop(db *gorm.DB) {
 	if err := db.DropTableIfExists(&User{}).Error; err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 }
 
@@ -43,7 +43,7 @@ func (User) Seed(db *gorm.DB) {
 		}
 
 		if err := db.Create(&user).Error; err != nil {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 		}
 	}
 }

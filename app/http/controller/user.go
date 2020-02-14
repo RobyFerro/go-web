@@ -1,14 +1,14 @@
 package controller
 
 import (
+	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/exception"
 	"github.com/RobyFerro/go-web/helper"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type UserController struct {
-	BaseController
+	gwf.BaseController
 }
 
 // This method will be used to insert a new user in main DB (SQL)
@@ -24,7 +24,7 @@ func (c *UserController) Insert() {
 
 	var data NewUser
 	if err := helper.DecodeJsonRequest(c.Request, &data); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	// Validation
@@ -41,7 +41,7 @@ func (c *UserController) Insert() {
 
 	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	user := model.User{
@@ -52,7 +52,7 @@ func (c *UserController) Insert() {
 	}
 
 	if err := c.DB.Create(&user).Error; err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	c.Response.WriteHeader(200)

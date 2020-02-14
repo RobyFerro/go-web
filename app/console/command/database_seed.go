@@ -2,8 +2,7 @@ package command
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/jinzhu/gorm"
 	"reflect"
 	"strings"
@@ -20,7 +19,7 @@ func (c *Seeder) Register() {
 }
 
 // Todo: Improve this method to run a single seeder
-func (c *Seeder) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *Seeder) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 	err := kernel.Container.Invoke(func(db *gorm.DB) {
 		models := kernel.Models
 
@@ -32,7 +31,7 @@ func (c *Seeder) Run(kernel *kernel.HttpKernel, args string, console map[string]
 	})
 
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 }
 

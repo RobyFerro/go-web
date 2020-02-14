@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/olekukonko/tablewriter"
 	"os"
 	"strings"
@@ -19,9 +18,12 @@ func (c *ShowRoute) Register() {
 }
 
 // Show the current go-web routes
-func (c *ShowRoute) Run(sc *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *ShowRoute) Run(sc *gwf.HttpKernel, args string, console map[string]interface{}) {
 	var data [][]string
-	routes := config.ConfigurationWeb()
+	routes, err := gwf.ConfigurationWeb()
+	if err != nil {
+		gwf.ProcessError(err)
+	}
 
 	// Parse single route
 	showSingleRoute(routes.Routes, &data)
@@ -40,7 +42,7 @@ func (c *ShowRoute) Run(sc *kernel.HttpKernel, args string, console map[string]i
 }
 
 // Show single routes
-func showSingleRoute(routes map[string]config.Route, data *[][]string) {
+func showSingleRoute(routes map[string]gwf.Route, data *[][]string) {
 	for _, r := range routes {
 		*data = append(*data, []string{
 			r.Method,
@@ -54,7 +56,7 @@ func showSingleRoute(routes map[string]config.Route, data *[][]string) {
 }
 
 // Show groups
-func showGroupRoutes(routes map[string]config.Group, data *[][]string) {
+func showGroupRoutes(routes map[string]gwf.Group, data *[][]string) {
 	for _, g := range routes {
 		var middleware []string
 		middleware = append(middleware, g.Middleware...)

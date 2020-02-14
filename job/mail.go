@@ -3,8 +3,7 @@ package job
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/pkg/errors"
 	"net/smtp"
 )
@@ -18,7 +17,7 @@ type MailStruct struct {
 // The payload must be a JSON object compliant with the MailStruct structure.
 func (Job) Mail(payload string) (bool, error) {
 	var data MailStruct
-	conf := config.Configuration()
+	conf, _ := gwf.Configuration()
 
 	auth := smtp.PlainAuth("", conf.Mail.Host, conf.Mail.Password, conf.Mail.Host)
 	if err := json.Unmarshal([]byte(payload), &data); err != nil {
@@ -27,7 +26,7 @@ func (Job) Mail(payload string) (bool, error) {
 
 	server := fmt.Sprintf("%s:%d", conf.Mail.Host, conf.Mail.Port)
 	if err := smtp.SendMail(server, auth, conf.Mail.From, data.To, []byte(data.Message)); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	return true, nil

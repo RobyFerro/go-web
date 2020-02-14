@@ -2,8 +2,7 @@ package command
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"strconv"
@@ -20,12 +19,12 @@ func (c *MigrateRollback) Register() {
 	c.Description = "Rollback migrations"
 }
 
-func (c *MigrateRollback) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *MigrateRollback) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 	var db *gorm.DB
 	if err := kernel.Container.Invoke(func(client *gorm.DB) {
 		db = client
 	}); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	step, _ := strconv.Atoi(args)
@@ -34,7 +33,7 @@ func (c *MigrateRollback) Run(kernel *kernel.HttpKernel, args string, console ma
 	for i := 0; i < step; i++ {
 		var migrations []Migration
 		if err := db.Order("created_at", true).Where("batch LIKE ?", batch).Find(&migrations).Error; err != nil {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 		}
 
 		// Execute given rollback
@@ -51,13 +50,13 @@ func rollbackMigrations(migrations []Migration, db *gorm.DB) {
 		fmt.Printf("\nRolling back '%s' migration...\n", rollbackFile)
 
 		if payload, err := ioutil.ReadFile(rollbackFile); err != nil {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 		} else {
 			db.Exec(string(payload)).Row()
 		}
 
 		if err := db.Unscoped().Delete(&m).Error; err != nil {
-			exception.ProcessError(err)
+			gwf.ProcessError(err)
 		}
 
 		fmt.Printf("Success! %s has been rolled back!", rollbackFile)

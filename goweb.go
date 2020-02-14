@@ -13,6 +13,8 @@ import (
 // Service container will be passed as parameter for every method
 func main() {
 	var args string
+	pwd, _ := os.Getwd()
+	_ = os.Setenv("base_path", pwd)
 
 	// Start HTTP Kernel
 	httpKernel := kernel.StartKernel()

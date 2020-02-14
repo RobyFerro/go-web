@@ -1,10 +1,7 @@
 package command
 
 import (
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/app/http"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	daemon "github.com/sevlyar/go-daemon"
 	"log"
 )
@@ -20,8 +17,8 @@ func (c *ServerDaemon) Register() {
 }
 
 // Run Go-Web as a daemon
-func (c *ServerDaemon) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
-	err := kernel.Container.Invoke(func(conf config.Conf) {
+func (c *ServerDaemon) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
+	err := kernel.Container.Invoke(func(conf gwf.Conf) {
 
 		// Simple way to check is a string contains only digits
 		cntxt := &daemon.Context{
@@ -46,11 +43,13 @@ func (c *ServerDaemon) Run(kernel *kernel.HttpKernel, args string, console map[s
 			_ = cntxt.Release()
 		}()
 
-		http.StartServer(kernel.Container)
+		if err := gwf.StartServer(kernel.Container); err != nil {
+			gwf.ProcessError(err)
+		}
 
 	})
 
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 }
