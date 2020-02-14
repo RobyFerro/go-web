@@ -13,7 +13,7 @@ import (
 func (Middleware) Auth(next http.Handler) http.Handler {
 	var key string
 
-	err := gwf.ServiceContainer.Invoke(func(c *gwf.Conf) {
+	err := gwf.Container.Invoke(func(c *gwf.Conf) {
 		key = c.App.Key
 	})
 

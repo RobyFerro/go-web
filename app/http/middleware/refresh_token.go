@@ -9,7 +9,7 @@ import (
 func (Middleware) RefreshToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		err := gwf.ServiceContainer.Invoke(func(a *gwf.Auth) {
+		err := gwf.Container.Invoke(func(a *gwf.Auth) {
 			a.RefreshToken()
 		})
 

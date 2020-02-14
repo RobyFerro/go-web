@@ -10,7 +10,7 @@ import (
 // Use this middleware to protect resources with the basic authentication.
 func (Middleware) BasicAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if err := gwf.ServiceContainer.Invoke(func(s *sessions.CookieStore) {
+		if err := gwf.Container.Invoke(func(s *sessions.CookieStore) {
 
 			session, err := s.Get(r, "basic-auth")
 			if err != nil {
