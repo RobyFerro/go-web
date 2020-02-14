@@ -22,6 +22,7 @@ func main() {
 
 	// Print Go-Web container
 	printHeader()
+	// Merge commands
 	mixCommands()
 
 	// New command handler
@@ -48,7 +49,7 @@ func printHeader() {
 	fmt.Println("Go-Web CLI tool - Author: roberto.ferro@ikdev.eu")
 }
 
-// Merge framework command with your customs
+// Merge framework commands with yours
 func mixCommands() {
 	for i, c := range console2.Commands {
 		console.Commands[i] = c
