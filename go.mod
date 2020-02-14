@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.0.0-20200214151934-0e3fc5dca49a
+	github.com/RobyFerro/go-web-framework v0.0.0-20200214173318-c84cc9885301
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.1
 	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a
@@ -23,11 +23,9 @@ require (
 	github.com/lib/pq v1.3.0 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
-	github.com/olekukonko/tablewriter v0.0.4
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/sevlyar/go-daemon v0.1.5
 	github.com/smartystreets/assertions v1.0.1 // indirect
 	github.com/tidwall/pretty v1.0.1 // indirect
 	go.uber.org/dig v1.8.0
@@ -38,6 +36,6 @@ require (
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20200212091648-12a6c2dcc1e4 // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.0.0-20200214144324-88be01311a71 // indirect
+	golang.org/x/tools v0.0.0-20200214172538-c22964952791 // indirect
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 )

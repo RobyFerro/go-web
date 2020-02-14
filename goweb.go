@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/RobyFerro/go-web-framework/console"
+	console2 "github.com/RobyFerro/go-web/app/console"
 	"github.com/RobyFerro/go-web/app/kernel"
 	"github.com/common-nighthawk/go-figure"
 	"os"
@@ -21,6 +22,7 @@ func main() {
 
 	// Print Go-Web container
 	printHeader()
+	mixCommands()
 
 	// New command handler
 	cmd := console.Commands[os.Args[1]]
@@ -44,4 +46,11 @@ func printHeader() {
 	myFigure.Print()
 
 	fmt.Println("Go-Web CLI tool - Author: roberto.ferro@ikdev.eu")
+}
+
+// Merge framework command with your customs
+func mixCommands() {
+	for i, c := range console2.Commands {
+		console.Commands[i] = c
+	}
 }
