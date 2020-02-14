@@ -2,9 +2,7 @@ package command
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"io/ioutil"
 	"strings"
 )
@@ -19,14 +17,14 @@ func (c *ModelCreate) Register() {
 	c.Description = "Create new database model"
 }
 
-func (c *ModelCreate) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *ModelCreate) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 	cName := strings.Title(strings.ToLower(args))
-	input, _ := ioutil.ReadFile(config.GetDynamicPath("raw/model.raw"))
+	input, _ := ioutil.ReadFile(gwf.GetDynamicPath("raw/model.raw"))
 
 	cContent := strings.ReplaceAll(string(input), "@@TMP@@", cName)
-	cFile := fmt.Sprintf("%s/%s.go", config.GetDynamicPath("database/model"), strings.ToLower(args))
+	cFile := fmt.Sprintf("%s/%s.go", gwf.GetDynamicPath("database/model"), strings.ToLower(args))
 	if err := ioutil.WriteFile(cFile, []byte(cContent), 0755); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	fmt.Printf("\nSUCCESS: Your model %s has been created at %s", cName, cFile)

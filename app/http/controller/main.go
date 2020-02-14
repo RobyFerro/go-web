@@ -1,12 +1,13 @@
 package controller
 
 import (
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/helper"
 	"net/http"
 )
 
 type HomeController struct {
-	BaseController
+	gwf.BaseController
 }
 
 // Return the Go-Web welcome page. This is just an example of Go-Web controller. With the "c" parameter you've access to

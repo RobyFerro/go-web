@@ -1,9 +1,7 @@
 package middleware
 
 import (
-	"github.com/RobyFerro/go-web/app/config"
-	http2 "github.com/RobyFerro/go-web/app/http"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 	"log"
@@ -15,12 +13,12 @@ import (
 func (Middleware) Auth(next http.Handler) http.Handler {
 	var key string
 
-	err := http2.ServiceContainer.Invoke(func(c config.Conf) {
+	err := gwf.ServiceContainer.Invoke(func(c *gwf.Conf) {
 		key = c.App.Key
 	})
 
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	if len(key) == 0 {

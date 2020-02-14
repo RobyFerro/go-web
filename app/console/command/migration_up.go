@@ -3,9 +3,7 @@ package command
 import (
 	"crypto/sha256"
 	"fmt"
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"os"
@@ -30,13 +28,13 @@ type Migration struct {
 	Batch int    `gorm:"type:int(11)"`
 }
 
-func (c *MigrationUp) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *MigrationUp) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 
 	var db *gorm.DB
 	if err := kernel.Container.Invoke(func(client *gorm.DB) {
 		db = client
 	}); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	db.AutoMigrate(&Migration{})
@@ -61,7 +59,7 @@ func (c *MigrationUp) Run(kernel *kernel.HttpKernel, args string, console map[st
 // Retrieve all migration files located in database/migration folder.
 func getAllMigrations() []string {
 	var migrations []string
-	err := filepath.Walk(config.GetDynamicPath("database/migration"), func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(gwf.GetDynamicPath("database/migration"), func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}
@@ -71,7 +69,7 @@ func getAllMigrations() []string {
 	})
 
 	if err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	return migrations
@@ -101,7 +99,7 @@ func migrationIsPresent(db *gorm.DB, hash string) bool {
 func executeMigration(db *gorm.DB, migration string, hash string, batch int) {
 	fmt.Printf("\nMigrating '%s'\n", migration)
 	if payload, err := ioutil.ReadFile(migration); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	} else {
 		db.Exec(string(payload)).Row()
 	}

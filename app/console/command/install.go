@@ -2,9 +2,7 @@ package command
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web/app/config"
-	"github.com/RobyFerro/go-web/app/kernel"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"io"
 	"io/ioutil"
 	"os"
@@ -24,9 +22,9 @@ func (c *Install) Register() {
 }
 
 // Command business logic
-func (c *Install) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
-	if err := Dir(config.GetDynamicPath("/"), args); err != nil {
-		exception.ProcessError(err)
+func (c *Install) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
+	if err := Dir(gwf.GetDynamicPath("/"), args); err != nil {
+		gwf.ProcessError(err)
 	}
 }
 
@@ -89,7 +87,7 @@ func File(src, dst string) error {
 	}
 
 	if err := os.Chown(dst, syscall.Getuid(), syscall.Getgid()); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 	}
 
 	return os.Chmod(dst, srcinfo.Mode())
