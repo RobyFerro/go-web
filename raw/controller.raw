@@ -1,8 +1,11 @@
 package controller
 
+import (
+	"github.com/RobyFerro/go-web-framework"
+)
 
 type @@TMP@@Controller struct {
-	BaseController
+	gwf.BaseController
 }
 
 // Main controller method

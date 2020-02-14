@@ -2,7 +2,7 @@ package helper
 
 import (
 	"encoding/json"
-	"github.com/RobyFerro/go-web/exception"
+	"github.com/RobyFerro/go-web-framework"
 	"gopkg.in/asaskevich/govalidator.v4"
 	"net/http"
 )
@@ -13,7 +13,7 @@ func ValidateRequest(data interface{}, response http.ResponseWriter) bool {
 		message, e := json.Marshal(err)
 
 		if e != nil {
-			exception.ProcessError(e)
+			gwf.ProcessError(e)
 		}
 
 		response.WriteHeader(422)

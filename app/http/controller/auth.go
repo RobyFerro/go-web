@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/exception"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
@@ -11,7 +11,7 @@ import (
 )
 
 type AuthController struct {
-	BaseController
+	gwf.BaseController
 }
 
 type Credentials struct {
@@ -27,7 +27,7 @@ func (c *AuthController) JWTAuthentication() {
 	var user *model.User
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
@@ -47,7 +47,11 @@ func (c *AuthController) JWTAuthentication() {
 	// End check password
 
 	// Generate JWT token
-	c.BaseController.Auth.User = *user
+	c.BaseController.Auth.User.Name = user.Name
+	c.BaseController.Auth.User.Surname = user.Surname
+	c.BaseController.Auth.User.Username = user.Username
+	c.BaseController.Auth.User.ID = user.ID
+
 	if status := c.BaseController.Auth.NewToken(); !status {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
@@ -64,7 +68,7 @@ func (c *AuthController) JWTAuthentication() {
 func (c *AuthController) BasicAuthentication() {
 	var payload Credentials
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		exception.ProcessError(err)
+		gwf.ProcessError(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		return
 	}

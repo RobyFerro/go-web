@@ -1,7 +1,7 @@
 package command
 
 import (
-	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/olekukonko/tablewriter"
 	"os"
 	"reflect"
@@ -17,7 +17,7 @@ func (c *ShowCommands) Register() {
 	c.Description = "Show Go-Web commands list"
 }
 
-func (c *ShowCommands) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
+func (c *ShowCommands) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
 	var data [][]string
 
 	for _, c := range console {

@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/RobyFerro/go-web/app/http"
-	"github.com/RobyFerro/go-web/app/kernel"
+	"github.com/RobyFerro/go-web-framework"
 )
 
 type ServerRun struct {
@@ -16,6 +15,8 @@ func (c *ServerRun) Register() {
 }
 
 // Start Go-Web server
-func (c *ServerRun) Run(kernel *kernel.HttpKernel, args string, console map[string]interface{}) {
-	http.StartServer(kernel.Container)
+func (c *ServerRun) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
+	if err := gwf.StartServer(kernel.Container); err != nil {
+		gwf.ProcessError(err)
+	}
 }
