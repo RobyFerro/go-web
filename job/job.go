@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
+	"github.com/RobyFerro/go-web/service"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"reflect"
@@ -51,7 +52,7 @@ func (j *Job) Execute() {
 		err := result[1].Interface().(error)
 
 		cf, _ := gwf.Configuration()
-		r := gwf.ConnectDB(cf)
+		r := service.ConnectDB(cf)
 
 		jobStr, errMarshal := json.Marshal(j)
 		if errMarshal != nil {
