@@ -25,6 +25,8 @@ github.com/RobyFerro/go-web-framework v0.0.0-20200215150744-e2c85156add3 h1:xs1P
 github.com/RobyFerro/go-web-framework v0.0.0-20200215150744-e2c85156add3/go.mod h1:FuVWrwy9Q6T10cCOr+gcbkP8QeXz44VQmWEptQGzO0A=
 github.com/RobyFerro/go-web-framework v0.0.0-20200215151703-d0c5b1b23a68 h1:BbxV+Kn0Ca4xQHQySCs1KGyCWwerRQOEBq4J7HVXBNI=
 github.com/RobyFerro/go-web-framework v0.0.0-20200215151703-d0c5b1b23a68/go.mod h1:FuVWrwy9Q6T10cCOr+gcbkP8QeXz44VQmWEptQGzO0A=
+github.com/RobyFerro/go-web-framework v0.0.0-20200216090003-3740da5e6f31 h1:ITqaWiHvraTal6l2gae1pBzVM5HMUIAKtM1LYawNJno=
+github.com/RobyFerro/go-web-framework v0.0.0-20200216090003-3740da5e6f31/go.mod h1:FuVWrwy9Q6T10cCOr+gcbkP8QeXz44VQmWEptQGzO0A=
 github.com/Shopify/goreferrer v0.0.0-20181106222321-ec9c9a553398/go.mod h1:a1uqRtAwp2Xwc6WNPJEufxJ7fx3npB4UV/JOLmbu5I0=
 github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWXgklEdEo=
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=

@@ -22,6 +22,17 @@ type Credentials struct {
 // User login method.
 // This method will set JWT in HTTP response
 func (c *AuthController) JWTAuthentication() {
+
+	var auth *gwf.Auth
+	var db *gorm.DB
+
+	if err := c.Container.Invoke(func(a *gwf.Auth, d *gorm.DB, s *sessions.CookieStore) {
+		auth = a
+		db = d
+	}); err != nil {
+		gwf.ProcessError(err)
+	}
+
 	//var user model.User
 	var payload Credentials
 	var user *model.User
@@ -37,7 +48,7 @@ func (c *AuthController) JWTAuthentication() {
 	}
 
 	c.Response.Header().Add("Content-Type", "application/json")
-	if u, auth := attemptLogin(c.DB, &payload); !auth {
+	if u, auth := attemptLogin(db, &payload); !auth {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
@@ -47,18 +58,18 @@ func (c *AuthController) JWTAuthentication() {
 	// End check password
 
 	// Generate JWT token
-	c.BaseController.Auth.User.Name = user.Name
-	c.BaseController.Auth.User.Surname = user.Surname
-	c.BaseController.Auth.User.Username = user.Username
-	c.BaseController.Auth.User.ID = user.ID
+	auth.User.Name = user.Name
+	auth.User.Surname = user.Surname
+	auth.User.Username = user.Username
+	auth.User.ID = user.ID
 
-	if status := c.BaseController.Auth.NewToken(); !status {
+	if status := auth.NewToken(); !status {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
 	}
 
-	_, _ = c.Response.Write([]byte(`{"token":"` + c.Auth.Token + `"}`))
+	_, _ = c.Response.Write([]byte(`{"token":"` + auth.Token + `"}`))
 	// End JWT token generation
 	return
 }
@@ -67,6 +78,16 @@ func (c *AuthController) JWTAuthentication() {
 // Todo: complete this method to provide basic authentication
 func (c *AuthController) BasicAuthentication() {
 	var payload Credentials
+	var db *gorm.DB
+	var session *sessions.CookieStore
+
+	if err := c.Container.Invoke(func(d *gorm.DB, s *sessions.CookieStore) {
+		db = d
+		session = s
+	}); err != nil {
+		gwf.ProcessError(err)
+	}
+
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		gwf.ProcessError(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
@@ -78,12 +99,12 @@ func (c *AuthController) BasicAuthentication() {
 		return
 	}
 
-	if user, auth := attemptLogin(c.DB, &payload); !auth {
+	if user, auth := attemptLogin(db, &payload); !auth {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
 	} else {
-		if err := createAuthSession(c.Session, user, c.Request, c.Response); err != nil {
+		if err := createAuthSession(session, user, c.Request, c.Response); err != nil {
 			c.Response.WriteHeader(http.StatusInternalServerError)
 			_, _ = c.Response.Write([]byte("Invalid credentials"))
 			return

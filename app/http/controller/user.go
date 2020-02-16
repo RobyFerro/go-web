@@ -4,6 +4,7 @@ import (
 	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -51,7 +52,11 @@ func (c *UserController) Insert() {
 		Password: string(encryptedPassword),
 	}
 
-	if err := c.DB.Create(&user).Error; err != nil {
+	if err := c.Container.Invoke(func(db *gorm.DB) {
+		if err := db.Create(&user).Error; err != nil {
+			gwf.ProcessError(err)
+		}
+	}); err != nil {
 		gwf.ProcessError(err)
 	}
 
@@ -60,7 +65,11 @@ func (c *UserController) Insert() {
 
 //Used to check authenticated user
 func (c *UserController) Profile() {
-	c.Auth.GetUser(c.Request)
+	if err := c.Container.Invoke(func(auth *gwf.Auth) {
+		_ = auth.GetUser(c.Request)
+	}); err != nil {
+		gwf.ProcessError(err)
+	}
 
 	_, _ = c.Response.Write([]byte("Authorization ok"))
 }

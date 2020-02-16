@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.0.0-20200215151703-d0c5b1b23a68
+	github.com/RobyFerro/go-web-framework v0.0.0-20200216090003-3740da5e6f31
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.1
 	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a
