@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.0.0-20200216090003-3740da5e6f31
+	github.com/RobyFerro/go-web-framework v0.0.0-20200217133332-45e885e67429
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.1
 	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a
@@ -38,6 +38,6 @@ require (
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20200212091648-12a6c2dcc1e4 // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.0.0-20200214225126-5916a50871fb // indirect
+	golang.org/x/tools v0.0.0-20200216192241-b320d3a0f5a2 // indirect
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 )

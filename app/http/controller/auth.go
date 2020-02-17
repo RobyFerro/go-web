@@ -21,18 +21,7 @@ type Credentials struct {
 
 // User login method.
 // This method will set JWT in HTTP response
-func (c *AuthController) JWTAuthentication() {
-
-	var auth *gwf.Auth
-	var db *gorm.DB
-
-	if err := c.Container.Invoke(func(a *gwf.Auth, d *gorm.DB, s *sessions.CookieStore) {
-		auth = a
-		db = d
-	}); err != nil {
-		gwf.ProcessError(err)
-	}
-
+func (c *AuthController) JWTAuthentication(auth *gwf.Auth, db *gorm.DB) {
 	//var user model.User
 	var payload Credentials
 	var user *model.User
@@ -76,18 +65,8 @@ func (c *AuthController) JWTAuthentication() {
 
 // Basic authentication method
 // Todo: complete this method to provide basic authentication
-func (c *AuthController) BasicAuthentication() {
+func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
 	var payload Credentials
-	var db *gorm.DB
-	var session *sessions.CookieStore
-
-	if err := c.Container.Invoke(func(d *gorm.DB, s *sessions.CookieStore) {
-		db = d
-		session = s
-	}); err != nil {
-		gwf.ProcessError(err)
-	}
-
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		gwf.ProcessError(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)

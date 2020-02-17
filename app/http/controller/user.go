@@ -13,7 +13,7 @@ type UserController struct {
 }
 
 // This method will be used to insert a new user in main DB (SQL)
-func (c *UserController) Insert() {
+func (c *UserController) Insert(db *gorm.DB) {
 
 	type NewUser struct {
 		Name           string `json:"name" valid:"required,alpha"`
@@ -52,11 +52,7 @@ func (c *UserController) Insert() {
 		Password: string(encryptedPassword),
 	}
 
-	if err := c.Container.Invoke(func(db *gorm.DB) {
-		if err := db.Create(&user).Error; err != nil {
-			gwf.ProcessError(err)
-		}
-	}); err != nil {
+	if err := db.Create(&user).Error; err != nil {
 		gwf.ProcessError(err)
 	}
 
@@ -64,10 +60,8 @@ func (c *UserController) Insert() {
 }
 
 //Used to check authenticated user
-func (c *UserController) Profile() {
-	if err := c.Container.Invoke(func(auth *gwf.Auth) {
-		_ = auth.GetUser(c.Request)
-	}); err != nil {
+func (c *UserController) Profile(auth *gwf.Auth) {
+	if err := auth.GetUser(c.Request); err != nil {
 		gwf.ProcessError(err)
 	}
 
