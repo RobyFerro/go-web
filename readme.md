@@ -17,6 +17,7 @@ sudo chown -R user:group <project_directory>
 sudo chmod -R +w <project_directory>
 ````
 
+If you're using VSCode you can install [Go-Web extension](https://marketplace.visualstudio.com/items?itemName=Roberto.go-web) to create a new project.
 ## Configuration
 Copy config.yml.example to new file named config.yml. You can customize your app by editing this file.
 If you need to add some extra configuration you've to update "Conf" structure in "configuration" package.
@@ -84,52 +85,31 @@ All middleware are stored into "middleware" package and can be created by `./gow
 
 ### Controllers
 Controllers are the main responsible of the business logic.You can find all controller into "controller" package. 
-Every controller must extends BaseController structure (which provides access to the service container) ad it must be registered in registered in kernel configuration (app/kernel/conf.go)
+Every controller must extends BaseController structure and must be registered in registered in kernel configuration (app/kernel/kernel.go)
 You can also use `./goweb controller:create <name>` to create a new controller. This tool allows just to create a new controller. 
 The registration part still remains.
 
 ```
-// This method will return an array of controllers.
-// Used by Go-Web routing
-// Every time you add a new controller you should register it in this method
-func register(bc controller.BaseController) []interface{} {
-	return []interface{}{
-		&controller.UserController{BaseController: bc},
-		&controller.AuthController{BaseController: bc},
-		&controller.HomeController{BaseController: bc},
-        // Here is where you've to register your custom controller
+Controllers = []interface{}{
+		&controller.UserController{},
+		&controller.AuthController{},
+		&controller.HomeController{},
+		// Here is where you've to register your custom controller
 	}
-}
 ```
 
 ### Structure of BaseController
-The following structure is how BaseController is build.
-
-````
-type BaseController struct {
-	DB       *gorm.DB               // Provide access to MySql instance
-	Response http.ResponseWriter    // HTTP response
-	Request  *http.Request          // HTTP request
-	Config   config.Conf            // Go-Web configuration
-	Auth     *helper.Auth           // Authentication/Authorization method
-	Redis    *redis.Client          // Provide access to Redis instance
-	Mongo    *mongo.Database        // Provide access to MongoDB instance
-	Elastic  *elasticsearch.Client  // Provide access to ElasticSearch instance
-}
-````
-
-Extending the BaseController every controller can access to all resources by a simple call. Es:
+By extending the BaseController every controller have access to the request and response, es:
 
 ````
 //Used to check authenticated user
-func (c *UserController) Profile() {
-	c.Auth.GetUser(c.Request)
-
+func (c *UserController) Profile(auth *gwf.Auth) {
+	auth.GetUser(c.Request)
 	_, _ = c.Response.Write([]byte("Authorization ok"))
 }
 ````
 
-As you can see we've got access to Auth methods simply calling "c.Auth".
+As you can see we've got access to http response simply calling "c.Response".
 
 ### Authentication
 Go-Web is dispatched with a built-in JWT Auth method. 

@@ -64,7 +64,6 @@ func (c *AuthController) JWTAuthentication(auth *gwf.Auth, db *gorm.DB) {
 }
 
 // Basic authentication method
-// Todo: complete this method to provide basic authentication
 func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
 	var payload Credentials
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
