@@ -1,21 +1,18 @@
 package middleware
 
 import (
-	"github.com/RobyFerro/go-web-framework"
 	"net/http"
+
+	gwf "github.com/RobyFerro/go-web-framework"
 )
 
-// Refresh JWT token
+// RefreshToken return a new token in request response
 func (Middleware) RefreshToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		err := gwf.Container.Invoke(func(a *gwf.Auth) {
-			a.RefreshToken()
+		var a gwf.Auth
+		gwf.Container.Invoke(func(conf *gwf.Conf) {
+			a.RefreshToken(w, conf.App.Key)
 		})
-
-		if err != nil {
-			gwf.ProcessError(err)
-		}
 
 		next.ServeHTTP(w, r)
 	})

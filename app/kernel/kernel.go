@@ -2,7 +2,8 @@ package kernel
 
 import (
 	"encoding/gob"
-	"github.com/RobyFerro/go-web-framework"
+
+	gwf "github.com/RobyFerro/go-web-framework"
 	gwfs "github.com/RobyFerro/go-web-framework/service"
 	"github.com/RobyFerro/go-web/app/http/controller"
 	"github.com/RobyFerro/go-web/app/http/middleware"
@@ -12,19 +13,22 @@ import (
 )
 
 var (
-	// Register service container
-	Container   *dig.Container
+	// Container represent the global Go-Web service container
+	Container *dig.Container
+	// Controllers will handle all Go-Web controller
 	Controllers = []interface{}{
 		&controller.UserController{},
 		&controller.AuthController{},
 		&controller.HomeController{},
 		// Here is where you've to register your custom controller
 	}
+	// Models will handle all application models
 	Models = []interface{}{
 		model.User{},
 		model.FailedJob{},
 		// Here is where you've to register your custom models
 	}
+	// Services will handle all app services
 	Services = []interface{}{
 		service.ConnectDB,
 		service.ConnectElastic,
@@ -32,11 +36,16 @@ var (
 		service.ConnectRedis,
 		// Here is where you've register your custom service
 	}
+	// Configuration represent all Go-Web application conf
+	Configuration *gwf.Conf
 )
 
-// Return an HTTP kernel instance.
+// StartKernel will create the HTTP kernel
 func StartKernel() *gwf.HttpKernel {
 	Container = gwfs.BuildContainer(Controllers, middleware.Middleware{}, Services)
+	Container.Invoke(func(conf *gwf.Conf) {
+		Configuration = conf
+	})
 
 	// Register user model struct to allow easy session encoding/decoding
 	// Used only by the basic authentication.
