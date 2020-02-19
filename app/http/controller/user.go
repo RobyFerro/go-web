@@ -59,9 +59,10 @@ func (c *UserController) Insert(db *gorm.DB) {
 	c.Response.WriteHeader(200)
 }
 
-//Used to check authenticated user
-func (c *UserController) Profile(auth *gwf.Auth) {
-	if err := auth.GetUser(c.Request); err != nil {
+// Profile method return information about the authenticated user.
+func (c *UserController) Profile(conf *gwf.Conf) {
+	var auth gwf.Auth
+	if err := auth.GetUser(c.Request, conf.App.Key); err != nil {
 		gwf.ProcessError(err)
 	}
 

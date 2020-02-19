@@ -1,13 +1,14 @@
 package controller
 
 import (
-	"github.com/RobyFerro/go-web-framework"
+	"net/http"
+
+	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
 )
 
 type AuthController struct {
@@ -19,12 +20,12 @@ type Credentials struct {
 	Password string `json:"password" valid:"required"`
 }
 
-// User login method.
-// This method will set JWT in HTTP response
-func (c *AuthController) JWTAuthentication(auth *gwf.Auth, db *gorm.DB) {
-	//var user model.User
+// JWTAuthentication provides user authentication with JWT
+func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
+
 	var payload Credentials
 	var user *model.User
+	var auth gwf.Auth
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
 		gwf.ProcessError(err)
@@ -47,18 +48,19 @@ func (c *AuthController) JWTAuthentication(auth *gwf.Auth, db *gorm.DB) {
 	// End check password
 
 	// Generate JWT token
-	auth.User.Name = user.Name
-	auth.User.Surname = user.Surname
-	auth.User.Username = user.Username
-	auth.User.ID = user.ID
+	auth.Name = user.Name
+	auth.Surname = user.Surname
+	auth.Username = user.Username
+	auth.ID = user.ID
 
-	if status := auth.NewToken(); !status {
+	if token, ok := auth.NewToken(conf.App.Key); !ok {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
+	} else {
+		_, _ = c.Response.Write([]byte(`{"token":"` + token + `"}`))
 	}
 
-	_, _ = c.Response.Write([]byte(`{"token":"` + auth.Token + `"}`))
 	// End JWT token generation
 	return
 }

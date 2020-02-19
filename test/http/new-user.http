@@ -1,12 +1,12 @@
-POST http://{{host}}:{{port}}/users
+POST http://localhost:8005/users
 Content-Type: application/json
 
 {
-  "name": "{{name}}",
-  "surname": "{{surname}}",
-  "username": "{{username}}",
-  "password": "{{password}}",
-  "repeat-password": "{{repeat-password}}"
+  "name": "Roberto",
+  "surname": "Ferro",
+  "username": "tester",
+  "password": "tester",
+  "repeat-password": "tester"
 }
 
 ###

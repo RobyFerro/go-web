@@ -1,9 +1,9 @@
-POST http://{{host}}:{{port}}/login
+POST http://localhost:8005/login
 Content-Type: application/json
 
 {
-  "username": "{{username}}",
-  "password": "{{password}}"
+  "username": "tester",
+  "password": "tester"
 }
 
 ###
