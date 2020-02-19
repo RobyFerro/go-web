@@ -3,7 +3,15 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+
+
+## [v0.2.1-beta] - 2020-02-19
+### Added
 - Insert changelog file
+
+### Chanfed
+- Update Go-Web framework version
+
 
 ## [v0.2-beta] - 2020-02-19
 ### Added
