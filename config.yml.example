@@ -44,7 +44,7 @@ server:
 ## Define global app configuration
 ## This section is mandatory to start Go-Web
 app:
-  key: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+  key: "$$APP_KEY$$"
 ## Define mail configuration
 ## This section is mandatory if you'd like to send email with Go-Web
 mail:
