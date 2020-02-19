@@ -1,0 +1,18 @@
+# Change Log
+
+All notable changes to the "Go-web" will be documented in this file.
+
+## [Unreleased]
+- Insert changelog file
+
+## [v0.2-beta] - 2020-02-19
+### Added
+- Updated base Go-Web Framework version
+
+### Changed
+- Insert placeholder in config.yml.example for app.key node
+
+
+## [v0.1-beta] - 2020-02-17
+### Added
+- First Go-Web relase
