@@ -3,7 +3,7 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
-
+- Returns user information by calling /admin/test route
 
 ## [v0.2.1-beta] - 2020-02-19
 ### Added

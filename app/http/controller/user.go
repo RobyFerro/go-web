@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"encoding/json"
+
 	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
@@ -66,5 +68,11 @@ func (c *UserController) Profile(conf *gwf.Conf) {
 		gwf.ProcessError(err)
 	}
 
-	_, _ = c.Response.Write([]byte("Authorization ok"))
+	jsonResponse, err := json.Marshal(auth)
+	if err != nil{
+		gwf.ProcessError(err)
+	}
+
+	c.Response.Header().Set("Content-Type", "application/json")
+	c.Response.Write(jsonResponse)
 }
