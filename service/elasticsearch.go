@@ -2,10 +2,11 @@ package service
 
 import (
 	"github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web/app"
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-func ConnectElastic(conf *gwf.Conf) *elasticsearch.Client {
+func ConnectElastic(conf *app.Conf) *elasticsearch.Client {
 	cfg := elasticsearch.Config{
 		Addresses: conf.Elastic.Hosts,
 	}

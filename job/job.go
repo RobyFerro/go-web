@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web/app"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/service"
 	"github.com/go-redis/redis/v7"
@@ -51,7 +52,7 @@ func (j *Job) Execute() {
 	if result[1].Interface() != nil {
 		err := result[1].Interface().(error)
 
-		cf, _ := gwf.Configuration()
+		cf, _ := app.Configuration()
 		r := service.ConnectDB(cf)
 
 		jobStr, errMarshal := json.Marshal(j)
