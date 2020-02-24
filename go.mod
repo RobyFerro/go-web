@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
-	github.com/RobyFerro/go-web-framework v0.2.2-beta.0.20200224122224-5b0d1089765d
+	github.com/RobyFerro/go-web-framework v0.3.0-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.3
 	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a

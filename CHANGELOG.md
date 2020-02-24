@@ -3,11 +3,11 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
-- Returns user information by calling /admin/test route
 
 ## [v0.3.0-beta] - 2020-02-24
 ### Added
 - Custom app configuration
+- Returns user information by calling /admin/test route
 
 ### Changed
 - Moved HTTP kernel from Go-Web to Go-web framework
