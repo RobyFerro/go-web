@@ -1,4 +1,4 @@
-package command
+package console
 
 import (
 	"encoding/json"
@@ -14,6 +14,7 @@ import (
 type QueueRun struct {
 	Signature   string
 	Description string
+	Args        string
 }
 
 func (c *QueueRun) Register() {
@@ -21,23 +22,14 @@ func (c *QueueRun) Register() {
 	c.Description = "Run a specific queue"
 }
 
-func (c *QueueRun) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
-	var rc *redis.Client
-	queue := fmt.Sprintf("queue:%s", args)
+func (c *QueueRun) Run(r *redis.Client) {
+	queue := fmt.Sprintf("queue:%s", c.Args)
 	cpus := runtime.NumCPU()
-
-	err := kernel.Container.Invoke(func(r *redis.Client) {
-		rc = r
-	})
-
-	if err != nil {
-		gwf.ProcessError(err)
-	}
 
 	var wg sync.WaitGroup
 	wg.Add(cpus)
 	for i := 0; i < cpus; i++ {
-		go worker(queue, rc, &wg)
+		go worker(queue, r, &wg)
 	}
 
 	wg.Wait()

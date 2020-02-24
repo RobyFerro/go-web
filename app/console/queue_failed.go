@@ -1,4 +1,4 @@
-package command
+package console
 
 import (
 	"fmt"
@@ -11,6 +11,7 @@ import (
 type QueueFailed struct {
 	Signature   string
 	Description string
+	Args        string
 }
 
 func (c *QueueFailed) Register() {
@@ -19,24 +20,18 @@ func (c *QueueFailed) Register() {
 }
 
 // Run jobs in Redis queue
-func (c *QueueFailed) Run(kernel *gwf.HttpKernel, args string, console map[string]interface{}) {
+func (c *QueueFailed) Run(db *gorm.DB, r *redis.Client) {
 	var failed []model.FailedJob
 
-	err := kernel.Container.Invoke(func(db *gorm.DB, r *redis.Client) {
-		if err := db.Find(&failed).Error; err != nil {
-			gwf.ProcessError(err)
-		}
-
-		for _, f := range failed {
-			queue := fmt.Sprintf("queue:%s", f.Queue)
-			r.RPush(queue, f.Payload)
-
-			removeFailedJob(&f, db)
-		}
-	})
-
-	if err != nil {
+	if err := db.Find(&failed).Error; err != nil {
 		gwf.ProcessError(err)
+	}
+
+	for _, f := range failed {
+		queue := fmt.Sprintf("queue:%s", f.Queue)
+		r.RPush(queue, f.Payload)
+
+		removeFailedJob(&f, db)
 	}
 }
 
