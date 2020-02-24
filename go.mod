@@ -3,7 +3,8 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.2.2-beta
+	github.com/DataDog/zstd v1.4.4 // indirect
+	github.com/RobyFerro/go-web-framework v0.2.2-beta.0.20200221163339-959513a73890
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/brianvoe/gofakeit/v4 v4.2.3
 	github.com/common-nighthawk/go-figure v0.0.0-20190529165535-67e0ed34491a
@@ -13,6 +14,7 @@ require (
 	github.com/getsentry/sentry-go v0.5.1 // indirect
 	github.com/go-redis/redis/v7 v7.1.0
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/golang-migrate/migrate/v4 v4.8.0 // indirect
 	github.com/golang/protobuf v1.3.3 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
 	github.com/gorilla/mux v1.7.4 // indirect
@@ -40,6 +42,6 @@ require (
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20200219091948-cb0a6d8edb6c // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.0.0-20200219161401-5fb17a1e7b9b // indirect
+	golang.org/x/tools v0.0.0-20200221152158-fe62aff31966 // indirect
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 )
