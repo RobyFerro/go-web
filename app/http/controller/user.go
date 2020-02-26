@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-
 	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
@@ -42,7 +41,7 @@ func (c *UserController) Insert(db *gorm.DB) {
 	}
 	// End validation
 
-	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
+	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(data.Password), 6)
 	if err != nil {
 		gwf.ProcessError(err)
 	}
@@ -57,8 +56,6 @@ func (c *UserController) Insert(db *gorm.DB) {
 	if err := db.Create(&user).Error; err != nil {
 		gwf.ProcessError(err)
 	}
-
-	c.Response.WriteHeader(200)
 }
 
 // Profile method return information about the authenticated user.
@@ -69,7 +66,7 @@ func (c *UserController) Profile(conf *gwf.Conf) {
 	}
 
 	jsonResponse, err := json.Marshal(auth)
-	if err != nil{
+	if err != nil {
 		gwf.ProcessError(err)
 	}
 

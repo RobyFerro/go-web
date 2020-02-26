@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200225094144-206d3c344773
+	github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226075025-a3edc3d25923
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/bmizerany/perks v0.0.0-20141205001514-d9a9656a3a4b // indirect
 	github.com/brianvoe/gofakeit/v4 v4.2.3
@@ -40,11 +40,11 @@ require (
 	golang.org/x/exp v0.0.0-20190121172915-509febef88a4 // indirect
 	golang.org/x/lint v0.0.0-20200130185559-910be7a94367 // indirect
 	golang.org/x/mod v0.2.0 // indirect
-	golang.org/x/net v0.0.0-20200222125558-5a598a2470a0 // indirect
+	golang.org/x/net v0.0.0-20200226051749-491c5fce7268 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.0.0-20200225022059-a0ec867d517c // indirect
+	golang.org/x/tools v0.0.0-20200225230052-807dcd883420 // indirect
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 	gopkg.in/yaml.v2 v2.2.8
 )
