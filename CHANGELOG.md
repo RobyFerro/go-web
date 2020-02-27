@@ -3,6 +3,9 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+- Fix basic auth middleware
+- Add *.test.json to .gitignore
+- Add gob structure for basic auth in goweb.go
 
 ## [v0.3.0-beta] - 2020-02-24
 ### Added

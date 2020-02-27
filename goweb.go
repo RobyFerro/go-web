@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/RobyFerro/go-web/app/console"
@@ -53,5 +54,6 @@ var (
 // Main Go-Web entry point.
 // Service container will be passed as parameter for every method
 func main() {
+	gob.Register(&model.User{})
 	gwf.Start(os.Args[1:], Commands, Controllers, Services, middleware.Middleware{}, Models)
 }

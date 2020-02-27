@@ -62,6 +62,14 @@ github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200225113741-a7f36b69bf19 
 github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200225113741-a7f36b69bf19/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
 github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226075025-a3edc3d25923 h1:78r7GKl0NlXGmpQYHuo9ohIHN6SJDFeBjG/W0Wzpd08=
 github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226075025-a3edc3d25923/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226092802-6a5075c8391d h1:5iqT5WNNHtFgblFvGd9+LqDBO8DsMh2yQU7l4dfrV1A=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226092802-6a5075c8391d/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226094247-0f6a70e1f9dd h1:YUtw51ulFQUrGzeLXEoiXwnu3lEdGfzLPbRuYa06F1I=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226094247-0f6a70e1f9dd/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226095304-0c07888c5358 h1:odAYakIsV4Y021F1/F2xWyAJ+YrI6fB2UYlh/TUr9mE=
+github.com/RobyFerro/go-web-framework v0.3.2-beta.0.20200226095304-0c07888c5358/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
+github.com/RobyFerro/go-web-framework v0.3.3-beta h1:5mG9Z6PjoHvrCFxIS445r3ztQl2iIX4WO8d/7xUUK8M=
+github.com/RobyFerro/go-web-framework v0.3.3-beta/go.mod h1:hjELMCoygRR3eMf0bNVK44n0rWyTGGcCJGqv88r5t1c=
 github.com/Shopify/goreferrer v0.0.0-20181106222321-ec9c9a553398/go.mod h1:a1uqRtAwp2Xwc6WNPJEufxJ7fx3npB4UV/JOLmbu5I0=
 github.com/ajg/form v1.5.1/go.mod h1:uL1WgH+h2mgNtvBq0339dVnzXdBETtL2LeUXaIv25UY=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6/go.mod h1:grANhF5doyWs3UAsr3K4I6qtAmlQcZDesFNEHPZAzj8=

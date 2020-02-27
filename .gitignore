@@ -6,3 +6,4 @@ http-client.env.json
 .vscode
 go-web
 node_modules
+*.test.json
