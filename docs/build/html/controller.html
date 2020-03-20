@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Controllers &#8212; Go-Web 0.3.0-beta documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="CLI Interface" href="cli.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="controllers">
+<h1>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h1>
+<p>Being a MVC framework, Go-Web encourages the use of controllers, i.e. containers of the business logic of the application.
+For instance, the controller named “SampleController” can be created by running command:</p>
+<p><em>./goweb controller:create sample</em></p>
+<p>Go-Web will create the the .go file containing controller named “SampleController” in folder:</p>
+<p><em>&lt;go-web&gt;/app/http/controller</em></p>
+<p>The content of the newly created file will be:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Sample controller</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">controller</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/RobyFerro/go-web-framework&quot;</span>
+
+<span class="kd">type</span> <span class="nx">SampleController</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">gwf</span><span class="p">.</span><span class="nx">BaseController</span>
+<span class="p">}</span>
+
+<span class="c1">// Main controller method</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">SampleController</span><span class="p">)</span> <span class="nx">Main</span><span class="p">(){</span>
+    <span class="c1">// Insert your custom logic</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>When creating a controller, Go-Web will add to it the function Main, which could be expanded with some logic,
+as shown in listing 4; controllers can be extended by adding new public functions.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">List 4: Sample controller</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">controller</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/RobyFerro/go-web-framework&quot;</span>
+    <span class="s">&quot;github.com/RobyFerro/go-web/exception&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">SampleController</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">gwf</span><span class="p">.</span><span class="nx">BaseController</span>
+<span class="p">}</span>
+
+<span class="c1">// Main controller method</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">SampleController</span><span class="p">)</span> <span class="nx">Main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Response</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">exception</span><span class="p">.</span><span class="nx">ProcessError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>To gain access to everything underlying a Go-Web controller, including HTTP request and response, a controller needs to extend gwf.BaseController.
+Because the service container is used to “resolve” all controllers in Go-Web, developers can type- hint any of their dependency because they will be injected into the controller instance, as represented by the following code:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">List 5: Dependency injection in controller</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">controller</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/RobyFerro/go-web-framework&quot;</span> <span class="s">&quot;github.com/RobyFerro/go-web/database/model&quot;</span> <span class="s">&quot;github.com/jinzhu/gorm&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">SampleController</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">gwf</span><span class="p">.</span><span class="nx">BaseController</span>
+<span class="p">}</span>
+
+<span class="c1">// Main controller method</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">SampleController</span><span class="p">)</span> <span class="nx">Main</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">user</span> <span class="nx">model</span><span class="p">.</span><span class="nx">User</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">).</span><span class="nx">Error</span><span class="p">;</span><span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">gwf</span><span class="p">.</span><span class="nx">ProcessError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Note</strong>: both listings 4 and 5 includes a call to gwf.ProcessError(err); this is how Go-Web can handle errors, but developers may adopt another approach.</p>
+<div class="section" id="registering-a-controller">
+<h2>Registering a controller<a class="headerlink" href="#registering-a-controller" title="Permalink to this headline">¶</a></h2>
+<p>After creating a controller, developers need to register it into Go-Web kernel: to do so, the controller needs to be added to Controllers list defined in</p>
+<p><em>&lt;go-web&gt;/app/kernel/conf.go</em></p>
+</div>
+<div class="section" id="binding-controller-to-routes">
+<h2>Binding controller to routes<a class="headerlink" href="#binding-controller-to-routes" title="Permalink to this headline">¶</a></h2>
+<p>Updating routes is simple and requires little changes to routing.yml file, which is located in the root folder of the project.
+The definition of a route is, in fact, straightforward and routes can be organized in groups.</p>
+<p>A route is defined by:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>path</dt><dd><ul>
+<li><p>describes the URI of the route</p></li>
+<li><p>a path is expressed as a string which could define parameters and supports regular expressions as gorilla/mux does</p></li>
+<li><p>requests targeting undefined routes will cause a “client error” response with HTTP status 404 (not found)</p></li>
+<li><p>example: <em>‘‘/hello-world’’</em></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>action</dt><dd><ul>
+<li><p>describes the destination of a route as a combination of a controller and one of its functions</p></li>
+<li><p>an action is expressed as the string &lt;controller name&gt;&#64;&lt;function name&gt;</p></li>
+<li><p>if the action cannot be resolved (undefined controller or action), Go-Web will produce an error</p></li>
+<li><p>example: <strong>SampleController&#64;Main</strong></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>method</dt><dd><ul>
+<li><p>describes the HTTP verb supported by the route</p></li>
+<li><dl class="simple">
+<dt>a method must be one of the verbs supported by HTTP, i.e.:</dt><dd><ul>
+<li><p>GET</p></li>
+<li><p>HEAD</p></li>
+<li><p>POST</p></li>
+<li><p>PUT</p></li>
+<li><p>DELETE</p></li>
+<li><p>CONNECT</p></li>
+<li><p>OPTIONS</p></li>
+<li><p>TRACE</p></li>
+<li><p>PATCH</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>requests targeting an existing route with a wrong method (i.e. one that is not supported by the route) will cause a “client error” response with HTTP status 405 (method not allowed)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>middleware (optionals)</dt><dd><ul>
+<li><p>represents the ordered list of middlewares that will process the request received by the route before performing the route’s action</p></li>
+<li><p>the value of this property is a yml list of strings which must identify existing middlewares</p></li>
+<li><p>example: Logging</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>descriptions (optionals)</dt><dd><ul>
+<li><p>a string describing the purpose of the route</p></li>
+<li><p>example: Returns JSON {‘‘message’’: ‘‘Hello World’’}</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Go-Web</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_environment.html">Dev environment setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#registering-a-controller">Registering a controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binding-controller-to-routes">Binding controller to routes</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cli.html" title="previous chapter">CLI Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Roberto Ferro.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/controller.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

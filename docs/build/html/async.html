@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Asynchronous jobs &#8212; Go-Web 0.3.0-beta documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="asynchronous-jobs">
+<h1>Asynchronous jobs<a class="headerlink" href="#asynchronous-jobs" title="Permalink to this headline">¶</a></h1>
+<p>Go-web allows developers to create and schedule asynchronous jobs that will be dispatched in a queue. Like controllers, models and other entities, a job can be created with the CLI by running command:</p>
+<blockquote class="highlights">
+<div><p>./goweb job:create &lt;job name&gt;</p>
+</div></blockquote>
+<p>Go-Web uses Redis to manage queues and developers can handle jobs with functions Schedule and Execute.</p>
+<p>The following listing illustrates an example of a Go-Web job:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">data</span> <span class="o">:=</span> <span class="nx">job</span><span class="p">.</span><span class="nx">MailStruct</span> <span class="p">{</span>
+    <span class="nx">Message</span><span class="p">:</span> <span class="s">&quot;Hello world&quot;</span><span class="p">,</span>
+    <span class="nx">To</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span> <span class="s">&quot;test@test.com&quot;</span><span class="p">,</span> <span class="s">&quot;test@test1.com&quot;</span> <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nx">payload</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">job</span><span class="p">.</span><span class="nx">Job</span> <span class="p">{</span>
+    <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Send email&quot;</span>
+    <span class="nx">MethodName</span><span class="p">:</span> <span class="s">&quot;Mail&quot;</span>
+    <span class="nx">Params</span><span class="p">:</span> <span class="nx">job</span><span class="p">.</span><span class="nx">Param</span> <span class="p">{</span> <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="nx">Payload</span><span class="p">:</span> <span class="nb">string</span><span class="p">(</span><span class="nx">payload</span><span class="p">),</span> <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;int&quot;</span> <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nx">j</span><span class="p">.</span><span class="nx">Schedule</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Redis</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once scheduled, a job can be run with CLI command:</p>
+<blockquote class="highlights">
+<div><p>./goweb queue:run &lt;queue name&gt;</p>
+</div></blockquote>
+<p>The default queue can be run with command:</p>
+<blockquote class="highlights">
+<div><p>./goweb queue:run default</p>
+</div></blockquote>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Go-Web</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_environment.html">Dev environment setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run HTTP Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Roberto Ferro.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/async.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
