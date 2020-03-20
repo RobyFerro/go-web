@@ -9,7 +9,7 @@ After compiling the project, the CLI can be used to view all commands supported 
 
 The following listing table shows commands presented to the user by show:command:
 
-.. image:: commands.png
+.. image:: img/commands.png
 
 Create custom commands
 ----------------------

@@ -16,10 +16,13 @@ Go-Web differs from them because of the aforementioned “convention over config
 .. toctree::
    :maxdepth: 2
    :caption: Table of Contents
-   :includehidden:
 
    installation
    architecture
    dev_environment
    service_configuration
    cli
+   controller
+   run
+   middleware
+   async
