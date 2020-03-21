@@ -13,6 +13,10 @@ background, aiming at a reduced “productive lag” which could be experienced 
 Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, but
 Go-Web differs from them because of the aforementioned “convention over configuration” approach.
 
+**Here you can find a pdf version of this documentation:**
+
+:download:`goweb-0.3.x-beta.pdf`
+
 .. toctree::
    :maxdepth: 2
    :caption: Table of Contents
