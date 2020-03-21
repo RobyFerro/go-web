@@ -26,7 +26,7 @@ author = u'Roberto Ferro'
 # The short X.Y version
 version = u''
 # The full version, including alpha/beta/rc tags
-release = u'0.3.0-beta'
+release = u'0.3.1-beta'
 
 
 # -- General configuration ---------------------------------------------------
