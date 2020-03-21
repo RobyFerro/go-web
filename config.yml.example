@@ -39,8 +39,8 @@ server:
 ## you are running go-web with run:daemon
 ## (pay attention: you need to be root and, of course, your
 ## working folder should be owned by the run-user user)
-  run-user: www-data
-  run-group: www-data
+  run-user:
+  run-group:
 ## Define global app configuration
 ## This section is mandatory to start Go-Web
 app:
