@@ -1,6 +1,8 @@
 Asynchronous jobs
 =================
-Go-web allows developers to create and schedule asynchronous jobs that will be dispatched in a queue. Like controllers, models and other entities, a job can be created with the CLI by running command:
+Go-web allows developers to create and schedule asynchronous jobs that will be dispatched in a queue.
+
+Like controllers, models and other entities, a job can be created with the CLI by running command:
 
 .. highlights:: ./goweb job:create <job name>
 

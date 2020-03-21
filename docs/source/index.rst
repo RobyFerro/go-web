@@ -23,6 +23,10 @@ Go-Web differs from them because of the aforementioned “convention over config
    service_configuration
    cli
    controller
+   routing
    run
    middleware
    async
+   database
+   authentication
+   front-end
