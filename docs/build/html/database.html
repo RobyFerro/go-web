@@ -43,13 +43,39 @@
 <blockquote class="highlights">
 <div>./goweb model:create &lt;model name&gt;</div></blockquote>
 <p>Models are located in: <em>&lt;go-web&gt;/database/model</em></p>
+</div>
 <div class="section" id="migration">
-<h3>Migration<a class="headerlink" href="#migration" title="Permalink to this headline">¶</a></h3>
+<h2>Migration<a class="headerlink" href="#migration" title="Permalink to this headline">¶</a></h2>
 <p>Migrations are like version control for your database, allowing your team to easily modify and share the application’s database schema.
 Developers can creates new migration as follows:</p>
 <blockquote class="highlights">
 <div>./goweb migration:create &lt;migration_name&gt;</div></blockquote>
 <p>Developer can find its newly created migration files in &lt;go-web&gt;/database/migration directory.</p>
+</div>
+<div class="section" id="seeding">
+<h2>Seeding<a class="headerlink" href="#seeding" title="Permalink to this headline">¶</a></h2>
+<p>By implementing “Seed” method you’te able to seed your table with a “fake” data.
+Go-Web uses <em>https://github.com/brianvoe/gofakeit</em> as faker library.</p>
+<p>See the below example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Execute model seeding</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">User</span><span class="p">)</span> <span class="nx">Seed</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+                <span class="nx">password</span> <span class="o">:=</span> <span class="nx">gofakeit</span><span class="p">.</span><span class="nx">Password</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="nx">encryptedPassword</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">GenerateFromPassword</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">password</span><span class="p">),</span> <span class="mi">14</span><span class="p">)</span>
+
+                <span class="nx">user</span> <span class="o">:=</span> <span class="nx">User</span><span class="p">{</span>
+                        <span class="nx">Name</span><span class="p">:</span>     <span class="nx">gofakeit</span><span class="p">.</span><span class="nx">FirstName</span><span class="p">(),</span>
+                        <span class="nx">Surname</span><span class="p">:</span>  <span class="nx">gofakeit</span><span class="p">.</span><span class="nx">LastName</span><span class="p">(),</span>
+                        <span class="nx">Username</span><span class="p">:</span> <span class="nx">gofakeit</span><span class="p">.</span><span class="nx">Username</span><span class="p">(),</span>
+                        <span class="nx">Password</span><span class="p">:</span> <span class="nb">string</span><span class="p">(</span><span class="nx">encryptedPassword</span><span class="p">),</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">).</span><span class="nx">Error</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                        <span class="nx">exception</span><span class="p">.</span><span class="nx">ProcessError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -79,14 +105,18 @@ Developers can creates new migration as follows:</p>
 <li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Run HTTP Server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Database</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migration">Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seeding">Seeding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-End</a></li>
 </ul>
 
 <div class="relations">
