@@ -13,7 +13,8 @@ routes:
     action: "UserController@Insert"
     description: "Insert new user"
     method: "POST"
-    #middleware:""
+    middleware:
+      - Logging
   login:
     path: "/login"
     action: "AuthController@JWTAuthentication"

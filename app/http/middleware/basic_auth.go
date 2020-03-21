@@ -18,8 +18,9 @@ func (Middleware) BasicAuth(next http.Handler) http.Handler {
 			}
 
 			if session.Values["user"] == nil {
-				w.WriteHeader(http.StatusForbidden)
-				_, _ = w.Write([]byte("Forbidden!"))
+				http.Error(w, "Forbidden", http.StatusForbidden)
+			} else {
+				next.ServeHTTP(w, r)
 			}
 
 		}); err != nil {
