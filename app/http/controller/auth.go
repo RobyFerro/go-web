@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"time"
 
 	gwf "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
@@ -53,7 +54,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
 	auth.Username = user.Username
 	auth.ID = user.ID
 
-	if token, ok := auth.NewToken(conf.App.Key); !ok {
+	if token, ok := auth.NewToken(conf.App.Key, 2*time.Hour); !ok {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return

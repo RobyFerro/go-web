@@ -4,7 +4,14 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
-## [v.3.1-beta] - 2020-03-21
+## [v0.3.2-beta] - 2020-07-09
+### Changed
+- Updated GWF version
+
+### Fixed
+- Default JWT auth duration
+
+## [v0.3.1-beta] - 2020-03-21
 ### Added
 - Project documentation
 - Fix basic auth middleware
