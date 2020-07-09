@@ -3,13 +3,12 @@ module github.com/RobyFerro/go-web
 go 1.13
 
 require (
-	github.com/RobyFerro/go-web-framework v0.3.3-beta
+	github.com/RobyFerro/go-web-framework v0.3.6-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/bmizerany/perks v0.0.0-20141205001514-d9a9656a3a4b // indirect
 	github.com/brianvoe/gofakeit/v4 v4.2.3
 	github.com/denisenkom/go-mssqldb v0.0.0-20200206145737-bbfc9a55622e // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/dgryski/go-gk v0.0.0-20140819190930-201884a44051 // indirect
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200210103600-aff00e5adfde
 	github.com/getsentry/sentry-go v0.5.1 // indirect
 	github.com/go-redis/redis/v7 v7.2.0
