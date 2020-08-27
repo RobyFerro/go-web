@@ -4,6 +4,13 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.4-beta] - 2020-08-27
+### Added 
+- Alfred CLI tool
+
+### Removed
+- Some commands from project build
+
 ## [v0.3.2-beta] - 2020-07-09
 ### Changed
 - Updated GWF version
