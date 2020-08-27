@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.14
 
 require (
-	github.com/RobyFerro/go-web-framework v0.4-beta // indirect
+	github.com/RobyFerro/go-web-framework v0.3.7-beta.0.20200827110932-be1d5b66a39f // indirect
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/brianvoe/gofakeit/v4 v4.3.0
