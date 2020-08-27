@@ -36,18 +36,32 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>You can install Go-Web as follows :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir &lt;project_folder&gt;
-go mod init &lt;your_project_name&gt;
-go get github.com/RobyFerro/go-web@v0.1.0-alpha
-cp <span class="nv">$GOPATH</span>/bin/go-web /usr/bin/goweb
-sudo go-web install &lt;project_directory&gt;
-sudo chown -R user:group &lt;project_directory&gt;
-sudo chmod -R +w &lt;project_directory&gt;
+<p>Alfred is the command-line interface included with Go-Web. It provides a number of helpful commands that can assist you while you build your application.</p>
+<div class="section" id="compiling-from-source">
+<h2>Compiling from source<a class="headerlink" href="#compiling-from-source" title="Permalink to this headline">¶</a></h2>
+<p>In order to compile “Alfred” from sources, make sure that:</p>
+<ul class="simple">
+<li>You have a correctly configure Go &gt;= 1.13 environment</li>
+<li>$GOPATH is defined and $GOPATH/bin is in $PATH</li>
+</ul>
+<p>Once you’ve met this conditions, you can run the following commands to compile and install Alfred in <cite>/usr/local/bin/alfred</cite></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go get github.com/RobyFerro/go-web
+<span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/RobyFerro/go-web
+sudo make build
+sudo make install
+</pre></div>
+</div>
+<p>Then you can type <cite>alfred -h</cite> to see all available commands.</p>
+</div>
+<div class="section" id="create-new-service">
+<h2>Create new service<a class="headerlink" href="#create-new-service" title="Permalink to this headline">¶</a></h2>
+<p>To create a new Go-Web Service you’ve just to type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alfred -cS &lt;selected_path&gt;
 </pre></div>
 </div>
 <p>If you’re using Visual Studio Code you can install Go-Web framework with it’s specific extension:
 <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=Roberto.go-web">https://marketplace.visualstudio.com/items?itemName=Roberto.go-web</a></p>
+</div>
 </div>
 
 
@@ -69,7 +83,11 @@ sudo chmod -R +w &lt;project_directory&gt;
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Table of Contents</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compiling-from-source">Compiling from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-new-service">Create new service</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_environment.html">Dev environment setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>

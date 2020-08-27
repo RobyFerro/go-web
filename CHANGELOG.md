@@ -51,4 +51,4 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [v0.1-beta] - 2020-02-17
 ### Added
-- First Go-Web relase
+- First Go-Web release
