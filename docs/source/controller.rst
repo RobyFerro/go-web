@@ -3,7 +3,10 @@ Controllers
 Being a MVC framework, Go-Web encourages the use of controllers, i.e. containers of the business logic of the application.
 For instance, the controller named “SampleController” can be created by running command:
 
-*./goweb controller:create sample*
+.. code-block:: bash
+
+    alfred -mC sample_controller
+
 
 Go-Web will create the the .go file containing controller named “SampleController” in folder:
 
@@ -78,8 +81,6 @@ Because the service container is used to “resolve” all controllers in Go-Web
 
 **Note**: both listings 4 and 5 includes a call to gwf.ProcessError(err); this is how Go-Web can handle errors, but developers may adopt another approach.
 
-Registering a controller
-------------------------
-After creating a controller, developers need to register it into Go-Web kernel: to do so, the controller needs to be added to Controllers list defined in
-
-*<go-web>/app/kernel/conf.go*
+.. warning::
+    After manually creating a controller, developers may need to manually register it: to do so, the controller needs to be added to Controllers list defined in
+    *<go-web>/register.go*

@@ -124,7 +124,7 @@ func help() {
 	fmt.Println(" --make-controller, -mC <controller_name>: Creates new Go-Web controller")
 	fmt.Println(" --make-command, -mCMD <command_name>: Creates new Go-Web command")
 	fmt.Println(" --make-model, -mM <model_name>: Creates new Go-Web model")
-	fmt.Println(" --make-migration , -mDBM <model_name>: Creates new Go-Web SQL migration")
+	fmt.Println(" --make-migration , -mDBM <migration_name>: Creates new Go-Web SQL migration")
 	fmt.Println(" --make-middleware , -mMW <middleware_name>: Creates new middleware")
 	fmt.Println(" --make-job, -mJ <job_name>: Creates new async job")
 	fmt.Println(" --show-routes, -sR: Shows service routes")
@@ -139,7 +139,7 @@ func help() {
 	fmt.Println("To run the followings command you should compile your project and run:")
 	fmt.Println("Usage: <your-binary> <command>:<option>")
 
-	fmt.Println("\n database:seed <seeder_name>: Executes seeder (all seeder if seeder name is not specified).")
+	fmt.Println("\n database:seed <model_name>: Executes seeder (all available models if is not specified).")
 	fmt.Println(" show:commands : Shows all custom cli commands")
 	fmt.Println(" server:daemon : Run your project as a daemon")
 	fmt.Println(" server:run : Run your project ")

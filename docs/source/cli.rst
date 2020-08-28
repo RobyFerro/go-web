@@ -9,33 +9,45 @@ After compiling the project, the CLI can be used to view all commands supported 
 
 The following listing table shows commands presented to the user by show:command:
 
-.. image:: img/commands.png
+.. list-table:: Alfred available commands
+    :widths: 50 50
+    :header-rows: 1
+
+    * - Commands
+      - Descriptions
+    * - database:seed <model_name>
+      - Executes seeder (all available models if is not specified)
+    * - show:commands
+      - Shows all custom CLI commands
+    * - server:daemon
+      - Run Go-Web server as a daemon
+    * - server:run
+      - Run Go-Web server normally
 
 Create custom commands
 ----------------------
 Go-Web command line interface (CLI) can be extended by running command
 
-*./goweb cmd:create <name>*
+.. code-block:: go
 
-Before being available to Go-Web, commands must be registered in the console kernel at
+    alfred -mCMD <command_name>
 
-*〈go-web〉/app/console/kernel.go*
-
+Before being available to Go-Web, commands must be registered in *register.go*.
 The following listing shows the registration of command Greetings:
+
+.. warning::
+
+    Command must be registered in the *register.go* file located in project root directory.
 
 .. code-block:: go
 
-    var (
-        Commands = map[string]interface{} {
-            /* Default commands */
-            "migration:up": &command.MigrationUp{},
-            "migration:create": &command.MigrationCreate{},
-            "job:create": &command.JobCreate{},
-            "install": &command.Install{},
-            /* Default commands */
-            /* Registration of Greetings command */
-            "greetings": &command.Greetings{},
-        }
-    )
+	Commands = gwf.CommandRegister{
+		List: map[string]interface{}{
+			"queue:failed": &console.QueueFailed{},
+			"queue:run":    &console.QueueRun{},
+                        "greetings":    &console.Greetings{}, // new
+			// Here is where you've to register your custom commands
+		},
+	}
 
 The command registration Commands variable is used by Go-Web to recognize and list supported commands.
