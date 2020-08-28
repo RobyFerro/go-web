@@ -29,8 +29,6 @@ Alfred is the command-line interface included with Go-Web. It provides a number 
       - Creates new Go-Web async job*
     * - --show-route, -sR
       - Shows service routes*
-    * - --show-custom-cli, -sC
-      - Shows custom CLI commands*
     * - --migrate-up, -mU
       - Executes migrations*
     * - --migrate-rollback, -mR <steps>
