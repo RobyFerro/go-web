@@ -4,6 +4,14 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.4.2-beta] - 2020-08-28
+### Added
+- Make file command to run and compile Go-Web
+
+### Changed
+- Project documentation
+- Remove duplicated element form README.md
+
 ## [v0.4.1-beta] - 2020-08-28
 ### Added
 - Auto-register generated component

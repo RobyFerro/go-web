@@ -128,7 +128,6 @@ func help() {
 	fmt.Println(" --make-middleware , -mMW <middleware_name>: Creates new middleware")
 	fmt.Println(" --make-job, -mJ <job_name>: Creates new async job")
 	fmt.Println(" --show-routes, -sR: Shows service routes")
-	fmt.Println(" --show-custom-cli, -sC: Shows custom CLI commands")
 	fmt.Println(" --migrate-up, -mU: Executes migrations")
 	fmt.Println(" --migrate-rollback, -mR <steps>: Executes migrations rollback")
 	fmt.Println(" --generate-key, -gK: Generate new application key")
