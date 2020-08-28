@@ -16,7 +16,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="next" title="Alfred" href="alfred.html" />
     <link rel="prev" title="Go-Web framework documentation" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -36,7 +36,7 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Alfred is the command-line interface included with Go-Web. It provides a number of helpful commands that can assist you while you build your application.</p>
+<p>To install and create a new Go-Web Service you’ll need to compile and use  <a class="reference internal" href="alfred.html#alfred-reference"><span class="std std-ref">Alfred</span></a>.</p>
 <div class="section" id="compiling-from-source">
 <h2>Compiling from source<a class="headerlink" href="#compiling-from-source" title="Permalink to this headline">¶</a></h2>
 <p>In order to compile “Alfred” from sources, make sure that:</p>
@@ -44,6 +44,9 @@
 <li>You have a correctly configure Go &gt;= 1.13 environment</li>
 <li>$GOPATH is defined and $GOPATH/bin is in $PATH</li>
 </ul>
+</div>
+<div class="section" id="linux-and-osx">
+<h2>Linux and OSX<a class="headerlink" href="#linux-and-osx" title="Permalink to this headline">¶</a></h2>
 <p>Once you’ve met this conditions, you can run the following commands to compile and install Alfred in <cite>/usr/local/bin/alfred</cite></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go get github.com/RobyFerro/go-web
 <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/RobyFerro/go-web
@@ -53,14 +56,25 @@ sudo make install
 </div>
 <p>Then you can type <cite>alfred -h</cite> to see all available commands.</p>
 </div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>To install Go-Web on Windows system you’ll need to manually compile Alfred and add the path to system env variables.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go build <span class="nv">$GOPATH</span>/src/github/RobyFerro/go-web/tool/alfred.go
+</pre></div>
+</div>
+</div>
 <div class="section" id="create-new-service">
 <h2>Create new service<a class="headerlink" href="#create-new-service" title="Permalink to this headline">¶</a></h2>
 <p>To create a new Go-Web Service you’ve just to type:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alfred -cS &lt;selected_path&gt;
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p>If you’re using Visual Studio Code you can install Go-Web framework with it’s specific extension:
 <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=Roberto.go-web">https://marketplace.visualstudio.com/items?itemName=Roberto.go-web</a></p>
+<p class="last"><em>Fully tested on Linux/OSX system</em></p>
+</div>
 </div>
 </div>
 
@@ -85,9 +99,12 @@ sudo make install
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#compiling-from-source">Compiling from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-and-osx">Linux and OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-new-service">Create new service</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="alfred.html">Alfred</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_environment.html">Dev environment setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
@@ -107,7 +124,7 @@ sudo make install
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Go-Web framework documentation</a></li>
-      <li>Next: <a href="architecture.html" title="next chapter">Architecture</a></li>
+      <li>Next: <a href="alfred.html" title="next chapter">Alfred</a></li>
   </ul></li>
 </ul>
 </div>

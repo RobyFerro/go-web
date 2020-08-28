@@ -4,7 +4,14 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
-## [v0.4-beta] - 2020-08-27
+## [v0.4.1-beta] - 2020-08-28
+### Added
+- Auto-register generated component
+
+### Changed 
+- Component registration location (register.go)
+
+## [v0.4.0-beta] - 2020-08-27
 ### Added 
 - Alfred CLI tool
 

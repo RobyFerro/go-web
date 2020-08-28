@@ -38,7 +38,9 @@
 <h1>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h1>
 <p>Being a MVC framework, Go-Web encourages the use of controllers, i.e. containers of the business logic of the application.
 For instance, the controller named “SampleController” can be created by running command:</p>
-<p><em>./goweb controller:create sample</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alfred -mC sample_controller
+</pre></div>
+</div>
 <p>Go-Web will create the the .go file containing controller named “SampleController” in folder:</p>
 <p><em>&lt;go-web&gt;/app/http/controller</em></p>
 <p>The content of the newly created file will be:</p>
@@ -108,10 +110,10 @@ Because the service container is used to “resolve” all controllers in Go-Web
 </div>
 </div>
 <p><strong>Note</strong>: both listings 4 and 5 includes a call to gwf.ProcessError(err); this is how Go-Web can handle errors, but developers may adopt another approach.</p>
-<div class="section" id="registering-a-controller">
-<h2>Registering a controller<a class="headerlink" href="#registering-a-controller" title="Permalink to this headline">¶</a></h2>
-<p>After creating a controller, developers need to register it into Go-Web kernel: to do so, the controller needs to be added to Controllers list defined in</p>
-<p><em>&lt;go-web&gt;/app/kernel/conf.go</em></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">After manually creating a controller, developers may need to manually register it: to do so, the controller needs to be added to Controllers list defined in
+<em>&lt;go-web&gt;/register.go</em></p>
 </div>
 </div>
 
@@ -135,14 +137,12 @@ Because the service container is used to “resolve” all controllers in Go-Web
 <p class="caption"><span class="caption-text">Table of Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alfred.html">Alfred</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_environment.html">Dev environment setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Interface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Controllers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#registering-a-controller">Registering a controller</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Run HTTP Server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>

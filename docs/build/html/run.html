@@ -36,8 +36,11 @@
             
   <div class="section" id="run-http-server">
 <h1>Run HTTP Server<a class="headerlink" href="#run-http-server" title="Permalink to this headline">¶</a></h1>
-<p>After creating a controller, registering it in the kernel and creating the binding with a route, the developer can run the server to ensure that the solution works; running a server can be done by running Go-Web like</p>
-<p><em>./goweb server:run</em></p>
+<p>After creating a controller, registering it in the kernel and creating the binding with a route, the developer can run the server to ensure that the solution works; running a server can be done by running Go-Web like:</p>
+<div class="highlight-bash. notranslate"><div class="highlight"><pre><span></span>./goweb server:run // Run server normally
+./goweb server:daemon // Run server as a daemon
+</pre></div>
+</div>
 <p>The server will start listening on port defined in file config.yml.</p>
 </div>
 
