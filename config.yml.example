@@ -35,12 +35,18 @@ server:
   ssl:	false
   sslcert: certs/tls.crt
   sslkey:  certs/tls.key
+##
+##
+## DO NOT USE THE FOLLOWING SETTINGS:
+## DEPRECATED DUE TO WINDOWS CONFLICTS
 ## The following parameters are considered just in case
 ## you are running go-web with run:daemon
 ## (pay attention: you need to be root and, of course, your
 ## working folder should be owned by the run-user user)
-  run-user:
-  run-group:
+##  run-user:
+##  run-group:
+##
+##
 ## Define global app configuration
 ## This section is mandatory to start Go-Web
 app:
