@@ -4,6 +4,16 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.4.3-beta] - 2021-06-14
+### Fixed 
+- Installation procedure in documentation
+
+### Removed
+- Install command from `alfred`
+
+### Added
+- Updated `go-web-framework` version
+
 ## [v0.4.2-beta] - 2020-08-28
 ### Added
 - Make file command to run and compile Go-Web
