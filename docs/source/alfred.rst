@@ -4,6 +4,9 @@ Alfred
 ######
 
 Alfred is the command-line interface included with Go-Web. It provides a number of helpful commands that can assist you while you build your application.
+You can compile `Alfred` by running `sudo make build` in your project root.
+
+Usage:    `./alfred --help`
 
 .. list-table:: Alfred available commands
     :widths: 50 50
@@ -13,8 +16,6 @@ Alfred is the command-line interface included with Go-Web. It provides a number 
       - Descriptions
     * - --help, -h
       - Shows help menu
-    * - --create-service, -cS <destination_path>
-      - Creates new Go-Web service in selected destination
     * - --make-controller, -mC <controller_name>
       - Creates new Go-Web controller*
     * - --make-command, -mCMD <command_name>

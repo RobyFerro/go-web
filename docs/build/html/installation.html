@@ -21,7 +21,6 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
@@ -30,57 +29,28 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>To install and create a new Go-Web Service you’ll need to compile and use  <a class="reference internal" href="alfred.html#alfred-reference"><span class="std std-ref">Alfred</span></a>.</p>
-<div class="section" id="compiling-from-source">
-<h2>Compiling from source<a class="headerlink" href="#compiling-from-source" title="Permalink to this headline">¶</a></h2>
-<p>In order to compile “Alfred” from sources, make sure that:</p>
-<ul class="simple">
-<li>You have a correctly configure Go &gt;= 1.13 environment</li>
-<li>$GOPATH is defined and $GOPATH/bin is in $PATH</li>
+<div class="section" id="standard-installation">
+<h2>Standard installation<a class="headerlink" href="#standard-installation" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>You can download and install Go-Web by following these steps:</dt>
+<dd><ul class="first last simple">
+<li>Download Go-Web release from <a class="reference external" href="https://github.com/RobyFerro/go-web/releases">GitHub</a></li>
+<li>Extract the content in you project root</li>
+<li>Rename the <cite>config.yaml.example</cite> file in the project root by removing the <cite>.example</cite> suffix</li>
+<li>Download all dependencies by executing <cite>go mod download</cite> in project root</li>
+<li>Execute <cite>go run . show:commands</cite> to see all available GWF command</li>
 </ul>
-</div>
-<div class="section" id="linux-and-osx">
-<h2>Linux and OSX<a class="headerlink" href="#linux-and-osx" title="Permalink to this headline">¶</a></h2>
-<p>Once you’ve met this conditions, you can run the following commands to compile and install Alfred in <cite>/usr/local/bin/alfred</cite></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go get github.com/RobyFerro/go-web
-<span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/RobyFerro/go-web
-sudo make build
-sudo make install
-</pre></div>
-</div>
-<p>Then you can type <cite>alfred -h</cite> to see all available commands.</p>
-</div>
-<div class="section" id="windows">
-<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
-<p>To install Go-Web on Windows system you’ll need to manually compile Alfred and add the path to system env variables.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go build <span class="nv">$GOPATH</span>/src/github/RobyFerro/go-web/tool/alfred.go
-</pre></div>
-</div>
-</div>
-<div class="section" id="create-new-service">
-<h2>Create new service<a class="headerlink" href="#create-new-service" title="Permalink to this headline">¶</a></h2>
-<p>To create a new Go-Web Service you’ve just to type:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alfred -cS &lt;selected_path&gt;
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>If you’re using Visual Studio Code you can install Go-Web framework with it’s specific extension:
-<a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=Roberto.go-web">https://marketplace.visualstudio.com/items?itemName=Roberto.go-web</a></p>
-<p class="last"><em>Fully tested on Linux/OSX system</em></p>
-</div>
+</dd>
+</dl>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -98,10 +68,7 @@ sudo make install
 <p class="caption"><span class="caption-text">Table of Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#compiling-from-source">Compiling from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linux-and-osx">Linux and OSX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#create-new-service">Create new service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-installation">Standard installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="alfred.html">Alfred</a></li>
@@ -112,6 +79,7 @@ sudo make install
 <li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Compile and run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http_load.html">HTTP load test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
@@ -140,14 +108,6 @@ sudo make install
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -157,7 +117,7 @@ sudo make install
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/installation.rst.txt"
