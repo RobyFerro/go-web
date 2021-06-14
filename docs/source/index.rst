@@ -26,6 +26,7 @@ Go-Web differs from them because of the aforementioned “convention over config
    controller
    routing
    run
+   http_load
    middleware
    async
    database

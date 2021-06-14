@@ -21,7 +21,6 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
@@ -30,13 +29,13 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="alfred">
 <span id="alfred-reference"></span><h1>Alfred<a class="headerlink" href="#alfred" title="Permalink to this headline">¶</a></h1>
-<p>Alfred is the command-line interface included with Go-Web. It provides a number of helpful commands that can assist you while you build your application.</p>
+<p>Alfred is the command-line interface included with Go-Web. It provides a number of helpful commands that can assist you while you build your application.
+You can compile <cite>Alfred</cite> by running <cite>sudo make build</cite> in your project root.</p>
+<p>Usage:    <cite>./alfred –help</cite></p>
 <table border="1" class="colwidths-given docutils" id="id1">
 <caption><span class="caption-text">Alfred available commands</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -52,40 +51,37 @@
 <tr class="row-even"><td>–help, -h</td>
 <td>Shows help menu</td>
 </tr>
-<tr class="row-odd"><td>–create-service, -cS &lt;destination_path&gt;</td>
-<td>Creates new Go-Web service in selected destination</td>
-</tr>
-<tr class="row-even"><td>–make-controller, -mC &lt;controller_name&gt;</td>
+<tr class="row-odd"><td>–make-controller, -mC &lt;controller_name&gt;</td>
 <td>Creates new Go-Web controller*</td>
 </tr>
-<tr class="row-odd"><td>–make-command, -mCMD &lt;command_name&gt;</td>
+<tr class="row-even"><td>–make-command, -mCMD &lt;command_name&gt;</td>
 <td>Creates new Go-Web command*</td>
 </tr>
-<tr class="row-even"><td>–make-model, -mM &lt;model_name&gt;</td>
+<tr class="row-odd"><td>–make-model, -mM &lt;model_name&gt;</td>
 <td>Creates new Go-Web model*</td>
 </tr>
-<tr class="row-odd"><td>–make-migration, -mMDB &lt;migration_name&gt;</td>
+<tr class="row-even"><td>–make-migration, -mMDB &lt;migration_name&gt;</td>
 <td>Creates new Go-Web SQL migration*</td>
 </tr>
-<tr class="row-even"><td>–make-middleware, -mMW &lt;middleware_name&gt;</td>
+<tr class="row-odd"><td>–make-middleware, -mMW &lt;middleware_name&gt;</td>
 <td>Creates new Go-Web SQL middleware*</td>
 </tr>
-<tr class="row-odd"><td>–make-job, -mJ &lt;job_name&gt;</td>
+<tr class="row-even"><td>–make-job, -mJ &lt;job_name&gt;</td>
 <td>Creates new Go-Web async job*</td>
 </tr>
-<tr class="row-even"><td>–show-route, -sR</td>
+<tr class="row-odd"><td>–show-route, -sR</td>
 <td>Shows service routes*</td>
 </tr>
-<tr class="row-odd"><td>–migrate-up, -mU</td>
+<tr class="row-even"><td>–migrate-up, -mU</td>
 <td>Executes migrations*</td>
 </tr>
-<tr class="row-even"><td>–migrate-rollback, -mR &lt;steps&gt;</td>
+<tr class="row-odd"><td>–migrate-rollback, -mR &lt;steps&gt;</td>
 <td>Executes migrations rollback*</td>
 </tr>
-<tr class="row-odd"><td>–generate-key, -gK</td>
+<tr class="row-even"><td>–generate-key, -gK</td>
 <td>Generate new application key*</td>
 </tr>
-<tr class="row-even"><td>–http-load, -hL</td>
+<tr class="row-odd"><td>–http-load, -hL</td>
 <td>Executes HTTP load test based on json configuration*</td>
 </tr>
 </tbody>
@@ -95,7 +91,6 @@
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -121,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Compile and run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http_load.html">HTTP load test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
@@ -149,14 +145,6 @@
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -166,7 +154,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/alfred.rst.txt"

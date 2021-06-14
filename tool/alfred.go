@@ -25,12 +25,6 @@ func main() {
 	switch args[0] {
 	case "--help", "-h":
 		help()
-	case "--create-service", "-cS":
-		if len(args) != 2 {
-			log.Fatal("Missing destination path")
-		}
-		cmd := gwf.Install{Args: args[1]}
-		cmd.Run()
 	case "--make-controller", "-mC":
 		if len(args) != 2 {
 			log.Fatal("Missing controller name")
@@ -118,7 +112,6 @@ func help() {
 
 	fmt.Println("\nBASIC COMMANDS:")
 	fmt.Println(" --help -h: Shows help menu")
-	fmt.Println(" --create-service, -cS <destination_path>: Creates new Go-Web service in selected path")
 
 	fmt.Println("\nPROJECT COMMANDS - RUNS THIS COMMANDS ONLY IN PROJECT ROOT!")
 	fmt.Println(" --make-controller, -mC <controller_name>: Creates new Go-Web controller")

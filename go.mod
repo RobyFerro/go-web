@@ -1,12 +1,12 @@
 module github.com/RobyFerro/go-web
 
-go 1.14
+go 1.16
 
 // Only for development environment
 //replace github.com/RobyFerro/go-web-framework => <local go-web-framework path>
 
 require (
-	github.com/RobyFerro/go-web-framework v0.4.2-beta
+	github.com/RobyFerro/go-web-framework v0.4.4-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/brianvoe/gofakeit/v4 v4.3.0
@@ -34,7 +34,6 @@ require (
 	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.4.0
-	go.uber.org/dig v1.10.0 // indirect
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	golang.org/x/exp v0.0.0-20190121172915-509febef88a4 // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect

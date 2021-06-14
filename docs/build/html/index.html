@@ -20,7 +20,6 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
@@ -29,8 +28,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="go-web-framework-documentation">
@@ -48,10 +45,7 @@ Go-Web differs from them because of the aforementioned “convention over config
 <p class="caption"><span class="caption-text">Table of Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#compiling-from-source">Compiling from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#linux-and-osx">Linux and OSX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#create-new-service">Create new service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#standard-installation">Standard installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="alfred.html">Alfred</a></li>
@@ -68,6 +62,11 @@ Go-Web differs from them because of the aforementioned “convention over config
 <li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Compile and run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http_load.html">HTTP load test</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http_load.html#setup-a-json-configuration-file">1. Setup a JSON configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http_load.html#run-the-test">2. Run the test</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database</a><ul>
@@ -93,7 +92,6 @@ Go-Web differs from them because of the aforementioned “convention over config
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -119,6 +117,7 @@ Go-Web differs from them because of the aforementioned “convention over config
 <li class="toctree-l1"><a class="reference internal" href="controller.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run.html">Compile and run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http_load.html">HTTP load test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">Middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
@@ -146,14 +145,6 @@ Go-Web differs from them because of the aforementioned “convention over config
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -163,7 +154,7 @@ Go-Web differs from them because of the aforementioned “convention over config
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/index.rst.txt"
