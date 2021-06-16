@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Set a limit of request allowed in a specific time
+// RateLimiter set a limit of request allowed in a specific time
 func (Middleware) RateLimiter(next http.Handler) http.Handler {
 	var limiter = rate.NewLimiter(1, 3)
 

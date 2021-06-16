@@ -2,19 +2,19 @@ package service
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/labstack/gommon/log"
 )
 
-// Connect to sql database
+// ConnectDB to sql database
 func ConnectDB(conf *app.Conf) *gorm.DB {
 	connectionString, driver := createConnectionString(conf)
 	db, err := gorm.Open(driver, connectionString)
 
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 
 	return db

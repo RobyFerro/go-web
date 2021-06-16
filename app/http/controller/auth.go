@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"github.com/RobyFerro/go-web/app/auth"
+	"github.com/labstack/gommon/log"
 	"net/http"
 	"time"
 
-	gwf "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/gorilla/sessions"
@@ -13,7 +15,7 @@ import (
 )
 
 type AuthController struct {
-	gwf.BaseController
+	kernel.BaseController
 }
 
 type Credentials struct {
@@ -22,14 +24,14 @@ type Credentials struct {
 }
 
 // JWTAuthentication provides user authentication with JWT
-func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
+func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 
 	var payload Credentials
 	var user *model.User
-	var auth gwf.Auth
+	var jwt auth.JWTAuth
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
@@ -39,7 +41,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
 	}
 
 	c.Response.Header().Add("Content-Type", "application/json")
-	if u, auth := attemptLogin(db, &payload); !auth {
+	if u, ok := attemptLogin(db, &payload); !ok {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
@@ -49,12 +51,12 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
 	// End check password
 
 	// Generate JWT token
-	auth.Name = user.Name
-	auth.Surname = user.Surname
-	auth.Username = user.Username
-	auth.ID = user.ID
+	jwt.Name = user.Name
+	jwt.Surname = user.Surname
+	jwt.Username = user.Username
+	jwt.ID = user.ID
 
-	if token, ok := auth.NewToken(conf.App.Key, 2*time.Hour); !ok {
+	if token, ok := jwt.NewToken(conf.App.Key, 2*time.Hour); !ok {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
@@ -66,11 +68,11 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
 	return
 }
 
-// Basic authentication method
+// BasicAuthentication perform basic authentication method
 func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
 	var payload Credentials
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -80,7 +82,7 @@ func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *
 		return
 	}
 
-	if user, auth := attemptLogin(db, &payload); !auth {
+	if user, ok := attemptLogin(db, &payload); !ok {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return

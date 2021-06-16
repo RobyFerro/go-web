@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	gwf "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/cli"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/RobyFerro/go-web/service"
 	"github.com/common-nighthawk/go-figure"
@@ -29,35 +29,32 @@ func main() {
 		if len(args) != 2 {
 			log.Fatal("Missing controller name")
 		}
-		cmd := gwf.ControllerCreate{Args: args[1]}
+		cmd := cli.ControllerCreate{Args: args[1]}
 		cmd.Run()
 	case "--make-command", "-mCMD":
 		if len(args) != 2 {
 			log.Fatal("Missing command name")
 		}
 
-		cmd := gwf.CmdCreate{Args: args[1]}
+		cmd := cli.CmdCreate{Args: args[1]}
 		cmd.Run()
 	case "--make-model", "-mM":
 		if len(args) != 2 {
 			log.Fatal("Missing model name")
 		}
-		cmd := gwf.ModelCreate{Args: args[1]}
+		cmd := cli.ModelCreate{Args: args[1]}
 		cmd.Run()
 	case "--make-migration", "-mDBM":
 		if len(args) != 2 {
 			log.Fatal("Missing migration name")
 		}
-		cmd := gwf.MigrationCreate{Args: args[1]}
+		cmd := cli.MigrationCreate{Args: args[1]}
 		cmd.Run()
 	case "--make-job", "-mJ":
 		if len(args) != 2 {
 			log.Fatal("Missing migration name")
 		}
-		cmd := gwf.JobCreate{Args: args[1]}
-		cmd.Run()
-	case "--show-routes", "-sR":
-		cmd := gwf.ShowRoute{}
+		cmd := cli.JobCreate{Args: args[1]}
 		cmd.Run()
 	case "--migrate-up", "-mU":
 		conf, err := app.Configuration()
@@ -66,7 +63,7 @@ func main() {
 		}
 
 		db := service.ConnectDB(conf)
-		cmd := gwf.MigrationUp{}
+		cmd := cli.MigrationUp{}
 		cmd.Run(db)
 	case "--migrate-rollback", "-mR":
 		if len(args) != 2 {
@@ -79,7 +76,7 @@ func main() {
 		}
 
 		db := service.ConnectDB(conf)
-		cmd := gwf.MigrateRollback{
+		cmd := cli.MigrateRollback{
 			Args: args[1],
 		}
 		cmd.Run(db)
@@ -87,23 +84,11 @@ func main() {
 		if len(args) != 2 {
 			log.Fatal("Missing middleware name")
 		}
-		cmd := gwf.MiddlewareCreate{Args: args[1]}
+		cmd := cli.MiddlewareCreate{Args: args[1]}
 		cmd.Run()
 	case "--generate-key", "-gK":
-		cmd := gwf.GenerateKey{}
+		cmd := cli.GenerateKey{}
 		cmd.Run()
-	case "--http-load", "-hL":
-		if len(args) != 2 {
-			log.Fatal("Missing configuration path")
-		}
-
-		conf, err := gwf.Configuration()
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		cmd := gwf.HttpLoad{}
-		cmd.Run(conf)
 	}
 }
 
@@ -120,19 +105,7 @@ func help() {
 	fmt.Println(" --make-migration , -mDBM <migration_name>: Creates new Go-Web SQL migration")
 	fmt.Println(" --make-middleware , -mMW <middleware_name>: Creates new middleware")
 	fmt.Println(" --make-job, -mJ <job_name>: Creates new async job")
-	fmt.Println(" --show-routes, -sR: Shows service routes")
 	fmt.Println(" --migrate-up, -mU: Executes migrations")
 	fmt.Println(" --migrate-rollback, -mR <steps>: Executes migrations rollback")
 	fmt.Println(" --generate-key, -gK: Generate new application key")
-	fmt.Println(" --http-load, -hL <target.json>: Executes HTTP load test based on json configuration")
-
-	fmt.Println("\nPROJECT COMMANDS:")
-	fmt.Println("WARNING: This commands are available in your project executable.")
-	fmt.Println("To run the followings command you should compile your project and run:")
-	fmt.Println("Usage: <your-binary> <command>:<option>")
-
-	fmt.Println("\n database:seed <model_name>: Executes seeder (all available models if is not specified).")
-	fmt.Println(" show:commands : Shows all custom cli commands")
-	fmt.Println(" server:daemon : Run your project as a daemon")
-	fmt.Println(" server:run : Run your project ")
 }

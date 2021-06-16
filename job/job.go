@@ -3,12 +3,12 @@ package job
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/service"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
+	"github.com/labstack/gommon/log"
 	"reflect"
 )
 
@@ -18,7 +18,7 @@ type Param struct {
 	Type    string
 }
 
-// This structure will be used to handle every jobs.
+// Job structure will be used to handle every jobs.
 // Every method (except "Schedule" and "Execute") accept only one string parameter.
 // This param will be decoded into a specific structure (manually defined into your job).
 // Redis and MySQL is mandatory to use this feature.
@@ -34,7 +34,7 @@ type Job struct {
 func (j *Job) Schedule(queueName string, redis *redis.Client) {
 	jobStr, err := json.Marshal(j)
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 
 	queue := fmt.Sprintf("queue:%s", queueName)
@@ -57,11 +57,10 @@ func (j *Job) Execute() {
 
 		jobStr, errMarshal := json.Marshal(j)
 		if errMarshal != nil {
-			gwf.ProcessError(errMarshal)
+			log.Error(errMarshal)
 		}
 
 		j.PutOnFailed(j.Queue, string(jobStr), r, err)
-		gwf.Log(err.Error())
 		fmt.Printf("ERROR on job %s\n", j.Name)
 		return
 	}
@@ -69,7 +68,7 @@ func (j *Job) Execute() {
 	fmt.Printf("Job %s executed\n", j.Name)
 }
 
-// Insert failed job in failed_job table
+// PutOnFailed inserts failed job in failed_job table
 func (Job) PutOnFailed(queue, payload string, db *gorm.DB, err error) {
 	failed := model.FailedJob{
 		Payload:   payload,
@@ -78,6 +77,6 @@ func (Job) PutOnFailed(queue, payload string, db *gorm.DB, err error) {
 	}
 
 	if err := db.Save(&failed).Error; err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 }

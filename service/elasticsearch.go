@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/labstack/gommon/log"
 )
 
 func ConnectElastic(conf *app.Conf) *elasticsearch.Client {
@@ -13,7 +13,7 @@ func ConnectElastic(conf *app.Conf) *elasticsearch.Client {
 	es, err := elasticsearch.NewClient(cfg)
 
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 
 	return es

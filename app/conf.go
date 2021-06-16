@@ -1,7 +1,7 @@
 package app
 
 import (
-	gwf "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/tool"
 	"gopkg.in/yaml.v2"
 	"os"
 )
@@ -33,10 +33,10 @@ type Conf struct {
 	} `yaml:"elasticsearch"`
 }
 
-// Get configuration struct by parsing the config.yml file.
+// Configuration gets configuration struct by parsing the config.yml file.
 func Configuration() (*Conf, error) {
 	var conf Conf
-	confFile := gwf.GetDynamicPath("config.yml")
+	confFile := tool.GetDynamicPath("config.yml")
 	c, err := os.Open(confFile)
 
 	if err != nil {
