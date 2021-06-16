@@ -6,7 +6,7 @@ go 1.16
 replace github.com/RobyFerro/go-web-framework => /home/roberto/IdeaProjects/go-web-framework
 
 require (
-	github.com/RobyFerro/go-web-framework v0.0.0-00010101000000-000000000000
+	github.com/RobyFerro/go-web-framework v0.5.1-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/brianvoe/gofakeit/v4 v4.3.0
@@ -17,7 +17,6 @@ require (
 	github.com/go-redis/redis/v7 v7.4.0
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/gorilla/sessions v1.2.1
-	github.com/gwframe/foundation/v2 v2.0.0-20210616105939-fde6464a4206 // indirect
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jinzhu/now v1.1.1 // indirect
 	github.com/klauspost/compress v1.10.11 // indirect
@@ -25,6 +24,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/labstack/gommon v0.3.0
 	github.com/lib/pq v1.3.0 // indirect
+	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect

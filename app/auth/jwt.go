@@ -1,4 +1,4 @@
-package gwf
+package auth
 
 import (
 	"encoding/json"
@@ -8,8 +8,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// Auth structure will be used to handle the authenticated user data.
-type Auth struct {
+// JWTAuth structure will be used to handle the authenticated user data.
+type JWTAuth struct {
 	ID       uint   `json:"id"`
 	Name     string `json:"name"`
 	Surname  string `json:"surname"`
@@ -18,7 +18,7 @@ type Auth struct {
 }
 
 // GetUser will parse incoming request and returns the user data.
-func (c *Auth) GetUser(req *http.Request, key string) error {
+func (c *JWTAuth) GetUser(req *http.Request, key string) error {
 	bearerSchema := "Bearer "
 	tokenString := req.Header.Get("Authorization")
 
@@ -38,7 +38,7 @@ func (c *Auth) GetUser(req *http.Request, key string) error {
 }
 
 // NewToken will return a new JWT token
-func (c *Auth) NewToken(key string, duration time.Duration) (string, bool) {
+func (c *JWTAuth) NewToken(key string, duration time.Duration) (string, bool) {
 	c.Password = ""
 	userDataString, _ := json.Marshal(c)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -56,8 +56,8 @@ func (c *Auth) NewToken(key string, duration time.Duration) (string, bool) {
 	return tokenString, true
 }
 
-// RefreshToken will grefresh the a speficic token
-func (c *Auth) RefreshToken(req http.ResponseWriter, key string) bool {
+// RefreshToken will refresh the a specific token
+func (c *JWTAuth) RefreshToken(req http.ResponseWriter, key string) bool {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	userDataString, _ := json.Marshal(c)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{

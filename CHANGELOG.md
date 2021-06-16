@@ -4,6 +4,11 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.4.5-beta] - 2021-06-16
+## Changed
+- Removed install, http_loader, show route, daemon run cli commands
+
+
 ## [v0.4.3-beta] - 2021-06-14
 ### Fixed 
 - Installation procedure in documentation
