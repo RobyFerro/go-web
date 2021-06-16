@@ -1,20 +1,21 @@
 package middleware
 
 import (
-	"github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/gorilla/sessions"
+	"log"
 	"net/http"
 )
 
-// Used to check if the basic auth session is present.
+// BasicAuth used to check if the basic auth session is present.
 // Use this middleware to protect resources with the basic authentication.
 func (Middleware) BasicAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if err := gwf.Container.Invoke(func(s *sessions.CookieStore) {
+		if err := kernel.Container.Invoke(func(s *sessions.CookieStore) {
 
 			session, err := s.Get(r, "basic-auth")
 			if err != nil {
-				gwf.ProcessError(err)
+				log.Fatal(err)
 			}
 
 			if session.Values["user"] == nil {
@@ -24,7 +25,7 @@ func (Middleware) BasicAuth(next http.Handler) http.Handler {
 			}
 
 		}); err != nil {
-			gwf.ProcessError(err)
+			log.Fatal(err)
 		}
 
 		next.ServeHTTP(w, r)

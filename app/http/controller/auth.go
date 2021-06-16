@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"github.com/RobyFerro/go-web/app/auth"
+	"github.com/labstack/gommon/log"
 	"net/http"
 	"time"
 
-	gwf "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/gorilla/sessions"
@@ -13,7 +15,7 @@ import (
 )
 
 type AuthController struct {
-	gwf.BaseController
+	kernel.BaseController
 }
 
 type Credentials struct {
@@ -22,14 +24,14 @@ type Credentials struct {
 }
 
 // JWTAuthentication provides user authentication with JWT
-func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
+func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 
 	var payload Credentials
 	var user *model.User
 	var auth gwf.Auth
 
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
@@ -66,11 +68,11 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *gwf.Conf) {
 	return
 }
 
-// Basic authentication method
+// BasicAuthentication perform basic authentication method
 func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
 	var payload Credentials
 	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		return
 	}

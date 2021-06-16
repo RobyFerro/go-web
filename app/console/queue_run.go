@@ -3,9 +3,9 @@ package console
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/job"
 	"github.com/go-redis/redis/v7"
+	"github.com/labstack/gommon/log"
 	"runtime"
 	"sync"
 	"time"
@@ -43,7 +43,7 @@ func worker(queue string, rc *redis.Client, wg *sync.WaitGroup) {
 		tasks, err := rc.BLPop(5*time.Second, queue).Result()
 
 		if err != nil && err.Error() != "redis: nil" {
-			gwf.ProcessError(err)
+			log.Error(err)
 			break
 		}
 
@@ -52,7 +52,7 @@ func worker(queue string, rc *redis.Client, wg *sync.WaitGroup) {
 		}
 
 		if err := json.Unmarshal([]byte(tasks[1]), &j); err != nil {
-			gwf.ProcessError(err)
+			log.Error(err)
 		}
 
 		j.Execute()

@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Log every actions printing used route
+// Logging log every actions printing used route
 func (Middleware) Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Do stuff here

@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/jinzhu/gorm"
+	"github.com/labstack/gommon/log"
 )
 
 type FailedJob struct {
@@ -22,6 +22,6 @@ func (FailedJob) Migrate(db *gorm.DB) {
 // Deprecated: this method has been replaced by global .sql migration system
 func (FailedJob) Drop(db *gorm.DB) {
 	if err := db.DropTableIfExists(&FailedJob{}).Error; err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 }

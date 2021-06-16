@@ -2,12 +2,12 @@ package service
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app"
 	"github.com/go-redis/redis/v7"
+	"github.com/labstack/gommon/log"
 )
 
-// Connect to Redis
+// ConnectRedis connect to Redis
 func ConnectRedis(conf *app.Conf) *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", conf.Redis.Host, conf.Redis.Port),
@@ -18,7 +18,7 @@ func ConnectRedis(conf *app.Conf) *redis.Client {
 	_, err := client.Ping().Result()
 
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Error(err)
 	}
 
 	return client

@@ -1,16 +1,17 @@
 package controller
 
 import (
-	"github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web/helper"
+
 	"net/http"
 )
 
 type HomeController struct {
-	gwf.BaseController
+	kernel.BaseController
 }
 
-// Return the Go-Web welcome page. This is just an example of Go-Web controller. With the "c" parameter you've access to
+// Main returns the Go-Web welcome page. This is just an example of Go-Web controller. With the "c" parameter you've access to
 // the method/properties declared in BaseController (controller.go).
 // Of course you can edit this method with a custom logic.
 func (c *HomeController) Main() {

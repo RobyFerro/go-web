@@ -2,10 +2,10 @@ package console
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
+	"log"
 )
 
 type QueueFailed struct {
@@ -24,7 +24,7 @@ func (c *QueueFailed) Run(db *gorm.DB, r *redis.Client) {
 	var failed []model.FailedJob
 
 	if err := db.Find(&failed).Error; err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 
 	for _, f := range failed {
@@ -38,6 +38,6 @@ func (c *QueueFailed) Run(db *gorm.DB, r *redis.Client) {
 // Remove failed job from SQL failed_job table
 func removeFailedJob(job *model.FailedJob, db *gorm.DB) {
 	if err := db.Unscoped().Delete(&job).Error; err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 }

@@ -2,18 +2,20 @@ package controller
 
 import (
 	"encoding/json"
-	gwf "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
+	jwt "github.com/RobyFerro/go-web/app/auth"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/helper"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 )
 
 type UserController struct {
-	gwf.BaseController
+	kernel.BaseController
 }
 
-// This method will be used to insert a new user in main DB (SQL)
+// Insert this method will be used to insert a new user in main DB (SQL)
 func (c *UserController) Insert(db *gorm.DB) {
 
 	type NewUser struct {
@@ -26,7 +28,7 @@ func (c *UserController) Insert(db *gorm.DB) {
 
 	var data NewUser
 	if err := helper.DecodeJsonRequest(c.Request, &data); err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 
 	// Validation
@@ -39,11 +41,11 @@ func (c *UserController) Insert(db *gorm.DB) {
 		_, _ = c.Response.Write([]byte(`{"Name":"Password","Err":{},"CustomErrorMessageExists":"false"`))
 		return
 	}
-	// End validation
 
+	// End validation
 	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(data.Password), 6)
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 
 	user := model.User{
@@ -54,20 +56,20 @@ func (c *UserController) Insert(db *gorm.DB) {
 	}
 
 	if err := db.Create(&user).Error; err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 }
 
 // Profile method return information about the authenticated user.
-func (c *UserController) Profile(conf *gwf.Conf) {
-	var auth gwf.Auth
+func (c *UserController) Profile(conf *kernel.Conf) {
+	var auth jwt.Auth
 	if err := auth.GetUser(c.Request, conf.App.Key); err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 
 	jsonResponse, err := json.Marshal(auth)
 	if err != nil {
-		gwf.ProcessError(err)
+		log.Fatal(err)
 	}
 
 	c.Response.Header().Set("Content-Type", "application/json")
