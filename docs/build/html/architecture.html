@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Architecture</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Configuration" href="service_configuration.html" />
+  <link rel="prev" title="Alfred" href="alfred.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">Go-Web</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#why-go-web">Table of Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="installation.html" class="reference internal ">Installation</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="alfred.html" class="reference internal ">Alfred</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">Architecture</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#service-container" class="reference internal">Service container</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="service_configuration.html" class="reference internal ">Configuration</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="http.html" class="reference internal ">HTTP</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="database.html" class="reference internal ">Database</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="cli.html" class="reference internal ">CLI Interface</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="async.html" class="reference internal ">Asynchronous jobs</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="front-end.html" class="reference internal ">Front-End</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="run.html" class="reference internal ">Compile and run</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Architecture</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="alfred.html"
+       title="previous chapter">← Alfred</a>
+  </li>
+  <li class="next">
+    <a href="service_configuration.html"
+       title="next chapter">Configuration →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <div class="section" id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<p>The architecture of Go-Web uses few components, namely:</p>
+<ul class="simple">
+<li><p>HTTP Kernel</p></li>
+<li><p>Service Container</p></li>
+<li><p>Controllers</p></li>
+<li><p>Middleware</p></li>
+<li><p>Views</p></li>
+</ul>
+<p>Go-Web uses the so-called kernel in conjunction with the Service Container, file routes.yml
+and dependency gorilla/mux to build the map that routes each incoming HTTP request to the
+appropriate method of a specific controller: after the initialization process, requests will be processed
+by the Go-Web black box.
+<em>Figure 1 illustrates this process.</em></p>
+<img alt="_images/architecture.png" src="_images/architecture.png" />
+<p>The startup process is executed once and uses reflection so that the service container can inject
+relevant bits of code into controllers; this approach allows controllers to access any service defined
+in the service container, like databases or log systems, reducing redundant (“boilerplate”) code.
+While resolving a route is done by gorilla/mux, the execution of the code associated to the
+same route is performed (or tunneled) by the Service Container, which injects dependencies into the
+end-point controller: before going through a controller, a request may be processed by one or more
+middlewares.</p>
+<p>This workflow can be easily understood by looking at figure 2.</p>
+<img alt="_images/architecture_full.png" src="_images/architecture_full.png" />
+<p>After being received by the Go-Web “black box”, a request may follow workflow starting in entry
+points A or B, figure 2.</p>
+<div class="section" id="service-container">
+<h2>Service container<a class="headerlink" href="#service-container" title="Permalink to this headline">¶</a></h2>
+<p>The service container (fig. 3) is the tool that manages class dependencies and performs dependency injection through DIG2.
+By default, Go-Web implements some services, specifically it leverages some libraries like gorilla/mux, gorm and more.</p>
+<img alt="_images/service_container.png" src="_images/service_container.png" />
+<p>As depicted in figure 3, the service container will register other services if correctly linked in the
+kernel: the process requires the implementation of such new services and further “registration” by adding them to Services array defined in Go-Web kernel:
+<em>〈go-web〉/app/kernel/kernel.go</em></p>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="alfred.html"
+       title="previous chapter">← Alfred</a>
+  </li>
+  <li class="next">
+    <a href="service_configuration.html"
+       title="next chapter">Configuration →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2020, Roberto Ferro.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.7.3.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

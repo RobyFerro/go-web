@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Go-Web framework documentation</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Installation" href="installation.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <span class="site-name">Go-Web</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#why-go-web">Table of Contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="installation.html" class="reference internal ">Installation</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="alfred.html" class="reference internal ">Alfred</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="architecture.html" class="reference internal ">Architecture</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="service_configuration.html" class="reference internal ">Configuration</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="http.html" class="reference internal ">HTTP</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="database.html" class="reference internal ">Database</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="cli.html" class="reference internal ">CLI Interface</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="async.html" class="reference internal ">Asynchronous jobs</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="front-end.html" class="reference internal ">Front-End</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="run.html" class="reference internal ">Compile and run</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>Go-Web framework documentation</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="installation.html"
+       title="next chapter">Installation →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <div class="section" id="go-web-framework-documentation">
+<h1>Go-Web framework documentation<a class="headerlink" href="#go-web-framework-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="why-go-web">
+<h2>Why Go-Web?<a class="headerlink" href="#why-go-web" title="Permalink to this headline">¶</a></h2>
+<p>Go-Web adopts a “convention over configuration” approach similarly to frameworks like Laravel ,Symfony and Rails.</p>
+<p>By following this principle, Go-Web reduces the need for “repetitive” tasks like explicitly binding
+routes, actions and middleware; while not problematic per se, programmers may want to adopt
+“ready-to-use” solutions, for instances if they want easily build complex services,
+aiming at a reduced “productive lag”.</p>
+<p>Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, but
+Go-Web differs from them because of the aforementioned “convention over configuration” approach.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#standard-installation">Standard installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alfred.html">Alfred</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#service-container">Service container</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="service_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">HTTP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http.html#routing">Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html#controllers">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html#middleware">Middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html#authentication">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="http.html#jwt-authentication">JWT Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http.html#basic-authentication">Basic authentication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#migration">Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#seeding">Seeding</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#create-custom-commands">Create custom commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">Asynchronous jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-End</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="front-end.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="front-end.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Compile and run</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="installation.html"
+       title="next chapter">Installation →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2020, Roberto Ferro.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.7.3.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

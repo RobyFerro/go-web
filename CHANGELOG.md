@@ -4,9 +4,14 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
-## [v0.4.6-beta] - 2021-06-21
+## [v0.4.7-beta] - 2021-06-21
 ## Changed
 - GWF version that contains old helpers in tool package.
+- Documentation style and content
+
+## [v0.4.6-beta] - 2021-06-16
+## Changed
+- Fix go.mod dependencies.
 
 ## Removed
 - Helper package
