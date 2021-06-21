@@ -36,7 +36,5 @@ Usage:    `./alfred --help`
       - Executes migrations rollback*
     * - --generate-key, -gK
       - Generate new application key*
-    * - --http-load, -hL
-      - Executes HTTP load test based on json configuration*
 
 \* *Run this command only in project root*

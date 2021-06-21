@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/RobyFerro/go-web-framework/kernel"
-	"github.com/RobyFerro/go-web/helper"
+	"github.com/RobyFerro/go-web-framework/tool"
 
 	"net/http"
 )
@@ -16,5 +16,5 @@ type HomeController struct {
 // Of course you can edit this method with a custom logic.
 func (c *HomeController) Main() {
 	c.Response.WriteHeader(http.StatusOK)
-	helper.View("index.html", c.Response, nil)
+	tool.View("index.html", c.Response, nil)
 }
