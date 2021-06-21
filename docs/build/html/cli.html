@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>CLI Interface</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Asynchronous jobs" href="async.html" />
+  <link rel="prev" title="Database" href="database.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">Go-Web</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#why-go-web">Table of Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="installation.html" class="reference internal ">Installation</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="alfred.html" class="reference internal ">Alfred</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="architecture.html" class="reference internal ">Architecture</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="service_configuration.html" class="reference internal ">Configuration</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="http.html" class="reference internal ">HTTP</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="database.html" class="reference internal ">Database</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">CLI Interface</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#create-custom-commands" class="reference internal">Create custom commands</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="async.html" class="reference internal ">Asynchronous jobs</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="front-end.html" class="reference internal ">Front-End</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="run.html" class="reference internal ">Compile and run</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>CLI Interface</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="database.html"
+       title="previous chapter">← Database</a>
+  </li>
+  <li class="next">
+    <a href="async.html"
+       title="next chapter">Asynchronous jobs →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <div class="section" id="cli-interface">
+<h1>CLI Interface<a class="headerlink" href="#cli-interface" title="Permalink to this headline">¶</a></h1>
+<p>Go-Web has a built-in command-line interface that makes easy for developers to use the framework.
+Before using the CLI, the developer needs to compile the project by running command:
+<em>go build goweb.go</em></p>
+<p>After compiling the project, the CLI can be used to view all commands supported by Go-Web
+<em>./goweb show:commands</em></p>
+<p>The following listing table shows commands presented to the user by show:command:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Alfred available commands</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Commands</p></th>
+<th class="head"><p>Descriptions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database:seed &lt;model_name&gt;</p></td>
+<td><p>Executes seeder (all available models if is not specified)</p></td>
+</tr>
+<tr class="row-odd"><td><p>show:commands</p></td>
+<td><p>Shows all custom CLI commands</p></td>
+</tr>
+<tr class="row-even"><td><p>server:run</p></td>
+<td><p>Run Go-Web server normally</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="create-custom-commands">
+<h2>Create custom commands<a class="headerlink" href="#create-custom-commands" title="Permalink to this headline">¶</a></h2>
+<p>Go-Web command line interface (CLI) can be extended by running command</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">alfred</span> <span class="o">-</span><span class="nx">mCMD</span> <span class="p">&lt;</span><span class="nx">command_name</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Before being available to Go-Web, commands must be registered in <em>register.go</em>.
+The following listing shows the registration of command Greetings:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Command must be registered in the <em>register.go</em> file located in project root directory.</p>
+</div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Commands</span> <span class="p">=</span> <span class="nx">gwf</span><span class="p">.</span><span class="nx">CommandRegister</span><span class="p">{</span>
+        <span class="nx">List</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+                <span class="s">&quot;queue:failed&quot;</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">console</span><span class="p">.</span><span class="nx">QueueFailed</span><span class="p">{},</span>
+                <span class="s">&quot;queue:run&quot;</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">console</span><span class="p">.</span><span class="nx">QueueRun</span><span class="p">{},</span>
+                <span class="s">&quot;greetings&quot;</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">console</span><span class="p">.</span><span class="nx">Greetings</span><span class="p">{},</span> <span class="c1">// new</span>
+                <span class="c1">// Here is where you&#39;ve to register your custom commands</span>
+        <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The command registration Commands variable is used by Go-Web to recognize and list supported commands.</p>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="database.html"
+       title="previous chapter">← Database</a>
+  </li>
+  <li class="next">
+    <a href="async.html"
+       title="next chapter">Asynchronous jobs →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2020, Roberto Ferro.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.7.3.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

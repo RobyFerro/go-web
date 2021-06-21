@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Front-End</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Compile and run" href="run.html" />
+  <link rel="prev" title="Asynchronous jobs" href="async.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">Go-Web</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#why-go-web">Table of Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="installation.html" class="reference internal ">Installation</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="alfred.html" class="reference internal ">Alfred</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="architecture.html" class="reference internal ">Architecture</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="service_configuration.html" class="reference internal ">Configuration</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="http.html" class="reference internal ">HTTP</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="database.html" class="reference internal ">Database</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="cli.html" class="reference internal ">CLI Interface</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="async.html" class="reference internal ">Asynchronous jobs</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">Front-End</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#introduction" class="reference internal">Introduction</a></li>
+                
+                  <li class="toctree-l2"><a href="#views" class="reference internal">Views</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="run.html" class="reference internal ">Compile and run</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Front-End</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="async.html"
+       title="previous chapter">← Asynchronous jobs</a>
+  </li>
+  <li class="next">
+    <a href="run.html"
+       title="next chapter">Compile and run →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <div class="section" id="front-end">
+<h1>Front-End<a class="headerlink" href="#front-end" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>While Go-Web does not dictate which technology developers should use when building applications
+consuming APIs made with this Go-Web framework, it does provide foundations for building apps
+by suggesting the use of React and Redux.</p>
+<p>Front-end assets and files can be found in folder <strong>〈go-web〉/assets</strong></p>
+<p>Specifically, the structure of the assets folder is simple and contains following sub folders:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>js</dt><dd><ul>
+<li><p>contains JavaScript files used by the front-end application;</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>css</dt><dd><ul>
+<li><p>contains JavaScript files used by the front-end application;</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>view</dt><dd><ul>
+<li><p>contains HTML views</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Because Go-Web suggests using React and Redux, developers who want to use this stack must
+install appropriate tools on the development machine, like NodeJS and NPM ; this document will
+not cover React, Redux or other front-end related topics other than few “basic” concepts.
+For instance, the core single page application can be installed by running command</p>
+<blockquote class="highlights">
+<div><p><strong>npm install</strong></p>
+</div></blockquote>
+</div>
+<div class="section" id="views">
+<h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
+<p>Views are implemented by package http/template; Go-Web provides a simple helper to return a
+view from a controller, as reported in following example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">ViewController</span><span class="p">)</span> <span class="nx">Main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">helper</span><span class="p">.</span><span class="nx">View</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Helper function View accepts three parameters:</p>
+<ul class="simple">
+<li><p>the view’s path</p></li>
+<li><p>the HTTP response returned by the controller</p></li>
+<li><p>the interface used to “fill” the view</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="async.html"
+       title="previous chapter">← Asynchronous jobs</a>
+  </li>
+  <li class="next">
+    <a href="run.html"
+       title="next chapter">Compile and run →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2020, Roberto Ferro.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.7.3.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

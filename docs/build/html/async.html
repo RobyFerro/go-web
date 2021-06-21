@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Asynchronous jobs</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Front-End" href="front-end.html" />
+  <link rel="prev" title="CLI Interface" href="cli.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">Go-Web</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#why-go-web">Table of Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="installation.html" class="reference internal ">Installation</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="alfred.html" class="reference internal ">Alfred</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="architecture.html" class="reference internal ">Architecture</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="service_configuration.html" class="reference internal ">Configuration</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="http.html" class="reference internal ">HTTP</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="database.html" class="reference internal ">Database</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="cli.html" class="reference internal ">CLI Interface</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">Asynchronous jobs</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#asynchronous-jobs" class="reference internal">Asynchronous jobs</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="front-end.html" class="reference internal ">Front-End</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="run.html" class="reference internal ">Compile and run</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Asynchronous jobs</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="cli.html"
+       title="previous chapter">← CLI Interface</a>
+  </li>
+  <li class="next">
+    <a href="front-end.html"
+       title="next chapter">Front-End →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <div class="section" id="asynchronous-jobs">
+<h1>Asynchronous jobs<a class="headerlink" href="#asynchronous-jobs" title="Permalink to this headline">¶</a></h1>
+<p>Go-web allows developers to create and schedule asynchronous jobs that will be dispatched in a queue.</p>
+<p>Like controllers, models and other entities, a job can be created with the CLI by running command:</p>
+<blockquote class="highlights">
+<div><p>./goweb job:create &lt;job name&gt;</p>
+</div></blockquote>
+<p>Go-Web uses Redis to manage queues and developers can handle jobs with functions Schedule and Execute.</p>
+<p>The following listing illustrates an example of a Go-Web job:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">data</span> <span class="o">:=</span> <span class="nx">job</span><span class="p">.</span><span class="nx">MailStruct</span> <span class="p">{</span>
+    <span class="nx">Message</span><span class="p">:</span> <span class="s">&quot;Hello world&quot;</span><span class="p">,</span>
+    <span class="nx">To</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span> <span class="s">&quot;test@test.com&quot;</span><span class="p">,</span> <span class="s">&quot;test@test1.com&quot;</span> <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nx">payload</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">job</span><span class="p">.</span><span class="nx">Job</span> <span class="p">{</span>
+    <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Send email&quot;</span>
+    <span class="nx">MethodName</span><span class="p">:</span> <span class="s">&quot;Mail&quot;</span>
+    <span class="nx">Params</span><span class="p">:</span> <span class="nx">job</span><span class="p">.</span><span class="nx">Param</span> <span class="p">{</span> <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="nx">Payload</span><span class="p">:</span> <span class="nb">string</span><span class="p">(</span><span class="nx">payload</span><span class="p">),</span> <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;int&quot;</span> <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nx">j</span><span class="p">.</span><span class="nx">Schedule</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Redis</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once scheduled, a job can be run with CLI command:</p>
+<blockquote class="highlights">
+<div><p>./goweb queue:run &lt;queue name&gt;</p>
+</div></blockquote>
+<p>The default queue can be run with command:</p>
+<blockquote class="highlights">
+<div><p>./goweb queue:run default</p>
+</div></blockquote>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="cli.html"
+       title="previous chapter">← CLI Interface</a>
+  </li>
+  <li class="next">
+    <a href="front-end.html"
+       title="next chapter">Front-End →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2020, Roberto Ferro.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.7.3.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
