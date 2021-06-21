@@ -19,8 +19,6 @@ The following listing table shows commands presented to the user by show:command
       - Executes seeder (all available models if is not specified)
     * - show:commands
       - Shows all custom CLI commands
-    * - server:daemon
-      - Run Go-Web server as a daemon
     * - server:run
       - Run Go-Web server normally
 

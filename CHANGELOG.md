@@ -4,6 +4,13 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.4.6-beta] - 2021-06-21
+## Changed
+- GWF version that contains old helpers in tool package.
+
+## Removed
+- Helper package
+
 ## [v0.4.5-beta] - 2021-06-16
 ## Changed
 - Removed install, http_loader, show route, daemon run cli commands

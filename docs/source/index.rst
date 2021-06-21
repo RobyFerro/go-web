@@ -14,21 +14,16 @@ Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, b
 Go-Web differs from them because of the aforementioned “convention over configuration” approach.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Table of Contents
 
    installation
    alfred
    architecture
-   dev_environment
    service_configuration
-   cli
-   controller
-   routing
-   run
-   http_load
-   middleware
-   async
+   http
    database
-   authentication
+   cli
+   async
    front-end
+   run
