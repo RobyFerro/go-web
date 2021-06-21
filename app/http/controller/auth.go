@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/RobyFerro/go-web-framework/kernel"
+	"github.com/RobyFerro/go-web-framework/tool"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/helper"
 	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
@@ -30,12 +30,12 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 	var user *model.User
 	var jwt auth.JWTAuth
 
-	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
+	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
 		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 	}
 
-	if valid := helper.ValidateRequest(payload, c.Response); !valid {
+	if valid := tool.ValidateRequest(payload, c.Response); !valid {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -71,13 +71,13 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 // BasicAuthentication perform basic authentication method
 func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
 	var payload Credentials
-	if err := helper.DecodeJsonRequest(c.Request, &payload); err != nil {
+	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
 		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	if valid := helper.ValidateRequest(payload, c.Response); !valid {
+	if valid := tool.ValidateRequest(payload, c.Response); !valid {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}

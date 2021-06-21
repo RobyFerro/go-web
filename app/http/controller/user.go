@@ -3,9 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"github.com/RobyFerro/go-web-framework/kernel"
+	"github.com/RobyFerro/go-web-framework/tool"
 	jwt "github.com/RobyFerro/go-web/app/auth"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/helper"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"log"
@@ -27,12 +27,12 @@ func (c *UserController) Insert(db *gorm.DB) {
 	}
 
 	var data NewUser
-	if err := helper.DecodeJsonRequest(c.Request, &data); err != nil {
+	if err := tool.DecodeJsonRequest(c.Request, &data); err != nil {
 		log.Fatal(err)
 	}
 
 	// Validation
-	if valid := helper.ValidateRequest(data, c.Response); valid == false {
+	if valid := tool.ValidateRequest(data, c.Response); valid == false {
 		return
 	}
 
