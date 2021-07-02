@@ -26,7 +26,8 @@ middlewares.
 
 This workflow can be easily understood by looking at figure 2.
 
-.. image:: img/architecture_full.png
+.. image:: img/architecture_full.jpeg
+  :width: 800
 
 After being received by the Go-Web “black box”, a request may follow workflow starting in entry
 points A or B, figure 2.
