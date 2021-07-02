@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web-framework/kernel"
 	. "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
@@ -13,7 +14,7 @@ import (
 func (Middleware) Auth(next http.Handler) http.Handler {
 	var key string
 
-	err := kernel.Container.Invoke(func(c *kernel.Conf) {
+	err := foundation.RetrieveSingletonContainer().Invoke(func(c *kernel.Conf) {
 		key = c.App.Key
 	})
 

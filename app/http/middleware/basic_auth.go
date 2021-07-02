@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/RobyFerro/go-web-framework/kernel"
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/gorilla/sessions"
 	"log"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 // Use this middleware to protect resources with the basic authentication.
 func (Middleware) BasicAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if err := kernel.Container.Invoke(func(s *sessions.CookieStore) {
+		if err := foundation.RetrieveSingletonContainer().Invoke(func(s *sessions.CookieStore) {
 
 			session, err := s.Get(r, "basic-auth")
 			if err != nil {
