@@ -3,7 +3,6 @@ package controller
 import (
 	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web-framework/tool"
-
 	"net/http"
 )
 
