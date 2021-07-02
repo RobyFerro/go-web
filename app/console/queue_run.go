@@ -3,6 +3,7 @@ package console
 import (
 	"encoding/json"
 	"fmt"
+	foundation "github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/job"
 	"github.com/go-redis/redis/v7"
 	"github.com/labstack/gommon/log"
@@ -22,17 +23,19 @@ func (c *QueueRun) Register() {
 	c.Description = "Run a specific queue"
 }
 
-func (c *QueueRun) Run(r *redis.Client) {
+func (c *QueueRun) Run() {
 	queue := fmt.Sprintf("queue:%s", c.Args)
 	cpus := runtime.NumCPU()
 
 	var wg sync.WaitGroup
 	wg.Add(cpus)
-	for i := 0; i < cpus; i++ {
-		go worker(queue, r, &wg)
-	}
+	_ = foundation.RetrieveServiceContainer().Invoke(func(redis *redis.Client) {
+		for i := 0; i < cpus; i++ {
+			go worker(queue, redis, &wg)
+		}
 
-	wg.Wait()
+		wg.Wait()
+	})
 }
 
 // Execute worker

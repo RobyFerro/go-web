@@ -3,10 +3,10 @@ module github.com/RobyFerro/go-web
 go 1.16
 
 // Only for development environment
-//replace github.com/RobyFerro/go-web-framework => <your local path>
+replace github.com/RobyFerro/go-web-framework => /home/roberto/IdeaProjects/go-web-framework
 
 require (
-	github.com/RobyFerro/go-web-framework v0.5.2-beta
+	github.com/RobyFerro/go-web-framework v0.5.3-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/brianvoe/gofakeit/v4 v4.3.0
@@ -38,6 +38,5 @@ require (
 	golang.org/x/sys v0.0.0-20200826173525-f9321e4c35a6 // indirect
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
 	golang.org/x/tools v0.0.0-20200827010519-17fd2f27a9e3 // indirect
-	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477
 	gopkg.in/yaml.v2 v2.3.0
 )
