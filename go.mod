@@ -6,7 +6,7 @@ go 1.16
 replace github.com/RobyFerro/go-web-framework => /home/roberto/IdeaProjects/go-web-framework
 
 require (
-	github.com/RobyFerro/go-web-framework v0.5.3-beta
+	github.com/RobyFerro/go-web-framework v0.5.4-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/brianvoe/gofakeit/v4 v4.3.0
 	github.com/common-nighthawk/go-figure v0.0.0-20200609044655-c4b36f998cf2
