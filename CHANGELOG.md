@@ -4,6 +4,12 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.5.0-beta] - 2021-08-19
+## Changed
+- Implemented IOC container with a 'request lifecycle'
+- Implemented SingletonContainer
+- Updated GWF version
+
 ## [v0.4.7-beta] - 2021-06-21
 ## Changed
 - GWF version that contains old helpers in tool package.
