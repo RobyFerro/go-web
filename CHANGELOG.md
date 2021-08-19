@@ -4,6 +4,10 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.5.2-beta] - 2021-08-19
+## Changed
+- Implemented CLI service container
+
 ## [v0.5.1-beta] - 2021-08-19
 ## Changed
 - Updated GWF version

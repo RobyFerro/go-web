@@ -23,6 +23,7 @@ func baseEntities() foundation.BaseEntities {
 		Controllers:       Controllers,
 		Services:          Services,
 		SingletonServices: SingletonServices,
+		CommandServices:   CommandServices,
 		Models:            Models,
 		Middlewares:       middleware.Middleware{},
 	}

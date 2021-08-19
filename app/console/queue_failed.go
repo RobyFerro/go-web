@@ -2,7 +2,6 @@ package console
 
 import (
 	"fmt"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
@@ -21,21 +20,19 @@ func (c *QueueFailed) Register() {
 }
 
 // Run jobs in Redis queue
-func (c *QueueFailed) Run() {
-	_ = foundation.RetrieveServiceContainer().Invoke(func(db *gorm.DB, redis *redis.Client) {
-		var failed []model.FailedJob
+func (c *QueueFailed) Run(db *gorm.DB, redis *redis.Client) {
+	var failed []model.FailedJob
 
-		if err := db.Find(&failed).Error; err != nil {
-			log.Fatal(err)
-		}
+	if err := db.Find(&failed).Error; err != nil {
+		log.Fatal(err)
+	}
 
-		for _, f := range failed {
-			queue := fmt.Sprintf("queue:%s", f.Queue)
-			redis.RPush(queue, f.Payload)
+	for _, f := range failed {
+		queue := fmt.Sprintf("queue:%s", f.Queue)
+		redis.RPush(queue, f.Payload)
 
-			removeFailedJob(&f, db)
-		}
-	})
+		removeFailedJob(&f, db)
+	}
 }
 
 // Remove failed job from SQL failed_job table
