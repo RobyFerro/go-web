@@ -29,7 +29,7 @@ var (
 			model.FailedJob{},
 		},
 	}
-	// Services will handle all app services
+	// Services will handle all app IOC services
 	// Every service needs to be registered in the following list
 	Services = register.ServiceRegister{
 		List: []interface{}{
@@ -40,6 +40,11 @@ var (
 			service.ConnectRedis,
 			// Here is where you've register your custom service
 		},
+	}
+	// SingletonServices represent all IOC services that have to be initialized only once.
+	// Every service needs to be registered in the following list
+	SingletonServices = register.ServiceRegister{
+		List: []interface{}{},
 	}
 	// Commands configuration represent all Go-Web application conf
 	// Every command needs to be registered in the following list

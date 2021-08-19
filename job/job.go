@@ -3,9 +3,9 @@ package job
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/RobyFerro/go-web/app"
+	"github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web/database/model"
-	"github.com/RobyFerro/go-web/service"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/gommon/log"
@@ -31,14 +31,16 @@ type Job struct {
 }
 
 // Schedule specific job
-func (j *Job) Schedule(queueName string, redis *redis.Client) {
-	jobStr, err := json.Marshal(j)
-	if err != nil {
-		log.Error(err)
-	}
+func (j *Job) Schedule(queueName string) {
+	_ = foundation.RetrieveServiceContainer().Invoke(func(redis *redis.Client) {
+		jobStr, err := json.Marshal(j)
+		if err != nil {
+			log.Error(err)
+		}
 
-	queue := fmt.Sprintf("queue:%s", queueName)
-	redis.RPush(queue, jobStr)
+		queue := fmt.Sprintf("queue:%s", queueName)
+		redis.RPush(queue, jobStr)
+	})
 }
 
 // Execute specific job
@@ -52,17 +54,16 @@ func (j *Job) Execute() {
 	if result[1].Interface() != nil {
 		err := result[1].Interface().(error)
 
-		cf, _ := app.Configuration()
-		r := service.ConnectDB(cf)
+		_ = kernel.BuildCustomContainer().Invoke(func(db *gorm.DB) {
+			jobStr, errMarshal := json.Marshal(j)
+			if errMarshal != nil {
+				log.Error(errMarshal)
+			}
 
-		jobStr, errMarshal := json.Marshal(j)
-		if errMarshal != nil {
-			log.Error(errMarshal)
-		}
+			j.PutOnFailed(j.Queue, string(jobStr), db, err)
+			fmt.Printf("ERROR on job %s\n", j.Name)
 
-		j.PutOnFailed(j.Queue, string(jobStr), r, err)
-		fmt.Printf("ERROR on job %s\n", j.Name)
-		return
+		})
 	}
 
 	fmt.Printf("Job %s executed\n", j.Name)

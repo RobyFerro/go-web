@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web/app/auth"
 	"github.com/labstack/gommon/log"
 	"net/http"
@@ -24,7 +25,8 @@ type Credentials struct {
 }
 
 // JWTAuthentication provides user authentication with JWT
-func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
+func (c *AuthController) JWTAuthentication(db *gorm.DB) {
+	conf := foundation.RetrieveConfig()
 
 	var payload Credentials
 	var user *model.User
@@ -69,8 +71,10 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 }
 
 // BasicAuthentication perform basic authentication method
-func (c *AuthController) BasicAuthentication(session *sessions.CookieStore, db *gorm.DB) {
+func (c *AuthController) BasicAuthentication(db *gorm.DB) {
+	session := foundation.RetrieveCookieStore()
 	var payload Credentials
+
 	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
 		log.Error(err)
 		c.Response.WriteHeader(http.StatusInternalServerError)
