@@ -4,6 +4,10 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.6.0-beta] - 2021-08-25
+## Changed
+- Split command line interfaces and http server
+
 ## [v0.5.3-beta] - 2021-08-20
 ## Changed
 - Updated GWF version
