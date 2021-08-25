@@ -3,18 +3,20 @@ PREFIX   ?= /usr/local
 GO       ?= go
 GOFLAGS  ?=
 
-all: build
-
-build: resources
+build-cli: resources
+	@echo "Building Alfred CLI tool..."
 	$(GO) $(GOFLAGS) build -o $(TARGET) tool/alfred.go
 
-install:
+install-cli:
+	@echo "Installing Alfred CLI tool..."
 	@cp alfred $(PREFIX)/bin/
 
-gwf-run:
-	$(GO) $(GOFLAG) run . server:run
+run:
+	@echo "Starting Go-Web framework"
+	$(GO) $(GOFLAG) run .
 
-gwf-build:
+build:
+	@echo "Building Go-Web framework"
 	$(GO) $(GOFLAG) build -o goweb .
 
 .PHONY: all build build_with_race_detector resources install docker test html_coverage benchmark fmt clean
