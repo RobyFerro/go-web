@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.16
 
 // Only for development environment
-replace github.com/RobyFerro/go-web-framework => /home/roberto/IdeaProjects/go-web-framework
+// replace github.com/RobyFerro/go-web-framework => <replace with your local repo of gwf>
 
 require (
 	github.com/RobyFerro/dig v1.12.1-0.20210820090948-eef4b5ae40c2
