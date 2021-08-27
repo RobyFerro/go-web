@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"github.com/RobyFerro/go-web-framework"
 	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web-framework/tool"
 	jwt "github.com/RobyFerro/go-web/app/auth"
@@ -62,8 +61,7 @@ func (c *UserController) Insert(db *gorm.DB) {
 }
 
 // Profile method return information about the authenticated user.
-func (c *UserController) Profile() {
-	conf := foundation.RetrieveConfig()
+func (c *UserController) Profile(conf *kernel.Conf) {
 	var auth jwt.JWTAuth
 
 	if err := auth.GetUser(c.Request, conf.App.Key); err != nil {

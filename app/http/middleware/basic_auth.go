@@ -6,9 +6,14 @@ import (
 	"net/http"
 )
 
-// BasicAuth used to check if the basic auth session is present.
+type BasicAuthMiddleware struct {
+	Name        string
+	Description string
+}
+
+// Handle used to check if the basic auth session is present.
 // Use this middleware to protect resources with the basic authentication.
-func (Middleware) BasicAuth(next http.Handler) http.Handler {
+func (BasicAuthMiddleware) Handle(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		store := foundation.RetrieveCookieStore()
 		session, err := store.Get(r, "basic-auth")

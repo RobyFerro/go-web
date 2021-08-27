@@ -18,8 +18,7 @@ type User struct {
 // Seed executes seeding in defined table
 func (User) Seed(db *gorm.DB) {
 	for i := 0; i < 10; i++ {
-		password := gofakeit.Password(true, true, true, true, false, 32)
-		encryptedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), 14)
+		encryptedPassword, _ := bcrypt.GenerateFromPassword([]byte("password"), 14)
 
 		user := User{
 			Name:     gofakeit.FirstName(),
