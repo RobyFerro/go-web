@@ -6,7 +6,7 @@ go 1.16
 //replace github.com/RobyFerro/go-web-framework => <your local gwf path>
 
 require (
-	github.com/RobyFerro/go-web-framework v0.6.0-beta
+	github.com/RobyFerro/go-web-framework v0.6.1-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/brianvoe/gofakeit/v4 v4.3.0
 	github.com/denisenkom/go-mssqldb v0.10.0 // indirect

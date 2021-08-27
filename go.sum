@@ -2,8 +2,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
 github.com/RobyFerro/dig v1.12.1-0.20210820090948-eef4b5ae40c2 h1:RaMKVl0nfJD/neflcaPmWJYyzt43HfX5kmN3gdWGjRw=
 github.com/RobyFerro/dig v1.12.1-0.20210820090948-eef4b5ae40c2/go.mod h1:jfL50cNXPp4gqLYHPyZMyUS9D05UTUJCdkxNU6gftXc=
-github.com/RobyFerro/go-web-framework v0.6.0-beta h1:7P9UvP+4ypTwEdEKUzGgzuXzDTDfL2iXZC4QVWoiq24=
-github.com/RobyFerro/go-web-framework v0.6.0-beta/go.mod h1:wB/7eaLLMAq+y4rGnKxvrRlw+c3RoO6i825jBCd44gU=
+github.com/RobyFerro/go-web-framework v0.6.1-beta h1:ZQBg6fiz65Z2JnyrujczP8YWNHNDyXYymUmlf9WEvtw=
+github.com/RobyFerro/go-web-framework v0.6.1-beta/go.mod h1:wB/7eaLLMAq+y4rGnKxvrRlw+c3RoO6i825jBCd44gU=
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1 h1:lnVadil6o8krZE47ms2PCxhXcki/UwoqiB0axOIV3mk=
 github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1/go.mod h1:mF0ip7kTEFtnhBJbd/gJe62US3jykNN+dcZoZakJCCA=

@@ -48,6 +48,7 @@ var (
 	}
 	CommandServices = register.ServiceRegister{
 		List: []interface{}{
+			app.Configuration,
 			service.ConnectDB,
 			service.ConnectElastic,
 			service.ConnectMongo,

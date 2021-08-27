@@ -3,6 +3,8 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Updated gwf version
 
 ## [v0.6.1-beta] - 2021-08-25
 ## Changed
