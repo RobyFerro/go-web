@@ -15,21 +15,7 @@ type User struct {
 	Password string `gorm:"type:varchar(255)"`
 }
 
-// Execute model migration
-// Deprecated: this method has been replaced by global .sql migration system
-func (User) Migrate(db *gorm.DB) {
-	db.AutoMigrate(&User{})
-}
-
-// Execute model drop
-// Deprecated: this method has been replaced by global .sql migration system
-func (User) Drop(db *gorm.DB) {
-	if err := db.DropTableIfExists(&User{}).Error; err != nil {
-		log.Error(err)
-	}
-}
-
-// Execute model seeding
+// Seed executes seeding in defined table
 func (User) Seed(db *gorm.DB) {
 	for i := 0; i < 10; i++ {
 		password := gofakeit.Password(true, true, true, true, false, 32)
