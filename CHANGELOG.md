@@ -4,7 +4,7 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
  
-## [v0.6.1-beta] - 2021-08-27
+## [v0.6.2-beta] - 2021-08-27
 ## Changed
 - Updated gwf version
 - Now evey middleware consists in an isolated struct.

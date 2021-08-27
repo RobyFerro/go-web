@@ -16,7 +16,6 @@ type AuthMiddleware struct {
 // Handle checks if the JWT used by the request is valid.
 // This middleware must be used only with JWT authentication and will not work with the basic auth.
 func (AuthMiddleware) Handle(next http.Handler) http.Handler {
-	var key string
 	conf := foundation.RetrieveConfig()
 
 	if len(conf.App.Key) == 0 {
@@ -24,7 +23,7 @@ func (AuthMiddleware) Handle(next http.Handler) http.Handler {
 	}
 	jwtMiddleware := New(Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-			return []byte(key), nil
+			return []byte(conf.App.Key), nil
 		},
 		SigningMethod: jwt.SigningMethodHS256,
 	})

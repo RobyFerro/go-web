@@ -72,7 +72,7 @@ var (
 				Description: "Provides JWT authentication",
 			},
 			&middleware.BasicAuthMiddleware{
-				Name:        "BaseAuth",
+				Name:        "BasicAuth",
 				Description: "Provides basic authentication",
 			},
 			&middleware.LoggingMiddleware{
