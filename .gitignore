@@ -7,3 +7,4 @@ http-client.env.json
 go-web
 node_modules
 *.test.json
+alfred

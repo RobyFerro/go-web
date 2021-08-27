@@ -5,8 +5,13 @@ import (
 	"net/http"
 )
 
-// Logging log every actions printing used route
-func (Middleware) Logging(next http.Handler) http.Handler {
+type LoggingMiddleware struct {
+	Name        string
+	Description string
+}
+
+// Handle log every actions printing used route
+func (LoggingMiddleware) Handle(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Do stuff here
 		log.Println(r.RequestURI)

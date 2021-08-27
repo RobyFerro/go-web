@@ -3,9 +3,10 @@ module github.com/RobyFerro/go-web
 go 1.16
 
 // Only for development environment
-//replace github.com/RobyFerro/go-web-framework => <your local gwf path>
+replace github.com/RobyFerro/go-web-framework => /home/roberto/IdeaProjects/go-web-framework
 
 require (
+	github.com/RobyFerro/dig v1.12.1-0.20210820090948-eef4b5ae40c2
 	github.com/RobyFerro/go-web-framework v0.6.1-beta
 	github.com/auth0/go-jwt-middleware v0.0.0-20200810150920-a32d7af194d1
 	github.com/brianvoe/gofakeit/v4 v4.3.0

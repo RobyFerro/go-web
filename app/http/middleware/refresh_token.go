@@ -6,8 +6,13 @@ import (
 	"net/http"
 )
 
-// RefreshToken return a new token in request response
-func (Middleware) RefreshToken(next http.Handler) http.Handler {
+type RefreshTokenMiddleware struct {
+	Name        string
+	Description string
+}
+
+// Handle return a new token in request response
+func (RefreshTokenMiddleware) Handle(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var a auth.JWTAuth
 		conf := foundation.RetrieveConfig()

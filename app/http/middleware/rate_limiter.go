@@ -5,8 +5,13 @@ import (
 	"net/http"
 )
 
-// RateLimiter set a limit of request allowed in a specific time
-func (Middleware) RateLimiter(next http.Handler) http.Handler {
+type RateLimiterMiddleware struct {
+	Name        string
+	Description string
+}
+
+// Handle set a limit of request allowed in a specific time
+func (RateLimiterMiddleware) Handle(next http.Handler) http.Handler {
 	var limiter = rate.NewLimiter(1, 3)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

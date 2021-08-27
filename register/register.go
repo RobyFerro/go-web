@@ -5,6 +5,7 @@ import (
 	"github.com/RobyFerro/go-web/app"
 	"github.com/RobyFerro/go-web/app/console"
 	"github.com/RobyFerro/go-web/app/http/controller"
+	"github.com/RobyFerro/go-web/app/http/middleware"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/service"
 )
@@ -62,6 +63,30 @@ var (
 			"queue:failed": &console.QueueFailed{},
 			"queue:run":    &console.QueueRun{},
 			// Here is where you've to register your custom commands
+		},
+	}
+	Middleware = register.MiddlewareRegister{
+		List: []interface{}{
+			&middleware.AuthMiddleware{
+				Name:        "Auth",
+				Description: "Provides JWT authentication",
+			},
+			&middleware.BasicAuthMiddleware{
+				Name:        "BaseAuth",
+				Description: "Provides basic authentication",
+			},
+			&middleware.LoggingMiddleware{
+				Name:        "Logging",
+				Description: "Logs every request in console",
+			},
+			&middleware.RateLimiterMiddleware{
+				Name:        "RateLimiter",
+				Description: "Provides rate limit over HTTP requests",
+			},
+			&middleware.RefreshTokenMiddleware{
+				Name:        "RefreshToken",
+				Description: "Refresh JWT token",
+			},
 		},
 	}
 )
