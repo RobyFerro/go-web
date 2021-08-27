@@ -71,8 +71,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB) {
 }
 
 // BasicAuthentication perform basic authentication method
-func (c *AuthController) BasicAuthentication(db *gorm.DB) {
-	session := foundation.RetrieveCookieStore()
+func (c *AuthController) BasicAuthentication(db *gorm.DB, session *sessions.CookieStore) {
 	var payload Credentials
 
 	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
