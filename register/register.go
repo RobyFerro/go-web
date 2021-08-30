@@ -27,7 +27,6 @@ var (
 	Models = register.ModelRegister{
 		List: []interface{}{
 			model.User{},
-			model.FailedJob{},
 		},
 	}
 	// Services will handle all app IOC services
@@ -58,13 +57,7 @@ var (
 	}
 	// Commands configuration represent all Go-Web application conf
 	// Every command needs to be registered in the following list
-	Commands = register.CommandRegister{
-		List: map[string]interface{}{
-			"queue:failed": &console.QueueFailed{},
-			"queue:run":    &console.QueueRun{},
-			// Here is where you've to register your custom commands
-		},
-	}
+	Commands   = console.Commands
 	Middleware = register.MiddlewareRegister{
 		List: []interface{}{
 			&middleware.AuthMiddleware{

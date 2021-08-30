@@ -3,6 +3,13 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+
+## [v0.7.0-beta] - 2021-08-30
+## Removed
+- Removed async jobs
+
+## Changed 
+- Console command register in "kernel.go"
  
 ## [v0.6.2-beta] - 2021-08-27
 ## Changed
