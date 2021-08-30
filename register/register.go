@@ -46,15 +46,7 @@ var (
 	SingletonServices = register.ServiceRegister{
 		List: []interface{}{},
 	}
-	CommandServices = register.ServiceRegister{
-		List: []interface{}{
-			app.Configuration,
-			service.ConnectDB,
-			service.ConnectElastic,
-			service.ConnectMongo,
-			service.ConnectRedis,
-		},
-	}
+	CommandServices = console.Services
 	// Commands configuration represent all Go-Web application conf
 	// Every command needs to be registered in the following list
 	Commands   = console.Commands

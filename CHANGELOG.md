@@ -3,59 +3,61 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Moved command service register in "command" module
 
 ## [v0.7.0-beta] - 2021-08-30
-## Removed
+### Removed
 - Removed async jobs
 
-## Changed 
+### Changed 
 - Console command register in "kernel.go"
  
 ## [v0.6.2-beta] - 2021-08-27
-## Changed
+### Changed
 - Updated gwf version
 - Now evey middleware consists in an isolated struct.
 
 ## [v0.6.1-beta] - 2021-08-25
-## Changed
+### Changed
 - Improved makefile
 
 ## [v0.6.0-beta] - 2021-08-25
-## Changed
+### Changed
 - Split command line interfaces and http server
 
 ## [v0.5.3-beta] - 2021-08-20
-## Changed
+### Changed
 - Updated GWF version
 
 ## [v0.5.2-beta] - 2021-08-19
-## Changed
+### Changed
 - Implemented CLI service container
 
 ## [v0.5.1-beta] - 2021-08-19
-## Changed
+### Changed
 - Updated GWF version
 
 ## [v0.5.0-beta] - 2021-08-19
-## Changed
+### Changed
 - Implemented IOC container with a 'request lifecycle'
 - Implemented SingletonContainer
 - Updated GWF version
 
 ## [v0.4.7-beta] - 2021-06-21
-## Changed
+### Changed
 - GWF version that contains old helpers in tool package.
 - Documentation style and content
 
 ## [v0.4.6-beta] - 2021-06-16
-## Changed
+### Changed
 - Fix go.mod dependencies.
 
-## Removed
+### Removed
 - Helper package
 
 ## [v0.4.5-beta] - 2021-06-16
-## Changed
+### Changed
 - Removed install, http_loader, show route, daemon run cli commands
 
 

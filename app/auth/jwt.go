@@ -56,7 +56,7 @@ func (c *JWTAuth) NewToken(key string, duration time.Duration) (string, bool) {
 	return tokenString, true
 }
 
-// RefreshToken will refresh the a specific token
+// RefreshToken will refresh JWT token
 func (c *JWTAuth) RefreshToken(req http.ResponseWriter, key string) bool {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	userDataString, _ := json.Marshal(c)
