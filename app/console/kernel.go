@@ -7,6 +7,7 @@ import (
 )
 
 var (
+	// Commands is used to register all console commands.
 	Commands = register.CommandRegister{
 		List: map[string]interface{}{
 			// Here is where you've to register your custom commands

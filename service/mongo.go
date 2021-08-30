@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// Connect to MongoDB
+// ConnectMongo returns a connection to MongoDB
 func ConnectMongo(conf *app.Conf) *mongo.Database {
 	client, err := mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", conf.Mongo.Host, conf.Mongo.Port)))
 

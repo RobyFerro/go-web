@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
+// ConnectElastic returns an ElasticSearch client
 func ConnectElastic(conf *app.Conf) *elasticsearch.Client {
 	cfg := elasticsearch.Config{
 		Addresses: conf.Elastic.Hosts,

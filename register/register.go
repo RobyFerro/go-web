@@ -46,10 +46,12 @@ var (
 	SingletonServices = register.ServiceRegister{
 		List: []interface{}{},
 	}
+	// CommandServices represent all console services.
 	CommandServices = console.Services
 	// Commands configuration represent all Go-Web application conf
 	// Every command needs to be registered in the following list
-	Commands   = console.Commands
+	Commands = console.Commands
+	// Middleware is used to register all application middleware.
 	Middleware = register.MiddlewareRegister{
 		List: []interface{}{
 			&middleware.AuthMiddleware{
