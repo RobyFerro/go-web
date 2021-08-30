@@ -1,4 +1,4 @@
-package app
+package config
 
 import (
 	"github.com/RobyFerro/go-web-framework/tool"
@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Conf contains application configuration.
 type Conf struct {
 	Database struct {
 		Driver   string `yaml:"driver"`
@@ -31,10 +32,17 @@ type Conf struct {
 	Elastic struct {
 		Hosts []string `yaml:"hosts"`
 	} `yaml:"elasticsearch"`
+	Mail struct {
+		From     string `yaml:"from"`
+		Host     string `yaml:"host"`
+		Username string `yaml:"username"`
+		Password string `yaml:"password"`
+		Port     int    `yaml:"port"`
+	} `yaml:"mail"`
 }
 
-// Configuration gets configuration struct by parsing the config.yml file.
-func Configuration() (*Conf, error) {
+// GetConfiguration gets configuration struct by parsing the config.yml file.
+func GetConfiguration() (*Conf, error) {
 	var conf Conf
 	confFile := tool.GetDynamicPath("config.yml")
 	c, err := os.Open(confFile)
@@ -44,7 +52,6 @@ func Configuration() (*Conf, error) {
 	}
 
 	decoder := yaml.NewDecoder(c)
-
 	if err := decoder.Decode(&conf); err != nil {
 		return nil, err
 	}
