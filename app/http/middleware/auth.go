@@ -18,12 +18,12 @@ type AuthMiddleware struct {
 func (AuthMiddleware) Handle(next http.Handler) http.Handler {
 	conf := foundation.RetrieveConfig()
 
-	if len(conf.App.Key) == 0 {
+	if len(conf.Key) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
 	}
 	jwtMiddleware := New(Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-			return []byte(conf.App.Key), nil
+			return []byte(conf.Key), nil
 		},
 		SigningMethod: jwt.SigningMethodHS256,
 	})

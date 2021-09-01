@@ -61,10 +61,10 @@ func (c *UserController) Insert(db *gorm.DB) {
 }
 
 // Profile method return information about the authenticated user.
-func (c *UserController) Profile(conf *kernel.Conf) {
+func (c *UserController) Profile(conf *kernel.ServerConf) {
 	var auth jwt.JWTAuth
 
-	if err := auth.GetUser(c.Request, conf.App.Key); err != nil {
+	if err := auth.GetUser(c.Request, conf.Key); err != nil {
 		log.Fatal(err)
 	}
 
