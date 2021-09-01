@@ -14,8 +14,8 @@ var AppRouter = kernel.HTTRouter{
 			Method:      "GET",
 			Description: "Main access to Go-Web application",
 			Middleware: []kernel.Middleware{
-				&middleware.RateLimiterMiddleware{},
-				&middleware.LoggingMiddleware{},
+				middleware.RateLimiterMiddleware{},
+				middleware.LoggingMiddleware{},
 			},
 		},
 		{
@@ -25,7 +25,7 @@ var AppRouter = kernel.HTTRouter{
 			Method:      "POST",
 			Description: "Insert new user",
 			Middleware: []kernel.Middleware{
-				&middleware.LoggingMiddleware{},
+				middleware.LoggingMiddleware{},
 			},
 		},
 	},
@@ -41,14 +41,14 @@ var AppRouter = kernel.HTTRouter{
 					Method:      "GET",
 					Description: "Test user authentication",
 					Middleware: []kernel.Middleware{
-						&middleware.LoggingMiddleware{},
-						&middleware.RateLimiterMiddleware{},
-						&middleware.RefreshTokenMiddleware{},
+						middleware.LoggingMiddleware{},
+						middleware.RateLimiterMiddleware{},
+						middleware.RefreshTokenMiddleware{},
 					},
 				},
 			},
 			Middleware: []kernel.Middleware{
-				&middleware.AuthMiddleware{},
+				middleware.AuthMiddleware{},
 			},
 		},
 	},

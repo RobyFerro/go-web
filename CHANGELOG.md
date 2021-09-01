@@ -3,6 +3,8 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Removed pointers in route middlewares
 
 ## [v0.7.1-beta] - 2021-08-30
 ### Changed

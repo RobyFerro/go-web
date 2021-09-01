@@ -14,7 +14,7 @@ var AuthRouter = kernel.HTTRouter{
 			Method:      "POST",
 			Description: "Perform login",
 			Middleware: []kernel.Middleware{
-				&middleware.LoggingMiddleware{},
+				middleware.LoggingMiddleware{},
 			},
 		},
 		{
@@ -24,7 +24,7 @@ var AuthRouter = kernel.HTTRouter{
 			Method:      "POST",
 			Description: "Basic authentication",
 			Middleware: []kernel.Middleware{
-				&middleware.LoggingMiddleware{},
+				middleware.LoggingMiddleware{},
 			},
 		},
 	},
