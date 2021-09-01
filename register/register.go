@@ -15,7 +15,12 @@ import (
 // BaseEntities returns a struct that contains Go-Web base entities
 func BaseEntities() foundation.BaseEntities {
 	return foundation.BaseEntities{
+		// Commands configuration represent all Go-Web application conf
+		// Every command needs to be registered in the following list
 		Commands: console.Commands,
+		// Controllers will handle all Go-Web controller
+		// Here is where you've to register your custom controller
+		// If you create a new controller with Alfred it will be auto-registered
 		Controllers: register.ControllerRegister{
 			List: []interface{}{
 				&controller.UserController{},
@@ -23,6 +28,8 @@ func BaseEntities() foundation.BaseEntities {
 				&controller.HomeController{},
 			},
 		},
+		// Services will handle all app IOC services
+		// Every service needs to be registered in the following list
 		Services: register.ServiceRegister{
 			List: []interface{}{
 				service.ConnectDB,
@@ -32,15 +39,22 @@ func BaseEntities() foundation.BaseEntities {
 				// Here is where you've register your custom service
 			},
 		},
+		// SingletonServices represent all IOC services that have to be initialized only once.
+		// Every service needs to be registered in the following list
 		SingletonServices: register.ServiceRegister{
 			List: []interface{}{},
 		},
+		// CommandServices represent all console services.
 		CommandServices: console.Services,
+		// Models will handle all application models
+		// Here is where you've to register your custom models
+		// If you create a new model with Alfred it will be auto-registered
 		Models: register.ModelRegister{
 			List: []interface{}{
 				model.User{},
 			},
 		},
+		// Middleware is used to register all application middleware.
 		Middlewares: register.MiddlewareRegister{
 			List: []interface{}{
 				&middleware.AuthMiddleware{
@@ -65,6 +79,7 @@ func BaseEntities() foundation.BaseEntities {
 				},
 			},
 		},
+		// Router contains all application routes
 		Router: []kernel.HTTRouter{
 			router.AppRouter,
 			router.AuthRouter,
