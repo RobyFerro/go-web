@@ -12,7 +12,8 @@ import (
 
 // ConnectMongo returns a connection to MongoDB
 func ConnectMongo() *mongo.Database {
-	conn := fmt.Sprintf("mongodb://%s:%d", config.MailConf.Host, config.MailConf.Port)
+	conf := config.GetMongo()
+	conn := fmt.Sprintf("mongodb://%s:%d", conf.Host, conf.Port)
 	client, err := mongo.NewClient(options.Client().ApplyURI(conn))
 
 	if err != nil {
@@ -22,5 +23,5 @@ func ConnectMongo() *mongo.Database {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	_ = client.Connect(ctx)
 
-	return client.Database(config.MongoConf.Database)
+	return client.Database(conf.Database)
 }

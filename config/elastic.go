@@ -1,9 +1,13 @@
 package config
 
-var ElasticConf = struct {
+type ElasticConf struct {
 	Hosts []string
-}{
-	Hosts: []string{
-		"http://elastic:9200",
-	},
+}
+
+func GetElastic() *ElasticConf {
+	return &ElasticConf{
+		Hosts: []string{
+			"http://elastic:9200",
+		},
+	}
 }

@@ -1,10 +1,14 @@
 package config
 
-var RedisConf = struct {
+type redisConf struct {
 	Host     string
 	Port     int
 	User     string
 	Password string
-}{
-	Port: 6379,
+}
+
+func GetRedis() *redisConf {
+	return &redisConf{
+		Port: 6379,
+	}
 }

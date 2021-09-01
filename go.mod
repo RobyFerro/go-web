@@ -16,6 +16,7 @@ require (
 	github.com/gorilla/sessions v1.2.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jinzhu/now v1.1.1 // indirect
+	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/klauspost/compress v1.10.11 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect

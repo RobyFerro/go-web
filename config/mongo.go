@@ -1,15 +1,19 @@
 package config
 
-var MongoConf = struct {
+type MongoConf struct {
 	Database string
 	Host     string
 	Port     int
 	User     string
 	Password string
-}{
-	Database: "go_queue",
-	Host:     "mongo",
-	Port:     27017,
-	User:     "",
-	Password: "",
+}
+
+func GetMongo() *MongoConf {
+	return &MongoConf{
+		Database: "go_queue",
+		Host:     "mongo",
+		Port:     27017,
+		User:     "",
+		Password: "",
+	}
 }

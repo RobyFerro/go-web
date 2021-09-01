@@ -22,12 +22,13 @@ func ConnectDB() *gorm.DB {
 
 // Create string for SQL connection
 func createConnectionString() (string, string) {
+	conf := config.GetSQL()
 	return fmt.Sprintf(
 		"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-		config.SQLConf.User,
-		config.SQLConf.Password,
-		config.SQLConf.Host,
-		config.SQLConf.Port,
-		config.SQLConf.Database,
-	), config.SQLConf.Driver
+		conf.User,
+		conf.Password,
+		conf.Host,
+		conf.Port,
+		conf.Database,
+	), conf.Driver
 }
