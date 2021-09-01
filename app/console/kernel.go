@@ -2,7 +2,6 @@ package console
 
 import (
 	"github.com/RobyFerro/go-web-framework/register"
-	"github.com/RobyFerro/go-web/config"
 	"github.com/RobyFerro/go-web/service"
 )
 
@@ -17,7 +16,6 @@ var (
 	// This container is created to allow dependency injection through console commands.
 	Services = register.ServiceRegister{
 		List: []interface{}{
-			config.GetConfiguration,
 			service.ConnectDB,
 			service.ConnectElastic,
 			service.ConnectMongo,

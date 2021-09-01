@@ -3,7 +3,7 @@ module github.com/RobyFerro/go-web
 go 1.16
 
 // Only for development environment
-// replace github.com/RobyFerro/go-web-framework => <replace with your local repo of gwf>
+replace github.com/RobyFerro/go-web-framework => /home/oem/go/src/go-web-framework
 
 require (
 	github.com/RobyFerro/go-web-framework v0.6.3-beta
@@ -25,7 +25,6 @@ require (
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
-	github.com/pkg/errors v0.9.1
 	github.com/tidwall/pretty v1.0.1 // indirect
 	go.mongodb.org/mongo-driver v1.5.1
 	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf

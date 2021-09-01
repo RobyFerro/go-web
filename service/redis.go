@@ -8,10 +8,10 @@ import (
 )
 
 // ConnectRedis connect to Redis
-func ConnectRedis(conf *config.Conf) *redis.Client {
+func ConnectRedis() *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%d", conf.Redis.Host, conf.Redis.Port),
-		Password: conf.Redis.Password,
+		Addr:     fmt.Sprintf("%s:%d", config.RedisConf.Host, config.RedisConf.Port),
+		Password: config.RedisConf.Password,
 		DB:       1,
 	})
 

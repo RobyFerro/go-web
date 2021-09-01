@@ -7,9 +7,9 @@ import (
 )
 
 // ConnectElastic returns an ElasticSearch client
-func ConnectElastic(conf *config.Conf) *elasticsearch.Client {
+func ConnectElastic() *elasticsearch.Client {
 	cfg := elasticsearch.Config{
-		Addresses: conf.Elastic.Hosts,
+		Addresses: config.ElasticConf.Hosts,
 	}
 	es, err := elasticsearch.NewClient(cfg)
 

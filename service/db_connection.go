@@ -9,8 +9,8 @@ import (
 )
 
 // ConnectDB to sql database
-func ConnectDB(conf *config.Conf) *gorm.DB {
-	connectionString, driver := createConnectionString(conf)
+func ConnectDB() *gorm.DB {
+	connectionString, driver := createConnectionString()
 	db, err := gorm.Open(driver, connectionString)
 
 	if err != nil {
@@ -21,13 +21,13 @@ func ConnectDB(conf *config.Conf) *gorm.DB {
 }
 
 // Create string for SQL connection
-func createConnectionString(conf *config.Conf) (string, string) {
+func createConnectionString() (string, string) {
 	return fmt.Sprintf(
 		"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-		conf.Database.User,
-		conf.Database.Password,
-		conf.Database.Host,
-		conf.Database.Port,
-		conf.Database.Database,
-	), conf.Database.Driver
+		config.SQLConf.User,
+		config.SQLConf.Password,
+		config.SQLConf.Host,
+		config.SQLConf.Port,
+		config.SQLConf.Database,
+	), config.SQLConf.Driver
 }

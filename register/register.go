@@ -5,7 +5,6 @@ import (
 	"github.com/RobyFerro/go-web/app/console"
 	"github.com/RobyFerro/go-web/app/http/controller"
 	"github.com/RobyFerro/go-web/app/http/middleware"
-	"github.com/RobyFerro/go-web/config"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/service"
 )
@@ -33,7 +32,6 @@ var (
 	// Every service needs to be registered in the following list
 	Services = register.ServiceRegister{
 		List: []interface{}{
-			config.GetConfiguration,
 			service.ConnectDB,
 			service.ConnectElastic,
 			service.ConnectMongo,

@@ -11,8 +11,9 @@ import (
 )
 
 // ConnectMongo returns a connection to MongoDB
-func ConnectMongo(conf *config.Conf) *mongo.Database {
-	client, err := mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", conf.Mongo.Host, conf.Mongo.Port)))
+func ConnectMongo() *mongo.Database {
+	conn := fmt.Sprintf("mongodb://%s:%d", config.MailConf.Host, config.MailConf.Port)
+	client, err := mongo.NewClient(options.Client().ApplyURI(conn))
 
 	if err != nil {
 		log.Error(err)
@@ -21,5 +22,5 @@ func ConnectMongo(conf *config.Conf) *mongo.Database {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	_ = client.Connect(ctx)
 
-	return client.Database(conf.Mongo.Database)
+	return client.Database(config.MongoConf.Database)
 }
