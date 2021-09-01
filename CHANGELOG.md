@@ -3,6 +3,8 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+
+## [v0.7.1-beta] - 2021-08-30
 ### Changed
 - Moved command service register in "command" module
 - Changed .yml routing system in favour of the router module. Now every route/group have to be registered directly in go structure.
