@@ -24,7 +24,7 @@ type Credentials struct {
 }
 
 // JWTAuthentication provides user authentication with JWT
-func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
+func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf) {
 	var payload Credentials
 	var user *model.User
 	var jwt auth.JWTAuth
@@ -55,7 +55,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.Conf) {
 	jwt.Username = user.Username
 	jwt.ID = user.ID
 
-	if token, ok := jwt.NewToken(conf.App.Key, 2*time.Hour); !ok {
+	if token, ok := jwt.NewToken(conf.Key, 2*time.Hour); !ok {
 		c.Response.WriteHeader(http.StatusInternalServerError)
 		_, _ = c.Response.Write([]byte(`{"error":"token_generation_failed"}`))
 		return
