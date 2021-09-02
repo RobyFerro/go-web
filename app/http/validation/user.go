@@ -1,4 +1,4 @@
-package request
+package validation
 
 type NewUser struct {
 	Name           string `json:"name" valid:"required,alpha"`

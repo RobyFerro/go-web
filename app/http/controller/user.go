@@ -5,7 +5,7 @@ import (
 	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web-framework/tool"
 	jwt "github.com/RobyFerro/go-web/app/auth"
-	"github.com/RobyFerro/go-web/app/http/request"
+	"github.com/RobyFerro/go-web/app/http/validation"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
@@ -18,7 +18,7 @@ type UserController struct {
 
 // Insert this method will be used to insert a new user in main DB (SQL)
 func (c *UserController) Insert(db *gorm.DB) {
-	var data request.NewUser
+	var data validation.NewUser
 	if err := tool.DecodeJsonRequest(c.Request, &data); err != nil {
 		log.Fatal(err)
 	}

@@ -3,7 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"github.com/RobyFerro/go-web/app/auth"
-	"github.com/RobyFerro/go-web/app/http/request"
+	"github.com/RobyFerro/go-web/app/http/validation"
 	"net/http"
 	"time"
 
@@ -20,7 +20,7 @@ type AuthController struct {
 
 // JWTAuthentication provides user authentication with JWT
 func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf) {
-	var payload request.Credentials
+	var payload validation.Credentials
 	var user *model.User
 	var jwt auth.JWTAuth
 
@@ -56,7 +56,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf)
 
 // BasicAuthentication perform basic authentication method
 func (c *AuthController) BasicAuthentication(db *gorm.DB, session *sessions.CookieStore) {
-	var payload request.Credentials
+	var payload validation.Credentials
 	if err := json.NewDecoder(c.Request.Body).Decode(&payload); err != nil {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
@@ -94,7 +94,7 @@ func createAuthSession(s *sessions.CookieStore, user *model.User, r *http.Reques
 }
 
 // Attempt login
-func attemptLogin(db *gorm.DB, cred *request.Credentials) (*model.User, bool) {
+func attemptLogin(db *gorm.DB, cred *validation.Credentials) (*model.User, bool) {
 	var user model.User
 	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil && err.RecordNotFound() {
 		return nil, false

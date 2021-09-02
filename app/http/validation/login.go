@@ -1,4 +1,4 @@
-package request
+package validation
 
 type Credentials struct {
 	Username string `json:"username" valid:"required"`
