@@ -3,6 +3,8 @@
 All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Ignores .exe files
 
 ## [v0.8.0-beta] - 2021-09-02
 ### Changed
