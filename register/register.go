@@ -2,7 +2,6 @@ package register
 
 import (
 	"github.com/RobyFerro/go-web-framework"
-	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web-framework/register"
 	"github.com/RobyFerro/go-web/app/console"
 	"github.com/RobyFerro/go-web/app/http/controller"
@@ -22,65 +21,54 @@ func BaseEntities() foundation.BaseEntities {
 		// Here is where you've to register your custom controller
 		// If you create a new controller with Alfred it will be auto-registered
 		Controllers: register.ControllerRegister{
-			List: []interface{}{
-				&controller.UserController{},
-				&controller.AuthController{},
-				&controller.HomeController{},
-			},
+			&controller.UserController{},
+			&controller.AuthController{},
+			&controller.HomeController{},
 		},
 		// Services will handle all app IOC services
 		// Every service needs to be registered in the following list
 		Services: register.ServiceRegister{
-			List: []interface{}{
-				service.ConnectDB,
-				service.ConnectElastic,
-				service.ConnectMongo,
-				service.ConnectRedis,
-				// Here is where you've register your custom service
-			},
+			service.ConnectDB,
+			service.ConnectElastic,
+			service.ConnectMongo,
+			service.ConnectRedis,
 		},
 		// SingletonServices represent all IOC services that have to be initialized only once.
 		// Every service needs to be registered in the following list
-		SingletonServices: register.ServiceRegister{
-			List: []interface{}{},
-		},
+		SingletonServices: register.ServiceRegister{},
 		// CommandServices represent all console services.
 		CommandServices: console.Services,
 		// Models will handle all application models
 		// Here is where you've to register your custom models
 		// If you create a new model with Alfred it will be auto-registered
 		Models: register.ModelRegister{
-			List: []interface{}{
-				model.User{},
-			},
+			model.User{},
 		},
 		// Middleware is used to register all application middleware.
 		Middlewares: register.MiddlewareRegister{
-			List: []interface{}{
-				&middleware.AuthMiddleware{
-					Name:        "Auth",
-					Description: "Provides JWT authentication",
-				},
-				&middleware.BasicAuthMiddleware{
-					Name:        "BasicAuth",
-					Description: "Provides basic authentication",
-				},
-				&middleware.LoggingMiddleware{
-					Name:        "Logging",
-					Description: "Logs every request in console",
-				},
-				&middleware.RateLimiterMiddleware{
-					Name:        "RateLimiter",
-					Description: "Provides rate limit over HTTP requests",
-				},
-				&middleware.RefreshTokenMiddleware{
-					Name:        "RefreshToken",
-					Description: "Refresh JWT token",
-				},
+			&middleware.AuthMiddleware{
+				Name:        "Auth",
+				Description: "Provides JWT authentication",
+			},
+			&middleware.BasicAuthMiddleware{
+				Name:        "BasicAuth",
+				Description: "Provides basic authentication",
+			},
+			&middleware.LoggingMiddleware{
+				Name:        "Logging",
+				Description: "Logs every request in console",
+			},
+			&middleware.RateLimiterMiddleware{
+				Name:        "RateLimiter",
+				Description: "Provides rate limit over HTTP requests",
+			},
+			&middleware.RefreshTokenMiddleware{
+				Name:        "RefreshToken",
+				Description: "Refresh JWT token",
 			},
 		},
 		// Router contains all application routes
-		Router: []kernel.HTTRouter{
+		Router: []register.HTTPRouter{
 			router.AppRouter,
 			router.AuthRouter,
 		},

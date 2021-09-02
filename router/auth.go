@@ -1,13 +1,13 @@
 package router
 
 import (
-	"github.com/RobyFerro/go-web-framework/kernel"
+	"github.com/RobyFerro/go-web-framework/register"
 	"github.com/RobyFerro/go-web/app/http/middleware"
 	"github.com/RobyFerro/go-web/app/http/validation"
 )
 
-var AuthRouter = kernel.HTTRouter{
-	Route: []kernel.Route{
+var AuthRouter = register.HTTPRouter{
+	Route: []register.Route{
 		{
 			Name:        "login",
 			Path:        "/login",
@@ -15,7 +15,7 @@ var AuthRouter = kernel.HTTRouter{
 			Method:      "POST",
 			Validation:  &validation.Credentials{},
 			Description: "Perform login",
-			Middleware: []kernel.Middleware{
+			Middleware: []register.Middleware{
 				middleware.LoggingMiddleware{},
 			},
 		},
@@ -26,7 +26,7 @@ var AuthRouter = kernel.HTTRouter{
 			Method:      "POST",
 			Validation:  &validation.Credentials{},
 			Description: "Basic authentication",
-			Middleware: []kernel.Middleware{
+			Middleware: []register.Middleware{
 				middleware.LoggingMiddleware{},
 			},
 		},

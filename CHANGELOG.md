@@ -4,6 +4,10 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.8.0-beta] - 2021-09-02
+### Changed
+- Implement adaptation to new GWF version
+
 ## [v0.7.2-beta] - 2021-09-02
 ### Changed
 - Removed pointers in route middlewares
