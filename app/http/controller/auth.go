@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"encoding/json"
 	"github.com/RobyFerro/go-web/app/auth"
-	"github.com/labstack/gommon/log"
+	"github.com/RobyFerro/go-web/app/http/request"
 	"net/http"
 	"time"
 
 	"github.com/RobyFerro/go-web-framework/kernel"
-	"github.com/RobyFerro/go-web-framework/tool"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/gorilla/sessions"
 	"github.com/jinzhu/gorm"
@@ -18,23 +18,13 @@ type AuthController struct {
 	kernel.BaseController
 }
 
-type Credentials struct {
-	Username string `json:"username" valid:"required"`
-	Password string `json:"password" valid:"required"`
-}
-
 // JWTAuthentication provides user authentication with JWT
 func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf) {
-	var payload Credentials
+	var payload request.Credentials
 	var user *model.User
 	var jwt auth.JWTAuth
 
-	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
-		log.Error(err)
-		c.Response.WriteHeader(http.StatusInternalServerError)
-	}
-
-	if valid := tool.ValidateRequest(payload, c.Response); !valid {
+	if err := json.NewDecoder(c.Request.Body).Decode(&payload); err != nil {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -47,9 +37,7 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf)
 	} else {
 		user = u
 	}
-	// End check password
 
-	// Generate JWT token
 	jwt.Name = user.Name
 	jwt.Surname = user.Surname
 	jwt.Username = user.Username
@@ -63,21 +51,13 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf)
 		_, _ = c.Response.Write([]byte(`{"token":"` + token + `"}`))
 	}
 
-	// End JWT token generation
 	return
 }
 
 // BasicAuthentication perform basic authentication method
 func (c *AuthController) BasicAuthentication(db *gorm.DB, session *sessions.CookieStore) {
-	var payload Credentials
-
-	if err := tool.DecodeJsonRequest(c.Request, &payload); err != nil {
-		log.Error(err)
-		c.Response.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	if valid := tool.ValidateRequest(payload, c.Response); !valid {
+	var payload request.Credentials
+	if err := json.NewDecoder(c.Request.Body).Decode(&payload); err != nil {
 		c.Response.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -114,7 +94,7 @@ func createAuthSession(s *sessions.CookieStore, user *model.User, r *http.Reques
 }
 
 // Attempt login
-func attemptLogin(db *gorm.DB, cred *Credentials) (*model.User, bool) {
+func attemptLogin(db *gorm.DB, cred *request.Credentials) (*model.User, bool) {
 	var user model.User
 	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil && err.RecordNotFound() {
 		return nil, false
