@@ -15,7 +15,6 @@ var AppRouter = register.HTTPRouter{
 			Description: "Main route",
 			Middleware: []register.Middleware{
 				middleware.NewRateLimiterMiddleware(),
-				middleware.NewLoggingMiddleware(),
 			},
 		},
 		{
@@ -24,9 +23,7 @@ var AppRouter = register.HTTPRouter{
 			Action:      "UserController@Insert",
 			Method:      "POST",
 			Description: "Insert new user",
-			Middleware: []register.Middleware{
-				middleware.NewLoggingMiddleware(),
-			},
+			Middleware:  []register.Middleware{},
 		},
 	},
 	Groups: []register.Group{
@@ -41,7 +38,6 @@ var AppRouter = register.HTTPRouter{
 					Method:      "GET",
 					Description: "Test user authentication",
 					Middleware: []register.Middleware{
-						middleware.NewLoggingMiddleware(),
 						middleware.NewRateLimiterMiddleware(),
 						middleware.NewRefreshTokenMiddleware(),
 					},
