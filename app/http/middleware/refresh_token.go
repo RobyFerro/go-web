@@ -21,3 +21,20 @@ func (RefreshTokenMiddleware) Handle(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+// GetName returns the middleware name
+func (m RefreshTokenMiddleware) GetName() string {
+	return m.Name
+}
+
+// GetDescription returns the middleware description
+func (m RefreshTokenMiddleware) GetDescription() string {
+	return m.Description
+}
+
+func NewRefreshTokenMiddleware() RefreshTokenMiddleware {
+	return RefreshTokenMiddleware{
+		Name:        "RefreshToken",
+		Description: "Refresh JWT token",
+	}
+}

@@ -5,7 +5,6 @@ import (
 	"github.com/RobyFerro/go-web-framework/register"
 	"github.com/RobyFerro/go-web/app/console"
 	"github.com/RobyFerro/go-web/app/http/controller"
-	"github.com/RobyFerro/go-web/app/http/middleware"
 	"github.com/RobyFerro/go-web/database/model"
 	"github.com/RobyFerro/go-web/router"
 	"github.com/RobyFerro/go-web/service"
@@ -43,29 +42,6 @@ func BaseEntities() foundation.BaseEntities {
 		// If you create a new model with Alfred it will be auto-registered
 		Models: register.ModelRegister{
 			model.User{},
-		},
-		// Middleware is used to register all application middleware.
-		Middlewares: register.MiddlewareRegister{
-			&middleware.AuthMiddleware{
-				Name:        "Auth",
-				Description: "Provides JWT authentication",
-			},
-			&middleware.BasicAuthMiddleware{
-				Name:        "BasicAuth",
-				Description: "Provides basic authentication",
-			},
-			&middleware.LoggingMiddleware{
-				Name:        "Logging",
-				Description: "Logs every request in console",
-			},
-			&middleware.RateLimiterMiddleware{
-				Name:        "RateLimiter",
-				Description: "Provides rate limit over HTTP requests",
-			},
-			&middleware.RefreshTokenMiddleware{
-				Name:        "RefreshToken",
-				Description: "Refresh JWT token",
-			},
 		},
 		// Router contains all application routes
 		Router: []register.HTTPRouter{

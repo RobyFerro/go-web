@@ -23,3 +23,20 @@ func (RateLimiterMiddleware) Handle(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+// GetName returns the middleware name
+func (m RateLimiterMiddleware) GetName() string {
+	return m.Name
+}
+
+// GetDescription returns the middleware description
+func (m RateLimiterMiddleware) GetDescription() string {
+	return m.Description
+}
+
+func NewRateLimiterMiddleware() RateLimiterMiddleware {
+	return RateLimiterMiddleware{
+		Name:        "RateLimiter",
+		Description: "Provides rate limit over HTTP requests",
+	}
+}

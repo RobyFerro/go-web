@@ -16,7 +16,7 @@ var AuthRouter = register.HTTPRouter{
 			Validation:  &validation.Credentials{},
 			Description: "Perform login",
 			Middleware: []register.Middleware{
-				middleware.LoggingMiddleware{},
+				middleware.NewLoggingMiddleware(),
 			},
 		},
 		{
@@ -27,7 +27,7 @@ var AuthRouter = register.HTTPRouter{
 			Validation:  &validation.Credentials{},
 			Description: "Basic authentication",
 			Middleware: []register.Middleware{
-				middleware.LoggingMiddleware{},
+				middleware.NewLoggingMiddleware(),
 			},
 		},
 	},

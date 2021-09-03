@@ -19,3 +19,20 @@ func (LoggingMiddleware) Handle(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+// GetName returns the middleware name
+func (m LoggingMiddleware) GetName() string {
+	return m.Name
+}
+
+// GetDescription returns the middleware description
+func (m LoggingMiddleware) GetDescription() string {
+	return m.Description
+}
+
+func NewLoggingMiddleware() LoggingMiddleware {
+	return LoggingMiddleware{
+		Name:        "Logging",
+		Description: "Logs every request in console",
+	}
+}

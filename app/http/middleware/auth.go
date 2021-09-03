@@ -30,3 +30,22 @@ func (AuthMiddleware) Handle(next http.Handler) http.Handler {
 
 	return jwtMiddleware.Handler(next)
 }
+
+// GetName returns the middleware name
+func (m AuthMiddleware) GetName() string {
+	return m.Name
+}
+
+// GetDescription returns the middleware description
+func (m AuthMiddleware) GetDescription() string {
+	return m.Description
+}
+
+func NewAuthMiddleware() AuthMiddleware {
+	mw := AuthMiddleware{
+		Name:        "Auth",
+		Description: "Provides JWT authentication",
+	}
+
+	return mw
+}
