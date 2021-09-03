@@ -12,10 +12,9 @@ var AppRouter = register.HTTPRouter{
 			Path:        "/",
 			Action:      "HomeController@Main",
 			Method:      "GET",
-			Description: "Main access to Go-Web application",
+			Description: "Main route",
 			Middleware: []register.Middleware{
-				middleware.RateLimiterMiddleware{},
-				middleware.LoggingMiddleware{},
+				middleware.NewRateLimiterMiddleware(),
 			},
 		},
 		{
@@ -24,9 +23,7 @@ var AppRouter = register.HTTPRouter{
 			Action:      "UserController@Insert",
 			Method:      "POST",
 			Description: "Insert new user",
-			Middleware: []register.Middleware{
-				middleware.LoggingMiddleware{},
-			},
+			Middleware:  []register.Middleware{},
 		},
 	},
 	Groups: []register.Group{
@@ -41,14 +38,13 @@ var AppRouter = register.HTTPRouter{
 					Method:      "GET",
 					Description: "Test user authentication",
 					Middleware: []register.Middleware{
-						middleware.LoggingMiddleware{},
-						middleware.RateLimiterMiddleware{},
-						middleware.RefreshTokenMiddleware{},
+						middleware.NewRateLimiterMiddleware(),
+						middleware.NewRefreshTokenMiddleware(),
 					},
 				},
 			},
 			Middleware: []register.Middleware{
-				middleware.AuthMiddleware{},
+				middleware.NewAuthMiddleware(),
 			},
 		},
 	},

@@ -30,3 +30,20 @@ func (BasicAuthMiddleware) Handle(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+// GetName returns the middleware name
+func (m BasicAuthMiddleware) GetName() string {
+	return m.Name
+}
+
+// GetDescription returns the middleware description
+func (m BasicAuthMiddleware) GetDescription() string {
+	return m.Description
+}
+
+func NewBasicAuthMiddleware() BasicAuthMiddleware {
+	return BasicAuthMiddleware{
+		Name:        "BasicAuth",
+		Description: "Provides basic authentication",
+	}
+}
