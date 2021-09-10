@@ -2,7 +2,12 @@
 <img src="logo.png" alt="Go-Web">
 </p>
 
-A simple MVC web framework for Golang lovers!. 
+
+A simple MVC web framework for Golang lovers!.
+
+# Warning!!
+This project is still under development. Feel free to play with it but it's not ready for production.
+ 
 ## Why another framework
 Go-Web adopts a “convention over configuration” approach similarly to frameworks like Laravel ,Symfony and Rails.
 
