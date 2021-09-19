@@ -2,8 +2,13 @@
 <img src="logo.png" alt="Go-Web">
 </p>
 
-A simple MVC web framework for Golang lovers!. 
-## Why another framework
+
+A simple MVC web framework for Golang lovers!.
+
+# Warning!!
+This project is still under development. Feel free to play with it but it's not ready for production.
+ 
+# Why another framework?
 Go-Web adopts a “convention over configuration” approach similarly to frameworks like Laravel ,Symfony and Rails.
 
 By following this principle, Go-Web reduces the need for “repetitive” tasks like explicitly binding routes, actions and middleware; while not problematic per se, programmers may want to adopt “ready-to-use” solutions, for instances if they want easily build complex services, aiming at a reduced “productive lag”.
