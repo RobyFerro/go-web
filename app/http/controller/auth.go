@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"encoding/json"
 	"github.com/RobyFerro/go-web/app/auth"
-	"github.com/RobyFerro/go-web/app/http/validation"
 	"net/http"
 	"time"
 
@@ -19,18 +17,12 @@ type AuthController struct {
 }
 
 // JWTAuthentication provides user authentication with JWT
-func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf) {
-	var payload validation.Credentials
+func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf, req kernel.Request) {
 	var user *model.User
 	var jwt auth.JWTAuth
 
-	if err := json.NewDecoder(c.Request.Body).Decode(&payload); err != nil {
-		c.Response.WriteHeader(http.StatusUnprocessableEntity)
-		return
-	}
-
 	c.Response.Header().Add("Content-Type", "application/json")
-	if u, ok := attemptLogin(db, &payload); !ok {
+	if u, ok := attemptLogin(db, req["username"].(string), req["password"].(string)); !ok {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
@@ -55,14 +47,8 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf)
 }
 
 // BasicAuthentication perform basic authentication method
-func (c *AuthController) BasicAuthentication(db *gorm.DB, session *sessions.CookieStore) {
-	var payload validation.Credentials
-	if err := json.NewDecoder(c.Request.Body).Decode(&payload); err != nil {
-		c.Response.WriteHeader(http.StatusUnprocessableEntity)
-		return
-	}
-
-	if user, ok := attemptLogin(db, &payload); !ok {
+func (c *AuthController) BasicAuthentication(db *gorm.DB, session *sessions.CookieStore, req kernel.Request) {
+	if user, ok := attemptLogin(db, req["username"].(string), req["password"].(string)); !ok {
 		c.Response.WriteHeader(http.StatusForbidden)
 		_, _ = c.Response.Write([]byte("Invalid credentials"))
 		return
@@ -94,14 +80,14 @@ func createAuthSession(s *sessions.CookieStore, user *model.User, r *http.Reques
 }
 
 // Attempt login
-func attemptLogin(db *gorm.DB, cred *validation.Credentials) (*model.User, bool) {
+func attemptLogin(db *gorm.DB, username, password string) (*model.User, bool) {
 	var user model.User
-	if err := db.Where("username = ?", cred.Username).Find(&user); err != nil && err.RecordNotFound() {
+	if err := db.Where("username = ?", username).Find(&user); err != nil && err.RecordNotFound() {
 		return nil, false
 	}
 
 	// Check password
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(cred.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
 		return nil, false
 	}
 

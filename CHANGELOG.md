@@ -4,6 +4,11 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
+## [v0.9.0-beta] - 2021-09-19
+### Changed
+- Changed AuthController with new kernel.Request payload
+- Updated new gwf version
+
 ## [v0.8.1-beta] - 2021-09-03
 ### Removed
 - Logging middleware. Now logs are handled by the global gfw handler.
