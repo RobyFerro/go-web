@@ -15,7 +15,7 @@ By following this principle, Go-Web reduces the need for “repetitive” tasks 
 
 Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, but Go-Web differs from them because of the aforementioned “convention over configuration” approach.
 
-[See full documentation](https://goweb.readthedocs.io/en/latest/)
+[See full documentation](https://goweb.ikdev.it/)
 
 
 
