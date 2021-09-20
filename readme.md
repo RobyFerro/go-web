@@ -17,6 +17,17 @@ Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, b
 
 [See full documentation](https://goweb.ikdev.it/)
 
+## Translator wanted!
+We'd like to translate Go-Web documentation in several languages. If you want to help to reach this goal please
+contact me at roberto.ferro@ikdev.it.
+
+Languages:
+- [x] English
+- [ ] Italian
+- [ ] Chinese
+- [ ] French
+- [ ] Spanish
+
 
 
 
