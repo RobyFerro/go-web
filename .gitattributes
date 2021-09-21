@@ -1,1 +1,2 @@
-docs/**/* linguist-documentation
+* linguist-vendored
+*.go linguist-vendored=false
