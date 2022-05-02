@@ -8,3 +8,4 @@ go-web
 node_modules
 *.test.json
 *.exe
+go-web.code-workspace
