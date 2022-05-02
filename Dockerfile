@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1-bullseye
 
 # Move to working directory /
 WORKDIR /app
