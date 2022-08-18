@@ -20,7 +20,7 @@ Translations:
 
 - [x] English
 - [x] Indonesian
-- [ ] Italian
+- [X] Italian
 - [ ] Chinese
 - [ ] French
 - [ ] Spanish
