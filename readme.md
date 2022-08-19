@@ -1,14 +1,6 @@
 # Go Web Project
 
-A lightweight web framework to build Golang microservices.
-
-## Why another framework
-
-Go-Web adopts a “convention over configuration” approach similarly to frameworks like Laravel and Rails.
-
-By following this principle, Go-Web reduces the need for “repetitive” tasks like explicitly binding routes, actions and middleware; while not problematic per se, programmers may want to adopt “ready-to-use” solutions, for instances if they want easily build complex services, aiming at a reduced “productive lag”.
-
-Programmers may want to use existing frameworks like Gin-Gonic and Go Buffalo, but Go-Web differs from them because of the aforementioned “convention over configuration” approach.
+Go-Web is a lightweigth web framework for building microservices that makes simple to write fast, secure web applications without sacrificing flexibility, usability, or type safety.
 
 [See full documentation](https://github.com/RobyFerro/go-web-documentation)
 
