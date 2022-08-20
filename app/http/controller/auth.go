@@ -1,9 +1,10 @@
 package controller
 
 import (
-	"github.com/RobyFerro/go-web/app/auth"
 	"net/http"
 	"time"
+
+	"github.com/RobyFerro/go-web/app/auth"
 
 	"github.com/RobyFerro/go-web-framework/kernel"
 	"github.com/RobyFerro/go-web/database/model"
@@ -42,8 +43,6 @@ func (c *AuthController) JWTAuthentication(db *gorm.DB, conf *kernel.ServerConf,
 	} else {
 		_, _ = c.Response.Write([]byte(`{"token":"` + token + `"}`))
 	}
-
-	return
 }
 
 // BasicAuthentication perform basic authentication method

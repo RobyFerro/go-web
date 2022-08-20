@@ -1,11 +1,12 @@
 package middleware
 
 import (
-	"github.com/RobyFerro/go-web-framework"
-	. "github.com/auth0/go-jwt-middleware"
-	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
+
+	"github.com/RobyFerro/go-web-framework/kernel"
+	. "github.com/auth0/go-jwt-middleware"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type AuthMiddleware struct {
@@ -16,7 +17,7 @@ type AuthMiddleware struct {
 // Handle checks if the JWT used by the request is valid.
 // This middleware must be used only with JWT authentication and will not work with the basic auth.
 func (AuthMiddleware) Handle(next http.Handler) http.Handler {
-	conf := foundation.RetrieveConfig()
+	conf := kernel.RetrieveAppConf()
 
 	if len(conf.Key) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
