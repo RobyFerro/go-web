@@ -16,14 +16,5 @@ var AuthRouter = register.HTTPRouter{
 			Description: "Perform login",
 			Middleware:  []register.Middleware{},
 		},
-		{
-			Name:        "basic login",
-			Path:        "/basic-auth",
-			Action:      "AuthController@BasicAuthentication",
-			Method:      "POST",
-			Validation:  &validation.Credentials{},
-			Description: "Basic authentication",
-			Middleware:  []register.Middleware{},
-		},
 	},
 }

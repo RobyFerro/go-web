@@ -2,7 +2,6 @@ package controller
 
 import (
 	"github.com/RobyFerro/go-web-framework/kernel"
-	"github.com/RobyFerro/go-web-framework/tool"
 )
 
 type HomeController struct {
@@ -13,5 +12,8 @@ type HomeController struct {
 // the method/properties declared in BaseController (controller.go).
 // Of course you can edit this method with a custom logic.
 func (c *HomeController) Main() {
-	tool.View("index.html", c.Response, nil)
+	c.Response.WriteHeader(200)
+	c.Request.Header.Set("Content-Type", "application/json")
+
+	_, _ = c.Response.Write([]byte(`{"message":"Welcome to Go-Web"}`))
 }
