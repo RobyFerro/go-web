@@ -4,7 +4,13 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ## [Unreleased]
 
-## [v0.9.1-rc.1] - 2022-08-20]
+## [v1.0.0-rc.2] - 2022-08-22
+
+### Updated
+
+- Updated go-web version
+
+## [v1.0.0-rc.1] - 2022-08-20]
 
 ### Removed
 

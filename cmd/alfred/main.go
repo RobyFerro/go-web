@@ -1,17 +1,18 @@
 package main
 
 import (
-	"github.com/RobyFerro/go-web-framework"
-	"github.com/RobyFerro/go-web/register"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	foundation "github.com/RobyFerro/go-web-framework"
+	"github.com/RobyFerro/go-web/register"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	entities := register.BaseEntities()
 	if err := godotenv.Load(".env"); err != nil {
-		log.Fatalln(err)
+		log.Print("No .env file found, some features may not work!")
 	}
 
 	foundation.StartCommand(os.Args[1:], entities)
