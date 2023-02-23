@@ -71,7 +71,7 @@ require (
 	golang.org/x/net v0.0.0-20220822230855-b0a4917ee28c // indirect
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208 // indirect
 	golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.3.8 // indirect
 	gopkg.in/asaskevich/govalidator.v4 v4.0.0-20160518190739-766470278477 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
