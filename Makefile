@@ -1,15 +1,15 @@
-TARGET   ?= alfred
+TARGET   ?= julian
 PREFIX   ?= /usr/local
 GO       ?= go
 GOFLAGS  ?=
 
 build-cli: resources
-	@echo "Building Alfred CLI tool..."
-	$(GO) $(GOFLAGS) build -o $(TARGET) tool/alfred.go
+	@echo "Building Julian CLI tool..."
+	$(GO) $(GOFLAGS) build -o $(TARGET) tool/julian.go
 
 install-cli:
-	@echo "Installing Alfred CLI tool..."
-	@cp alfred $(PREFIX)/bin/
+	@echo "Installing Julian CLI tool..."
+	@cp julian $(PREFIX)/bin/
 
 run:
 	@echo "Starting Go-Web framework"

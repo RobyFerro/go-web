@@ -161,7 +161,7 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ### Removed
 
-- Install command from `alfred`
+- Install command from `julian`
 
 ### Added
 
@@ -192,7 +192,7 @@ All notable changes to the "Go-web" will be documented in this file.
 
 ### Added
 
-- Alfred CLI tool
+- Julian CLI tool
 
 ### Removed
 

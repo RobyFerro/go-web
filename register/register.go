@@ -18,7 +18,7 @@ func BaseEntities() foundation.BaseEntities {
 		Commands: console.Commands,
 		// Controllers will handle all Go-Web controller
 		// Here is where you've to register your custom controller
-		// If you create a new controller with Alfred it will be auto-registered
+		// If you create a new controller with Julian it will be auto-registered
 		Controllers: base_register.ControllerRegister{
 			base_register.ControllerRegisterItem{
 				Controller: &controller.UserController{},
@@ -40,7 +40,7 @@ func BaseEntities() foundation.BaseEntities {
 		CommandServices: console.Services,
 		// Models will handle all application models
 		// Here is where you've to register your custom models
-		// If you create a new model with Alfred it will be auto-registered
+		// If you create a new model with Julian it will be auto-registered
 		Models: base_register.ModelRegister{
 			model.User{},
 		},
